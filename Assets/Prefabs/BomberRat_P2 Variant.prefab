@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: horizontalAxisName
       value: P2_Horizontal
       objectReference: {fileID: 0}
+    - target: {fileID: 1712895402783644035, guid: e87349be9aa3f1c469a4a9b258d27749, type: 3}
+      propertyPath: bombSpawnAxisName
+      value: P2_B1
+      objectReference: {fileID: 0}
     - target: {fileID: 8545383853093816984, guid: e87349be9aa3f1c469a4a9b258d27749, type: 3}
       propertyPath: m_Name
       value: BomberRat_P2 Variant

@@ -324,9 +324,10 @@ MonoBehaviour:
   bombPrefab: {fileID: 4448482147817207887, guid: 0391bf00e7527c14fa815c7a449872db, type: 3}
   bombSpawnZPosition: 0
   startingBombCount: 10
-  animator: {fileID: 0}
+  startingFireRange: 1
+  animator: {fileID: 363151443}
   collisionTilemap: {fileID: 950655247}
-  crateTilemap: {fileID: 0}
+  crateTilemap: {fileID: 648734454}
   bonkDistance: 0.125
   bonkDuration: 0.1
 --- !u!1 &454796288
@@ -363,7 +364,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -150}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &454796290
@@ -386,11 +387,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Salut la team !
-
-
-    Si vous voyez ce message, alors tout est bon, bravo
-    !'
+  m_text: Bomberat
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -4555,9 +4552,10 @@ MonoBehaviour:
   bombPrefab: {fileID: 4448482147817207887, guid: 0391bf00e7527c14fa815c7a449872db, type: 3}
   bombSpawnZPosition: 0
   startingBombCount: 10
-  animator: {fileID: 0}
+  startingFireRange: 1
+  animator: {fileID: 1779859520}
   collisionTilemap: {fileID: 950655247}
-  crateTilemap: {fileID: 0}
+  crateTilemap: {fileID: 648734454}
   bonkDistance: 0.125
   bonkDuration: 0.1
 --- !u!95 &1779859520
@@ -4656,6 +4654,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2012345678
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2012345679}
+  - component: {fileID: 2012345680}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2012345679
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012345678}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2012345680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012345678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1c3f0d4494a4c4ab6be8648b3af3108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Bomberman.GameManager
+  powerUpSpawnChance: 1
+  powerUpPrefabs:
+  - {fileID: 2006401291519612247, guid: f9e096363127991478ddaa0442b14604, type: 3}
+  - {fileID: 2797953103399646163, guid: 80ecc472c0f755d44bf244916439b425, type: 3}
+  powerUpSpawnZPosition: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4667,3 +4714,4 @@ SceneRoots:
   - {fileID: 363151445}
   - {fileID: 1779859522}
   - {fileID: 1289536191}
+  - {fileID: 2012345679}

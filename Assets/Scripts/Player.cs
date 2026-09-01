@@ -40,6 +40,9 @@ namespace Bomberman
         [Tooltip("The number of bombs available when the game starts.")]
         [SerializeField, Min(0)] private int startingBombCount = 1;
 
+        [Tooltip("The fire range used by bombs when the game starts.")]
+        [SerializeField, Min(1)] private int startingFireRange = 1;
+
         [Header("State")]
         [SerializeField] private Animator animator;
 
@@ -70,6 +73,8 @@ namespace Bomberman
         private float stunDuration;
         private float stunElapsedTime;
         private int availableBombCount;
+        private int currentFireRange;
+        private int totalBombCount;
         private Vector3 bonkStartPosition;
         private Vector3 bonkTargetPosition;
         private Vector3 moveStartPosition;
@@ -82,7 +87,9 @@ namespace Bomberman
 
         private void Awake()
         {
-            availableBombCount = startingBombCount;
+            totalBombCount = startingBombCount;
+            availableBombCount = totalBombCount;
+            currentFireRange = startingFireRange;
             animator.SetBool("isDead", false);
         }
 
@@ -108,6 +115,7 @@ namespace Bomberman
                 return;
             }
 
+            TryCollectPowerUp();
             TryStartMovement();
         }
 
@@ -231,7 +239,7 @@ namespace Bomberman
             }
 
             Bomb placedBomb = Instantiate(bombPrefab, GetBombSpawnPosition(bombPlacementCell), Quaternion.identity).GetComponent<Bomb>();
-            placedBomb.Initialize(this, collisionTilemap, crateTilemap);
+            placedBomb.Initialize(this, collisionTilemap, crateTilemap, currentFireRange);
             availableBombCount--;
             lastBombPlacementCell = bombPlacementCell;
             hasBombPlacementCell = true;
@@ -242,7 +250,7 @@ namespace Bomberman
         /// </summary>
         public void RestoreBomb()
         {
-            availableBombCount++;
+            availableBombCount = Mathf.Min(availableBombCount + 1, totalBombCount);
         }
 
         /// <summary>
@@ -271,6 +279,32 @@ namespace Bomberman
         {
             Vector3 gridPosition = isMoving ? moveTargetPosition : GetGridPosition();
             return collisionTilemap.WorldToCell(gridPosition);
+        }
+
+        private void TryCollectPowerUp()
+        {
+            Vector3Int playerCellPosition = GetGridCell(collisionTilemap);
+            PowerUp[] powerUps = FindObjectsByType<PowerUp>(FindObjectsSortMode.None);
+
+            foreach (PowerUp powerUp in powerUps)
+            {
+                if (powerUp.IsOnCell(playerCellPosition, collisionTilemap))
+                {
+                    powerUp.Collect(this);
+                    return;
+                }
+            }
+        }
+
+        public void AddFireRange(int amount)
+        {
+            currentFireRange += amount;
+        }
+
+        public void AddBombCapacity(int amount)
+        {
+            totalBombCount += amount;
+            availableBombCount += amount;
         }
 
         private Vector3 GetBombSpawnPosition(Vector3Int cellPosition)

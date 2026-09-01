@@ -61,11 +61,12 @@ namespace Bomberman
         /// <summary>
         /// Sets the player whose available bomb count is restored after detonation.
         /// </summary>
-        public void Initialize(Player bombOwner, Tilemap bombWorldTilemap, Tilemap bombCrateTilemap)
+        public void Initialize(Player bombOwner, Tilemap bombWorldTilemap, Tilemap bombCrateTilemap, int bombExplosionRange)
         {
             owner = bombOwner;
             worldTilemap = bombWorldTilemap;
             crateTilemap = bombCrateTilemap;
+            explosionRange = bombExplosionRange;
         }
 
         #endregion
@@ -133,6 +134,7 @@ namespace Bomberman
             }
 
             crateTilemap.SetTile(cellPosition, null);
+            GameManager.Instance.TrySpawnPowerUp(crateTilemap.GetCellCenterWorld(cellPosition));
             return true;
         }
 
