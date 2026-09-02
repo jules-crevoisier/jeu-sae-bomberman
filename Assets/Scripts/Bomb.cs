@@ -111,21 +111,26 @@ namespace Bomberman
             CancelInvoke(nameof(Detonate));
             Vector3Int originCell = GetGridCell(collisionTilemap);
             SnapToCell(originCell, collisionTilemap);
-            ApplyExplosionToCell(originCell);
+            Player[] players = FindObjectsByType<Player>(FindObjectsSortMode.None);
+            Bomb[] bombs = FindObjectsByType<Bomb>(FindObjectsSortMode.None);
+            PowerUp[] powerUps = FindObjectsByType<PowerUp>(FindObjectsSortMode.None);
 
-            int leftLength = PropagateExplosion(originCell, ExplosionDirections[0]);
-            int rightLength = PropagateExplosion(originCell, ExplosionDirections[1]);
-            int downLength = PropagateExplosion(originCell, ExplosionDirections[2]);
-            int upLength = PropagateExplosion(originCell, ExplosionDirections[3]);
+            ApplyExplosionToCell(originCell, players, bombs, powerUps);
+
+            int leftLength = PropagateExplosion(originCell, ExplosionDirections[0], players, bombs, powerUps);
+            int rightLength = PropagateExplosion(originCell, ExplosionDirections[1], players, bombs, powerUps);
+            int downLength = PropagateExplosion(originCell, ExplosionDirections[2], players, bombs, powerUps);
+            int upLength = PropagateExplosion(originCell, ExplosionDirections[3], players, bombs, powerUps);
 
             Explosion explosion = Instantiate(explosionPrefab, collisionTilemap.GetCellCenterWorld(originCell), Quaternion.identity);
             explosion.Initialize(leftLength, rightLength, downLength, upLength, collisionTilemap.cellSize);
+            GameCamera.Instance?.ShakeFromExplosion();
 
             owner.ReleaseBomb(this);
             Destroy(gameObject);
         }
 
-        private int PropagateExplosion(Vector3Int originCell, Vector3Int direction)
+        private int PropagateExplosion(Vector3Int originCell, Vector3Int direction, Player[] players, Bomb[] bombs, PowerUp[] powerUps)
         {
             for (int distance = 1; distance <= explosionRange; distance++)
             {
@@ -146,7 +151,7 @@ namespace Bomberman
                     continue;
                 }
 
-                if (ApplyExplosionToCell(cellPosition))
+                if (ApplyExplosionToCell(cellPosition, players, bombs, powerUps))
                 {
                     return distance;
                 }
@@ -172,25 +177,21 @@ namespace Bomberman
             return true;
         }
 
-        private bool ApplyExplosionToCell(Vector3Int cellPosition)
+        private bool ApplyExplosionToCell(Vector3Int cellPosition, Player[] players, Bomb[] bombs, PowerUp[] powerUps)
         {
-            DestroyPowerUps(cellPosition);
-
-            Player[] players = FindObjectsByType<Player>(FindObjectsSortMode.None);
+            DestroyPowerUps(cellPosition, powerUps);
 
             foreach (Player player in players)
             {
-                if (player.GetGridCell(collisionTilemap) == cellPosition)
+                if (player != null && player.GetGridCell(collisionTilemap) == cellPosition)
                 {
-                    player.Stun(playerStunDuration);
+                    player.TakeHit(playerStunDuration);
                 }
             }
 
-            Bomb[] bombs = FindObjectsByType<Bomb>(FindObjectsSortMode.None);
-
             foreach (Bomb bomb in bombs)
             {
-                if (bomb != this && bomb.IsOnCell(cellPosition, collisionTilemap))
+                if (bomb != null && bomb != this && !bomb.HasDetonated && bomb.IsOnCell(cellPosition, collisionTilemap))
                 {
                     bomb.Detonate();
                     return true;
@@ -200,13 +201,11 @@ namespace Bomberman
             return false;
         }
 
-        private void DestroyPowerUps(Vector3Int cellPosition)
+        private void DestroyPowerUps(Vector3Int cellPosition, PowerUp[] powerUps)
         {
-            PowerUp[] powerUps = FindObjectsByType<PowerUp>(FindObjectsSortMode.None);
-
             foreach (PowerUp powerUp in powerUps)
             {
-                if (powerUp.IsOnCell(cellPosition, collisionTilemap))
+                if (powerUp != null && powerUp.IsOnCell(cellPosition, collisionTilemap))
                 {
                     powerUp.DestroyByExplosion();
                 }

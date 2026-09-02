@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b7e2912dfa5257a408a8ebed510a05f2
+guid: 95144f28ed16e38488ddc8f14453ce2d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7539134913950160566
-    second: BomberRat_0
+      213: 4432793351920879750
+    second: Hearts_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,9 +72,9 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 32
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -126,23 +126,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BomberRat_0
+      name: Hearts_Full
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
-        height: 16
+        width: 8
+        height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6b69ebb924360a860800000000000000
-      internalID: 7539134913950160566
+      spriteID: 68805ff4112748d30800000000000000
+      internalID: 4432793351920879750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hearts_Empty
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 0
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5eccfbd4656e6e042a52224f79333eec
+      internalID: 93242370
       vertices: []
       indices: 
       edges: []
@@ -151,7 +173,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 0bc2ae17116ae9e4aa9a2a78e9c84ad2
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +183,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BomberRat_0: 7539134913950160566
+      Hearts_Empty: 93242370
+      Hearts_Full: 4432793351920879750
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

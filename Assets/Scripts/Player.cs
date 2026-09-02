@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 namespace Bomberman
 {
@@ -58,6 +59,19 @@ namespace Bomberman
         [Tooltip("The time, in seconds, between each player sprite enable/disable toggle while dead.")]
         [SerializeField, Min(0.01f)] private float deadFlickerInterval = 0.2f;
 
+        [Header("Lives")]
+        [Tooltip("The number of hits this player can take before being eliminated.")]
+        [SerializeField, Min(1)] private int startingLifeCount = 3;
+
+        [Tooltip("The UI container whose child images represent this player's remaining lives.")]
+        [SerializeField] private Transform heartContainer;
+
+        [Tooltip("The sprite displayed for each remaining life.")]
+        [SerializeField] private Sprite filledHeartSprite;
+
+        [Tooltip("The sprite displayed for each lost life.")]
+        [SerializeField] private Sprite emptyHeartSprite;
+
         [Header("Wall Bonk")]
         [Tooltip("The distance moved into a blocked cell. Use 0.125 for two pixels at 16 Pixels Per Unit.")]
         [SerializeField, Min(0.01f)] private float bonkDistance = 0.125f;
@@ -71,6 +85,7 @@ namespace Bomberman
 
         private bool isMoving;
         private bool isBonking;
+        private bool isEliminated;
         private bool isStunned;
         private bool hasBombPlacementCell;
         private bool hasBombControlPower;
@@ -83,6 +98,7 @@ namespace Bomberman
         private float stunElapsedTime;
         private int availableBombCount;
         private int currentFireRange;
+        private int remainingLifeCount;
         private int totalBombCount;
         private readonly List<Bomb> bombQueue = new List<Bomb>();
         private Vector3 bonkStartPosition;
@@ -100,12 +116,19 @@ namespace Bomberman
             totalBombCount = startingBombCount;
             availableBombCount = totalBombCount;
             currentFireRange = startingFireRange;
+            remainingLifeCount = startingLifeCount;
+            RefreshLifeDisplay();
             animator.SetBool("isDead", false);
             playerRenderer.enabled = true;
         }
 
         private void Update()
         {
+            if (isEliminated)
+            {
+                return;
+            }
+
             if (isStunned)
             {
                 UpdateStun();
@@ -307,16 +330,30 @@ namespace Bomberman
         }
 
         /// <summary>
-        /// Stops the player for the specified duration and updates the Animator's isDead parameter.
+        /// Removes one life, then briefly stuns the player unless that was the final life.
         /// </summary>
-        public void Stun(float duration)
+        public void TakeHit(float stunDuration)
         {
+            if (isEliminated || isStunned)
+            {
+                return;
+            }
+
+            remainingLifeCount = Mathf.Max(remainingLifeCount - 1, 0);
+            RefreshLifeDisplay();
+
+            if (remainingLifeCount == 0)
+            {
+                Eliminate();
+                return;
+            }
+
             transform.position = GetGridPosition();
             isMoving = false;
             isBonking = false;
             isStunned = true;
             deadFlickerElapsedTime = 0f;
-            stunDuration = duration;
+            this.stunDuration = stunDuration;
             stunElapsedTime = 0f;
             animator.SetBool("isDead", true);
         }
@@ -465,6 +502,35 @@ namespace Bomberman
         {
             deadFlickerElapsedTime = 0f;
             playerRenderer.enabled = true;
+        }
+
+        private void Eliminate()
+        {
+            transform.position = GetGridPosition();
+            isMoving = false;
+            isBonking = false;
+            isStunned = false;
+            isEliminated = true;
+            animator.SetBool("isDead", true);
+            playerRenderer.enabled = false;
+        }
+
+        private void RefreshLifeDisplay()
+        {
+            if (heartContainer == null)
+            {
+                return;
+            }
+
+            for (int index = 0; index < heartContainer.childCount; index++)
+            {
+                Image heartImage = heartContainer.GetChild(index).GetComponent<Image>();
+
+                if (heartImage != null)
+                {
+                    heartImage.sprite = index < remainingLifeCount ? filledHeartSprite : emptyHeartSprite;
+                }
+            }
         }
 
         private Vector3 GetGridPosition()

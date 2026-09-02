@@ -110,7 +110,7 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c76cfb2f286a574aa4bada0c8829081, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bomberman.Player
   objectMoveDuration: 0.15
   isBlockedByBombs: 1
@@ -147,5 +147,9 @@ MonoBehaviour:
   animator: {fileID: 5999094964848920010}
   playerRenderer: {fileID: 4095412710088137057}
   deadFlickerInterval: 0.2
+  startingLifeCount: 3
+  heartContainer: {fileID: 0}
+  filledHeartSprite: {fileID: 4432793351920879750, guid: 95144f28ed16e38488ddc8f14453ce2d, type: 3}
+  emptyHeartSprite: {fileID: 93242370, guid: 95144f28ed16e38488ddc8f14453ce2d, type: 3}
   bonkDistance: 0.125
   bonkDuration: 0.1
