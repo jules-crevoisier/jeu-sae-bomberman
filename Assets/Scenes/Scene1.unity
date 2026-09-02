@@ -129,7 +129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2970898984802509485, guid: d0a41969a3fa1e940a77ed5cd4b7a5c8, type: 3}
       propertyPath: m_Name
-      value: BomberRat_P2 Variant
+      value: BomberRat_P2
       objectReference: {fileID: 0}
     - target: {fileID: 5217667554967646646, guid: d0a41969a3fa1e940a77ed5cd4b7a5c8, type: 3}
       propertyPath: crateTilemap
@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
   m_Layer: 0
-  m_Name: CameraP1
+  m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1856,6 +1856,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3726184074706854753, guid: 8b1a0b6d71131784fa4b0d8fc8144f67, type: 3}
   m_PrefabInstance: {fileID: 1910152860}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &717283259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 717283260}
+  m_Layer: 0
+  m_Name: '#--- TERRAIN ---#'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &717283260
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717283259}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &793920610 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3726184074706854753, guid: 8b1a0b6d71131784fa4b0d8fc8144f67, type: 3}
@@ -5763,6 +5794,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3726184074706854753, guid: 8b1a0b6d71131784fa4b0d8fc8144f67, type: 3}
   m_PrefabInstance: {fileID: 1799153751}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1877395261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1877395262}
+  m_Layer: 0
+  m_Name: '#--- RENDERING ---#'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1877395262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877395261}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1904436482
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6140,6 +6202,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b1a0b6d71131784fa4b0d8fc8144f67, type: 3}
+--- !u!1 &2113201282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2113201283}
+  m_Layer: 0
+  m_Name: '#--- CANVAS ---#'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2113201283
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113201282}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4399500384573360889
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6205,11 +6298,14 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1877395262}
   - {fileID: 519420032}
   - {fileID: 619394802}
+  - {fileID: 2113201283}
   - {fileID: 1515932104}
   - {fileID: 362170294}
-  - {fileID: 1289536191}
-  - {fileID: 2012345679}
+  - {fileID: 717283260}
   - {fileID: 2069777462}
   - {fileID: 17554325}
+  - {fileID: 1289536191}
+  - {fileID: 2012345679}
