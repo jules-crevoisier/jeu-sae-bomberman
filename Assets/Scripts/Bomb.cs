@@ -23,12 +23,19 @@ namespace Bomberman
         [Tooltip("The visual effect created when this bomb detonates.")]
         [SerializeField] private Explosion explosionPrefab;
 
+        [Tooltip("When enabled, crates are destroyed without stopping the explosion arm.")]
+        [SerializeField] private bool burnThroughCrates;
+
         [Header("Tilemaps")]
         [Tooltip("The Tilemap containing ground and indestructible solid blocks.")]
         [SerializeField] private Tilemap worldTilemap;
 
         [Tooltip("The Tilemap containing destructible crates.")]
         [SerializeField] private Tilemap crateTilemap;
+
+        [Header("Conveyor")]
+        [Tooltip("Moves this bomb when it is standing on a conveyor belt.")]
+        [SerializeField] private ConveyorMover conveyorMover;
 
         #endregion
 
@@ -67,6 +74,12 @@ namespace Bomberman
             worldTilemap = bombWorldTilemap;
             crateTilemap = bombCrateTilemap;
             explosionRange = bombExplosionRange;
+            conveyorMover.Initialize(worldTilemap, crateTilemap);
+        }
+
+        public bool IsOnCell(Vector3Int cellPosition, Tilemap tilemap)
+        {
+            return conveyorMover.IsOnCell(cellPosition, tilemap);
         }
 
         #endregion
@@ -81,7 +94,8 @@ namespace Bomberman
             }
 
             hasDetonated = true;
-            Vector3Int originCell = worldTilemap.WorldToCell(transform.position);
+            Vector3Int originCell = conveyorMover.GetGridCell(worldTilemap);
+            conveyorMover.SnapToCell(originCell, worldTilemap);
             ApplyExplosionToCell(originCell);
 
             int leftLength = PropagateExplosion(originCell, ExplosionDirections[0]);
@@ -109,7 +123,12 @@ namespace Bomberman
 
                 if (DestroyCrate(cellPosition))
                 {
-                    return distance;
+                    if (!burnThroughCrates)
+                    {
+                        return distance;
+                    }
+
+                    continue;
                 }
 
                 if (ApplyExplosionToCell(cellPosition))
@@ -140,6 +159,8 @@ namespace Bomberman
 
         private bool ApplyExplosionToCell(Vector3Int cellPosition)
         {
+            DestroyPowerUps(cellPosition);
+
             Player[] players = FindObjectsByType<Player>(FindObjectsSortMode.None);
 
             foreach (Player player in players)
@@ -154,7 +175,7 @@ namespace Bomberman
 
             foreach (Bomb bomb in bombs)
             {
-                if (bomb != this && worldTilemap.WorldToCell(bomb.transform.position) == cellPosition)
+                if (bomb != this && bomb.IsOnCell(cellPosition, worldTilemap))
                 {
                     bomb.Detonate();
                     return true;
@@ -162,6 +183,19 @@ namespace Bomberman
             }
 
             return false;
+        }
+
+        private void DestroyPowerUps(Vector3Int cellPosition)
+        {
+            PowerUp[] powerUps = FindObjectsByType<PowerUp>(FindObjectsSortMode.None);
+
+            foreach (PowerUp powerUp in powerUps)
+            {
+                if (powerUp.IsOnCell(cellPosition, worldTilemap))
+                {
+                    powerUp.DestroyByExplosion();
+                }
+            }
         }
 
         #endregion

@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: ffc2768a91200204d8da6905d61efa8f
+guid: 4a2d4f26339fd0c46a0b51f999ffe579
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -700145753515148034
-    second: PowerUps_0
-  - first:
-      213: -1615591449214129068
-    second: PowerUps_1
+      213: -2171869769579782635
+    second: ConveyorBelt_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 64
+    maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: 4
     textureCompression: 1
@@ -129,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PowerUps_FireUp
+      name: ConveyorBelt_0
       rect:
         serializedVersion: 2
         x: 0
@@ -144,14 +141,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: efc3bbe85259846f0800000000000000
-      internalID: -700145753515148034
+      spriteID: 51e99cd93f7fbd1e0800000000000000
+      internalID: -2171869769579782635
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PowerUps_Bomb
+      name: ConveyorBelt_1
       rect:
         serializedVersion: 2
         x: 16
@@ -164,16 +161,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 45cee6ff2244499e0800000000000000
-      internalID: -1615591449214129068
+      spriteID: 32c91180ff3c6fc43b09e894ca1b38bf
+      internalID: 1532661699
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PowerUps_SpikeBomb
+      name: ConveyorBelt_2
       rect:
         serializedVersion: 2
         x: 32
@@ -181,15 +178,59 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0151eea144777e4fa9a702b1e661b19
-      internalID: 2058820688
+      spriteID: ea68d0fdd6ea98b4c921ebddaf66de9e
+      internalID: -212697219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13375e88243f36e47b80d06e44832617
+      internalID: 1336380912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConveyorBelt_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3ef44cc1f5846646a2910d686758f46
+      internalID: 1729816603
       vertices: []
       indices: 
       edges: []
@@ -198,7 +239,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 166a6c4dd930d57439d1a9f015b695ea
+    spriteID: 3e475ee2146df6a4987fc41a71b4a85a
     internalID: 0
     vertices: []
     indices: 
@@ -206,11 +247,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      PowerUps_Bomb: -1615591449214129068
-      PowerUps_FireUp: -700145753515148034
-      PowerUps_SpikeBomb: 2058820688
+      ConveyorBelt_0: -2171869769579782635
+      ConveyorBelt_1: 1532661699
+      ConveyorBelt_2: -212697219
+      ConveyorBelt_3: 1336380912
+      ConveyorBelt_4: 1729816603
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

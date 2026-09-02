@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Bomberman
 {
@@ -18,6 +19,13 @@ namespace Bomberman
 
         [Tooltip("The world Z position used when a power-up is created.")]
         [SerializeField] private float powerUpSpawnZPosition;
+
+        [Header("Tilemaps")]
+        [Tooltip("The Tilemap containing ground and indestructible solid blocks.")]
+        [SerializeField] private Tilemap worldTilemap;
+
+        [Tooltip("The Tilemap containing destructible crates.")]
+        [SerializeField] private Tilemap crateTilemap;
 
         #endregion
 
@@ -47,7 +55,8 @@ namespace Bomberman
 
             PowerUp powerUpPrefab = powerUpPrefabs[Random.Range(0, powerUpPrefabs.Length)];
             spawnPosition.z = powerUpSpawnZPosition;
-            Instantiate(powerUpPrefab, spawnPosition, Quaternion.identity);
+            PowerUp powerUp = Instantiate(powerUpPrefab, spawnPosition, Quaternion.identity);
+            powerUp.Initialize(worldTilemap, crateTilemap);
         }
 
         #endregion

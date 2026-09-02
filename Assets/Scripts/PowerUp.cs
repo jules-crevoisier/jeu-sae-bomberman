@@ -17,18 +17,32 @@ namespace Bomberman
         [Tooltip("The strength of the upgrade.")]
         [SerializeField, Min(1)] private int amount = 1;
 
+        [Header("Conveyor")]
+        [Tooltip("Moves this power-up when it is standing on a conveyor belt.")]
+        [SerializeField] private ConveyorMover conveyorMover;
+
         #endregion
 
         #region Public Methods
 
+        public void Initialize(Tilemap worldTilemap, Tilemap crateTilemap)
+        {
+            conveyorMover.Initialize(worldTilemap, crateTilemap);
+        }
+
         public bool IsOnCell(Vector3Int cellPosition, Tilemap tilemap)
         {
-            return tilemap.WorldToCell(transform.position) == cellPosition;
+            return conveyorMover.IsOnCell(cellPosition, tilemap);
         }
 
         public void Collect(Player player)
         {
             powerUpEffect.Apply(player, amount);
+            Destroy(gameObject);
+        }
+
+        public void DestroyByExplosion()
+        {
             Destroy(gameObject);
         }
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 673698791296438818}
   - component: {fileID: 4751370628337094816}
   m_Layer: 0
-  m_Name: PowerUpBase
+  m_Name: PowerUpSpikeBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,9 +82,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 2058820688, guid: ffc2768a91200204d8da6905d61efa8f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -92,7 +92,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!61 &1339189010807004363
 BoxCollider2D:
@@ -150,9 +150,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46094d411ab1fbb46aca452f25be7e0b, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: '::'
-  powerUpEffect: {fileID: 11400000, guid: 8fb4ec94ff8a458c8a5a5f360f1ea001, type: 2}
+  powerUpEffect: {fileID: 11400000, guid: 6bde4c2cef074b9abc6035853d5ecf6b, type: 2}
   amount: 1
   conveyorMover: {fileID: 4751370628337094816}
 --- !u!114 &4751370628337094816
