@@ -6,7 +6,7 @@ namespace Bomberman
     /// <summary>
     /// Detonates after a delay and propagates an orthogonal, Bomberman-style blast through the grid.
     /// </summary>
-    public sealed class Bomb : MonoBehaviour
+    public sealed class Bomb : BaseObject
     {
         #region Inspector Fields
 
@@ -26,17 +26,6 @@ namespace Bomberman
         [Tooltip("When enabled, crates are destroyed without stopping the explosion arm.")]
         [SerializeField] private bool burnThroughCrates;
 
-        [Header("Tilemaps")]
-        [Tooltip("The Tilemap containing ground and indestructible solid blocks.")]
-        [SerializeField] private Tilemap worldTilemap;
-
-        [Tooltip("The Tilemap containing destructible crates.")]
-        [SerializeField] private Tilemap crateTilemap;
-
-        [Header("Conveyor")]
-        [Tooltip("Moves this bomb when it is standing on a conveyor belt.")]
-        [SerializeField] private ConveyorMover conveyorMover;
-
         #endregion
 
         #region Private Fields
@@ -51,6 +40,13 @@ namespace Bomberman
 
         private bool hasDetonated;
         private Player owner;
+        private bool usesFuseTimer = true;
+
+        #endregion
+
+        #region Properties
+
+        public bool HasDetonated => hasDetonated;
 
         #endregion
 
@@ -58,7 +54,15 @@ namespace Bomberman
 
         private void Start()
         {
-            Invoke(nameof(Detonate), fuseDuration);
+            if (usesFuseTimer)
+            {
+                Invoke(nameof(Detonate), fuseDuration);
+            }
+        }
+
+        private void Update()
+        {
+            UpdateBaseObjectMovement();
         }
 
         #endregion
@@ -68,25 +72,35 @@ namespace Bomberman
         /// <summary>
         /// Sets the player whose available bomb count is restored after detonation.
         /// </summary>
-        public void Initialize(Player bombOwner, Tilemap bombWorldTilemap, Tilemap bombCrateTilemap, int bombExplosionRange)
+        public void Initialize(Player bombOwner, Tilemap bombWorldTilemap, Tilemap bombCrateTilemap, int bombExplosionRange, bool isControlledByOwner)
         {
             owner = bombOwner;
-            worldTilemap = bombWorldTilemap;
-            crateTilemap = bombCrateTilemap;
+            InitializeBaseObject(bombWorldTilemap, bombCrateTilemap);
             explosionRange = bombExplosionRange;
-            conveyorMover.Initialize(worldTilemap, crateTilemap);
+            usesFuseTimer = !isControlledByOwner;
         }
 
-        public bool IsOnCell(Vector3Int cellPosition, Tilemap tilemap)
+        public void DisableFuseTimer()
         {
-            return conveyorMover.IsOnCell(cellPosition, tilemap);
+            usesFuseTimer = false;
+            CancelInvoke(nameof(Detonate));
+        }
+
+        public bool TryKick(Vector3Int kickDirection)
+        {
+            if (hasDetonated || IsObjectMoving)
+            {
+                return false;
+            }
+
+            return TryStartObjectMovement(kickDirection, true);
         }
 
         #endregion
 
         #region Explosion
 
-        private void Detonate()
+        public void Detonate()
         {
             if (hasDetonated)
             {
@@ -94,8 +108,9 @@ namespace Bomberman
             }
 
             hasDetonated = true;
-            Vector3Int originCell = conveyorMover.GetGridCell(worldTilemap);
-            conveyorMover.SnapToCell(originCell, worldTilemap);
+            CancelInvoke(nameof(Detonate));
+            Vector3Int originCell = GetGridCell(collisionTilemap);
+            SnapToCell(originCell, collisionTilemap);
             ApplyExplosionToCell(originCell);
 
             int leftLength = PropagateExplosion(originCell, ExplosionDirections[0]);
@@ -103,10 +118,10 @@ namespace Bomberman
             int downLength = PropagateExplosion(originCell, ExplosionDirections[2]);
             int upLength = PropagateExplosion(originCell, ExplosionDirections[3]);
 
-            Explosion explosion = Instantiate(explosionPrefab, worldTilemap.GetCellCenterWorld(originCell), Quaternion.identity);
-            explosion.Initialize(leftLength, rightLength, downLength, upLength, worldTilemap.cellSize);
+            Explosion explosion = Instantiate(explosionPrefab, collisionTilemap.GetCellCenterWorld(originCell), Quaternion.identity);
+            explosion.Initialize(leftLength, rightLength, downLength, upLength, collisionTilemap.cellSize);
 
-            owner.RestoreBomb();
+            owner.ReleaseBomb(this);
             Destroy(gameObject);
         }
 
@@ -142,7 +157,7 @@ namespace Bomberman
 
         private bool IsSolidCell(Vector3Int cellPosition)
         {
-            return worldTilemap.GetColliderType(cellPosition) != Tile.ColliderType.None;
+            return collisionTilemap.GetColliderType(cellPosition) != Tile.ColliderType.None;
         }
 
         private bool DestroyCrate(Vector3Int cellPosition)
@@ -165,7 +180,7 @@ namespace Bomberman
 
             foreach (Player player in players)
             {
-                if (player.GetGridCell(worldTilemap) == cellPosition)
+                if (player.GetGridCell(collisionTilemap) == cellPosition)
                 {
                     player.Stun(playerStunDuration);
                 }
@@ -175,7 +190,7 @@ namespace Bomberman
 
             foreach (Bomb bomb in bombs)
             {
-                if (bomb != this && bomb.IsOnCell(cellPosition, worldTilemap))
+                if (bomb != this && bomb.IsOnCell(cellPosition, collisionTilemap))
                 {
                     bomb.Detonate();
                     return true;
@@ -191,7 +206,7 @@ namespace Bomberman
 
             foreach (PowerUp powerUp in powerUps)
             {
-                if (powerUp.IsOnCell(cellPosition, worldTilemap))
+                if (powerUp.IsOnCell(cellPosition, collisionTilemap))
                 {
                     powerUp.DestroyByExplosion();
                 }

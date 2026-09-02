@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 408152549754695605}
   - component: {fileID: 1339189010807004363}
   - component: {fileID: 673698791296438818}
-  - component: {fileID: 4751370628337094816}
   m_Layer: 0
   m_Name: PowerUpBase
   m_TagString: Untagged
@@ -150,24 +149,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46094d411ab1fbb46aca452f25be7e0b, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: '::'
+  objectMoveDuration: 0.15
+  isBlockedByBombs: 1
+  collisionTilemap: {fileID: 0}
+  crateTilemap: {fileID: 0}
   powerUpEffect: {fileID: 11400000, guid: 8fb4ec94ff8a458c8a5a5f360f1ea001, type: 2}
   amount: 1
-  conveyorMover: {fileID: 4751370628337094816}
---- !u!114 &4751370628337094816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2316156759587102298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61fd5b0caf0340b0a7238d8cbd49f111, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Bomberman.ConveyorMover
-  moveDuration: 0.15
-  isBlockedByBombs: 1
-  worldTilemap: {fileID: 0}
-  crateTilemap: {fileID: 0}

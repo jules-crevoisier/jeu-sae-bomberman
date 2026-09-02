@@ -6,7 +6,7 @@ namespace Bomberman
     /// <summary>
     /// Applies one upgrade to the player that collects it.
     /// </summary>
-    public sealed class PowerUp : MonoBehaviour
+    public sealed class PowerUp : BaseObject
     {
         #region Inspector Fields
 
@@ -17,9 +17,14 @@ namespace Bomberman
         [Tooltip("The strength of the upgrade.")]
         [SerializeField, Min(1)] private int amount = 1;
 
-        [Header("Conveyor")]
-        [Tooltip("Moves this power-up when it is standing on a conveyor belt.")]
-        [SerializeField] private ConveyorMover conveyorMover;
+        #endregion
+
+        #region Unity Messages
+
+        private void Update()
+        {
+            UpdateBaseObjectMovement();
+        }
 
         #endregion
 
@@ -27,12 +32,7 @@ namespace Bomberman
 
         public void Initialize(Tilemap worldTilemap, Tilemap crateTilemap)
         {
-            conveyorMover.Initialize(worldTilemap, crateTilemap);
-        }
-
-        public bool IsOnCell(Vector3Int cellPosition, Tilemap tilemap)
-        {
-            return conveyorMover.IsOnCell(cellPosition, tilemap);
+            InitializeBaseObject(worldTilemap, crateTilemap);
         }
 
         public void Collect(Player player)

@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1712895402783644035, guid: e87349be9aa3f1c469a4a9b258d27749, type: 3}
       propertyPath: collisionTilemap
-      value: 
+      value:
       objectReference: {fileID: 0}
     - target: {fileID: 1712895402783644035, guid: e87349be9aa3f1c469a4a9b258d27749, type: 3}
       propertyPath: verticalAxisName
@@ -71,6 +71,10 @@ PrefabInstance:
     - target: {fileID: 1712895402783644035, guid: e87349be9aa3f1c469a4a9b258d27749, type: 3}
       propertyPath: bombSpawnAxisName
       value: P2_B1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712895402783644035, guid: e87349be9aa3f1c469a4a9b258d27749, type: 3}
+      propertyPath: bombDetonationAxisName
+      value: P2_B2
       objectReference: {fileID: 0}
     - target: {fileID: 8545383853093816984, guid: e87349be9aa3f1c469a4a9b258d27749, type: 3}
       propertyPath: m_Name

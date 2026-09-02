@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -6,7 +7,7 @@ namespace Bomberman
     /// <summary>
     /// Moves the player one grid cell at a time using the Horizontal and Vertical input axes.
     /// </summary>
-    public sealed class Player : MonoBehaviour
+    public sealed class Player : BaseObject
     {
         #region Inspector Fields
 
@@ -29,6 +30,8 @@ namespace Bomberman
         [SerializeField] private string verticalAxisName = "Vertical";
 
         [SerializeField] private string bombSpawnAxisName = "P1_B1";
+
+        [SerializeField] private string bombDetonationAxisName = "P1_B2";
 
         [Header("Bombs")]
         [Tooltip("The bomb object created when the bomb action is pressed.")]
@@ -55,13 +58,6 @@ namespace Bomberman
         [Tooltip("The time, in seconds, between each player sprite enable/disable toggle while dead.")]
         [SerializeField, Min(0.01f)] private float deadFlickerInterval = 0.2f;
 
-        [Header("Collision")]
-        [Tooltip("The Tilemap used to determine whether the next grid cell is blocked.")]
-        [SerializeField] private Tilemap collisionTilemap;
-
-        [Tooltip("The Tilemap containing destructible crates.")]
-        [SerializeField] private Tilemap crateTilemap;
-
         [Header("Wall Bonk")]
         [Tooltip("The distance moved into a blocked cell. Use 0.125 for two pixels at 16 Pixels Per Unit.")]
         [SerializeField, Min(0.01f)] private float bonkDistance = 0.125f;
@@ -77,6 +73,8 @@ namespace Bomberman
         private bool isBonking;
         private bool isStunned;
         private bool hasBombPlacementCell;
+        private bool hasBombControlPower;
+        private bool hasKickPower;
         private bool hasSpikeBombPower;
         private float bonkElapsedTime;
         private float deadFlickerElapsedTime;
@@ -86,6 +84,7 @@ namespace Bomberman
         private int availableBombCount;
         private int currentFireRange;
         private int totalBombCount;
+        private readonly List<Bomb> bombQueue = new List<Bomb>();
         private Vector3 bonkStartPosition;
         private Vector3 bonkTargetPosition;
         private Vector3 moveStartPosition;
@@ -114,6 +113,7 @@ namespace Bomberman
             }
 
             TryPlaceBomb();
+            TryDetonateControlledBomb();
 
             if (isMoving)
             {
@@ -157,7 +157,7 @@ namespace Bomberman
         {
             Vector3 targetPosition = transform.position + (Vector3)(movementDirection * tileSize);
 
-            if (IsCellBlocked(targetPosition))
+            if (IsPlayerCellBlocked(movementDirection, targetPosition))
             {
                 if (shouldBonkWhenBlocked)
                 {
@@ -236,7 +236,7 @@ namespace Bomberman
             return Vector2.zero;
         }
 
-        private bool IsCellBlocked(Vector3 worldPosition)
+        private bool IsPlayerCellBlocked(Vector2 movementDirection, Vector3 worldPosition)
         {
             Vector3Int worldCellPosition = collisionTilemap.WorldToCell(worldPosition);
 
@@ -250,7 +250,17 @@ namespace Bomberman
                 return true;
             }
 
-            return IsBombOnCell(worldCellPosition);
+            if (!TryGetBombAtCell(worldCellPosition, out Bomb bomb))
+            {
+                return false;
+            }
+
+            if (!hasKickPower)
+            {
+                return true;
+            }
+
+            return !bomb.TryKick(GetCellDirection(movementDirection));
         }
 
         private void TryPlaceBomb()
@@ -274,7 +284,9 @@ namespace Bomberman
             }
 
             Bomb placedBomb = Instantiate(GetCurrentBombPrefab(), GetBombSpawnPosition(bombPlacementCell), Quaternion.identity).GetComponent<Bomb>();
-            placedBomb.Initialize(this, collisionTilemap, crateTilemap, currentFireRange);
+            placedBomb.Initialize(this, collisionTilemap, crateTilemap, currentFireRange, hasBombControlPower);
+
+            bombQueue.Add(placedBomb);
             availableBombCount--;
             lastBombPlacementCell = bombPlacementCell;
             hasBombPlacementCell = true;
@@ -286,6 +298,12 @@ namespace Bomberman
         public void RestoreBomb()
         {
             availableBombCount = Mathf.Min(availableBombCount + 1, totalBombCount);
+        }
+
+        public void ReleaseBomb(Bomb bomb)
+        {
+            bombQueue.Remove(bomb);
+            RestoreBomb();
         }
 
         /// <summary>
@@ -306,7 +324,7 @@ namespace Bomberman
         /// <summary>
         /// Gets the player's logical cell, including while a movement animation is in progress.
         /// </summary>
-        public Vector3Int GetGridCell(Tilemap tilemap)
+        public override Vector3Int GetGridCell(Tilemap tilemap)
         {
             return tilemap.WorldToCell(GetGridPosition());
         }
@@ -349,21 +367,6 @@ namespace Bomberman
             return false;
         }
 
-        private bool IsBombOnCell(Vector3Int cellPosition)
-        {
-            Bomb[] bombs = FindObjectsByType<Bomb>(FindObjectsSortMode.None);
-
-            foreach (Bomb bomb in bombs)
-            {
-                if (bomb.IsOnCell(cellPosition, collisionTilemap))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         public void AddFireRange(int amount)
         {
             currentFireRange += amount;
@@ -380,9 +383,47 @@ namespace Bomberman
             hasSpikeBombPower = true;
         }
 
+        public void EnableBombControl()
+        {
+            hasBombControlPower = true;
+
+            foreach (Bomb bomb in bombQueue)
+            {
+                if (bomb != null && !bomb.HasDetonated)
+                {
+                    bomb.DisableFuseTimer();
+                }
+            }
+        }
+
+        public void EnableKick()
+        {
+            hasKickPower = true;
+        }
+
         private GameObject GetCurrentBombPrefab()
         {
             return hasSpikeBombPower ? spikeBombPrefab : bombPrefab;
+        }
+
+        private void TryDetonateControlledBomb()
+        {
+            if (!hasBombControlPower || !Input.GetButtonDown(bombDetonationAxisName))
+            {
+                return;
+            }
+
+            while (bombQueue.Count > 0)
+            {
+                Bomb bomb = bombQueue[0];
+                bombQueue.RemoveAt(0);
+
+                if (bomb != null && !bomb.HasDetonated)
+                {
+                    bomb.Detonate();
+                    return;
+                }
+            }
         }
 
         private Vector3 GetBombSpawnPosition(Vector3Int cellPosition)
@@ -444,6 +485,11 @@ namespace Bomberman
         private float GetHopOffset(float progress)
         {
             return Mathf.Sin(progress * Mathf.PI) * hopHeight;
+        }
+
+        private static Vector3Int GetCellDirection(Vector2 movementDirection)
+        {
+            return new Vector3Int(Mathf.RoundToInt(movementDirection.x), Mathf.RoundToInt(movementDirection.y), 0);
         }
 
         #endregion

@@ -5990,11 +5990,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c3f0d4494a4c4ab6be8648b3af3108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bomberman.GameManager
-  powerUpSpawnChance: 0.2
-  powerUpPrefabs:
-  - {fileID: 2006401291519612247, guid: f9e096363127991478ddaa0442b14604, type: 3}
-  - {fileID: 2797953103399646163, guid: 80ecc472c0f755d44bf244916439b425, type: 3}
-  - {fileID: 673698791296438818, guid: 4b5801453f054656a14307d2172a4af5, type: 3}
+  powerUpSpawnChance: 1
+  weightedPowerUps:
+  - powerUpPrefab: {fileID: 2006401291519612247, guid: f9e096363127991478ddaa0442b14604, type: 3}
+    spawnPercentage: 30
+  - powerUpPrefab: {fileID: 2797953103399646163, guid: 80ecc472c0f755d44bf244916439b425, type: 3}
+    spawnPercentage: 30
+  - powerUpPrefab: {fileID: 673698791296438818, guid: ccedc7dfb7df4992bdc7735315a39b84, type: 3}
+    spawnPercentage: 20
+  - powerUpPrefab: {fileID: 673698791296438818, guid: 4b5801453f054656a14307d2172a4af5, type: 3}
+    spawnPercentage: 5
+  - powerUpPrefab: {fileID: 673698791296438818, guid: 0e9ea313a50b4a8cae8a3abf8ec743e7, type: 3}
+    spawnPercentage: 15
   powerUpSpawnZPosition: 0
   worldTilemap: {fileID: 950655247}
   crateTilemap: {fileID: 648734454}

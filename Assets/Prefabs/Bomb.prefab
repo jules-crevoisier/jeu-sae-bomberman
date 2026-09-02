@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8577711384722695264}
   - component: {fileID: 8940617873889824929}
   - component: {fileID: 4761315321409009145}
-  - component: {fileID: 8341849002129983041}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Untagged
@@ -111,7 +110,7 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: 
+  m_WarningMessage:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -126,29 +125,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71851ee6b690f0540ba2b32ee8fb16a9, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: '::'
+  objectMoveDuration: 0.15
+  isBlockedByBombs: 1
+  collisionTilemap: {fileID: 0}
+  crateTilemap: {fileID: 0}
   fuseDuration: 2
   explosionRange: 5
   playerStunDuration: 5
   explosionPrefab: {fileID: 100002, guid: 0d08d48f783f4f0ea552568b3ef90519, type: 3}
   burnThroughCrates: 0
-  worldTilemap: {fileID: 0}
-  crateTilemap: {fileID: 0}
-  conveyorMover: {fileID: 8341849002129983041}
---- !u!114 &8341849002129983041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4448482147817207887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61fd5b0caf0340b0a7238d8cbd49f111, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Bomberman.ConveyorMover
-  moveDuration: 0.15
-  isBlockedByBombs: 1
-  worldTilemap: {fileID: 0}
-  crateTilemap: {fileID: 0}
