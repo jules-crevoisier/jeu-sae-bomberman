@@ -20,7 +20,7 @@ export const CATALOG: readonly CatalogItem[] = [
   },
   {
     id: 'ice', kind: 'tile', group: 'terrain', label: 'Glace', shortLabel: 'Glace', unityId: 'Blocks_Ice', unique: false, walkable: true, blocksMovement: false,
-    sprite: { sheet: 'blocks', x: 0, y: 16, size: TILE_SPRITE_SIZE, rotate: 0, tint: null }, fallbackColor: '#a9e5f5',
+    sprite: { sheet: 'blocks', x: 48, y: 0, size: TILE_SPRITE_SIZE, rotate: 0, tint: null }, fallbackColor: '#a9e5f5',
   },
   {
     id: 'solid',

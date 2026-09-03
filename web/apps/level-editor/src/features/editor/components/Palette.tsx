@@ -64,8 +64,8 @@ export function Palette({
             </button>
           ))}
           {compactObjects ? <>
-            <button type="button" className="chip" onClick={() => setVariantGroup('conveyor')}><span className="variant-symbol">↔</span><small>Tapis</small></button>
-            <button type="button" className="chip" onClick={() => setVariantGroup('teleporter')}><span className="variant-symbol">◉</span><small>Portails</small></button>
+            <button type="button" className="chip" onClick={() => setVariantGroup('conveyor')}><SpriteIcon item={entries.find((entry) => entry.id === 'conveyor_left')!} /><small>Tapis</small></button>
+            <button type="button" className="chip" onClick={() => setVariantGroup('teleporter')}><SpriteIcon item={entries.find((entry) => entry.id === 'teleporter_red')!} /><small>Portails</small></button>
           </> : null}
         </div>
       </div>

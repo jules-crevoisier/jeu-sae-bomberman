@@ -10,7 +10,7 @@ const SHEET_FILES: Record<CatalogItem['sprite']['sheet'], string> = {
 };
 
 const SHEET_WIDTH: Record<CatalogItem['sprite']['sheet'], number> = {
-  blocks: 48,
+  blocks: 64,
   rat: 48,
   conveyor: 80,
   teleporter: 64,
@@ -49,6 +49,7 @@ export function SpriteIcon({ item, size = 40 }: SpriteIconProps): JSX.Element {
           display: 'inline-block',
           borderRadius: 6,
           boxShadow: item.kind === 'spawn' ? `inset 0 -6px 0 ${item.fallbackColor}` : undefined,
+          filter: item.sprite.tint ? `drop-shadow(0 0 0 ${item.sprite.tint}) saturate(1.6)` : undefined,
         }}
       />
       {mark ? <span className="sprite-mark">{mark}</span> : null}

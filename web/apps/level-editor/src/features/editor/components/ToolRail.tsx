@@ -18,7 +18,6 @@ const TOOLS: Array<{ id: ToolId; label: string; icon: JSX.Element }> = [
 
 export function ToolRail({ tool, placementMode, onTool, onPlacementMode }: ToolRailProps): JSX.Element {
   return (
-    <>
     <nav className="tools" aria-label="Outils">
       <div className="tool-list">
         {TOOLS.map((item) => (
@@ -35,9 +34,8 @@ export function ToolRail({ tool, placementMode, onTool, onPlacementMode }: ToolR
           </button>
         ))}
       </div>
-    </nav>
       {tool !== 'pan' ? (
-        <div className="tool-modes horizontal" role="group" aria-label="Mode d'application">
+        <div className="tool-modes" role="group" aria-label="Mode d'application">
           <button
             type="button"
             className="mode-btn"
@@ -58,6 +56,6 @@ export function ToolRail({ tool, placementMode, onTool, onPlacementMode }: ToolR
           </button>
         </div>
       ) : null}
-    </>
+    </nav>
   );
 }

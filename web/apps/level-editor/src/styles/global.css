@@ -260,13 +260,11 @@ img {
   border-color: var(--gold-2);
 }
 
-.tool-modes.horizontal { position: absolute; left: 142px; top: 132px; display: flex; flex-direction: row; gap: 8px; }
-.tool-modes.horizontal .mode-btn { min-width: 116px; }
+.tool-modes { flex-direction: column; }
 .variant-picker { position: fixed; left: 50%; bottom: 52px; transform: translateX(-50%); z-index: 20; display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #21170f; border: 1px solid #825823; border-radius: 14px; box-shadow: 0 12px 30px #0009; }
 .variant-picker > span { color: #f2c34c; font-weight: 800; font-size: .8rem; }
 .variant-btn, .variant-close { border: 1px solid #674721; border-radius: 8px; background: #352416; color: #fff0cb; padding: 5px 8px; }
 .variant-btn { display: grid; gap: 2px; justify-items: center; }
-.variant-symbol { font-size: 1.6rem; color: #f2c34c; }
 
 .palette {
   border-radius: 22px;
