@@ -1,35 +1,35 @@
-import { getCatalogItem, getCell, isObjectId, isTileId, pickBrush, type BrushId, type EditorLayerId, type LevelDocument, type ToolId } from '@bomberman/level-schema';
+import { getCatalogItem, isObjectId, isTileId, type BrushId, type EditorLayerId, type LevelDocument, type ToolId } from '@bomberman/level-schema';
 import { useEffect, useRef, type JSX } from 'react';
 import { CELL_PX, fitCamera, screenToCell, zoomAt, type Camera } from '../camera.ts';
 import { drawLevel } from '../draw-level.ts';
-import type { LayerViews } from '../editor-state.ts';
+import type { LayerViews, PlacementMode } from '../editor-state.ts';
 import { drawSprite, loadSheets, type SheetMap } from '../sprites.ts';
 
 interface GridCanvasProps {
   document: LevelDocument;
   tool: ToolId;
+  placementMode: PlacementMode;
   brush: BrushId;
   activeLayer: EditorLayerId;
   layers: LayerViews;
   hover: { x: number; y: number } | null;
   onHover: (cell: { x: number; y: number } | null) => void;
   onStroke: (points: Array<{ x: number; y: number }>, brush: BrushId) => void;
-  onRectFill: (x1: number, y1: number, x2: number, y2: number) => void;
-  onPick: (brush: BrushId) => void;
+  onFillArea: (x1: number, y1: number, x2: number, y2: number, brush: BrushId) => void;
   onBlocked: () => void;
 }
 
 export function GridCanvas({
   document,
   tool,
+  placementMode,
   brush,
   activeLayer,
   layers,
   hover,
   onHover,
   onStroke,
-  onRectFill,
-  onPick,
+  onFillArea,
   onBlocked,
 }: GridCanvasProps): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -42,8 +42,32 @@ export function GridCanvas({
   const pinchRef = useRef<{ distance: number } | null>(null);
   const skipPaintRef = useRef(false);
   const fittedRef = useRef(false);
-  const latestRef = useRef({ document, tool, brush, activeLayer, layers, hover, onHover, onStroke, onRectFill, onPick, onBlocked });
-  latestRef.current = { document, tool, brush, activeLayer, layers, hover, onHover, onStroke, onRectFill, onPick, onBlocked };
+  const latestRef = useRef({
+    document,
+    tool,
+    placementMode,
+    brush,
+    activeLayer,
+    layers,
+    hover,
+    onHover,
+    onStroke,
+    onFillArea,
+    onBlocked,
+  });
+  latestRef.current = {
+    document,
+    tool,
+    placementMode,
+    brush,
+    activeLayer,
+    layers,
+    hover,
+    onHover,
+    onStroke,
+    onFillArea,
+    onBlocked,
+  };
 
   useEffect(() => {
     let disposed = false;
@@ -60,7 +84,7 @@ export function GridCanvas({
 
   useEffect(() => {
     paint();
-  }, [document, hover, layers, activeLayer]);
+  }, [document, hover, layers, activeLayer, tool, placementMode, brush]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -103,7 +127,6 @@ export function GridCanvas({
     });
     const cellSize = CELL_PX * cameraRef.current.scale;
 
-    // Draw stroke preview
     for (const point of strokeRef.current) {
       const brushId = current.tool === 'erase' ? 'erase' : current.brush;
       const screenX = cameraRef.current.x + point.x * cellSize;
@@ -111,17 +134,14 @@ export function GridCanvas({
       if (brushId === 'erase') {
         context.fillStyle = 'rgba(226, 59, 46, 0.38)';
         context.fillRect(screenX, screenY, cellSize, cellSize);
-      } else if (isTileId(brushId)) {
-        drawSprite(context, sheetsRef.current, getCatalogItem(brushId), screenX, screenY, cellSize);
-      } else if (isObjectId(brushId)) {
+      } else if (isTileId(brushId) || isObjectId(brushId)) {
         drawSprite(context, sheetsRef.current, getCatalogItem(brushId), screenX, screenY, cellSize);
       }
     }
 
-    // Draw rectangle fill preview
     const rStart = rectStartRef.current;
     const rEnd = rectEndRef.current;
-    if (current.tool === 'rect' && rStart && rEnd) {
+    if (current.tool !== 'pan' && current.placementMode === 'fill' && rStart && rEnd) {
       const x1 = Math.min(rStart.x, rEnd.x);
       const x2 = Math.max(rStart.x, rEnd.x);
       const y1 = Math.min(rStart.y, rEnd.y);
@@ -170,6 +190,7 @@ export function GridCanvas({
       if (a && b) {
         pinchRef.current = { distance: Math.hypot(a.x - b.x, a.y - b.y) };
       }
+      paint();
       return;
     }
     if (latestRef.current.tool === 'pan') {
@@ -179,33 +200,19 @@ export function GridCanvas({
     if (!cell) {
       return;
     }
-    const locked = latestRef.current.layers[latestRef.current.activeLayer].locked;
-
-    if (latestRef.current.tool === 'rect') {
-      if (locked) {
-        latestRef.current.onBlocked();
-        return;
-      }
+    if (latestRef.current.layers[latestRef.current.activeLayer].locked) {
+      latestRef.current.onBlocked();
+      return;
+    }
+    latestRef.current.onHover(cell);
+    if (latestRef.current.placementMode === 'fill') {
       rectStartRef.current = cell;
       rectEndRef.current = cell;
-      latestRef.current.onHover(cell);
       paint();
-      return;
-    }
-    if (latestRef.current.tool === 'picker') {
-      const picked = getCell(latestRef.current.document, cell.x, cell.y);
-      if (picked) {
-        latestRef.current.onPick(pickBrush(picked, latestRef.current.activeLayer));
-      }
-      return;
-    }
-    if (locked) {
-      latestRef.current.onBlocked();
       return;
     }
     skipPaintRef.current = false;
     strokeRef.current = [cell];
-    latestRef.current.onHover(cell);
     paint();
     if ('vibrate' in navigator) {
       navigator.vibrate(8);
@@ -240,8 +247,7 @@ export function GridCanvas({
     const cell = screenToCell(cameraRef.current, latestRef.current.document.width, latestRef.current.document.height, point.x, point.y);
     latestRef.current.onHover(cell);
 
-    // Update rectangle end point
-    if (latestRef.current.tool === 'rect' && rectStartRef.current && cell) {
+    if (latestRef.current.placementMode === 'fill' && rectStartRef.current && cell) {
       rectEndRef.current = cell;
       paint();
       return;
@@ -252,7 +258,7 @@ export function GridCanvas({
     }
     const last = strokeRef.current[strokeRef.current.length - 1];
     if (!last || last.x !== cell.x || last.y !== cell.y) {
-      strokeRef.current.push(cell);
+      strokeRef.current = [cell];
       paint();
     }
   };
@@ -263,10 +269,15 @@ export function GridCanvas({
       pinchRef.current = null;
     }
 
-    // Commit rectangle fill
-    if (latestRef.current.tool === 'rect' && rectStartRef.current) {
+    if (latestRef.current.tool !== 'pan' && latestRef.current.placementMode === 'fill' && rectStartRef.current) {
       const end = rectEndRef.current ?? rectStartRef.current;
-      latestRef.current.onRectFill(rectStartRef.current.x, rectStartRef.current.y, end.x, end.y);
+      latestRef.current.onFillArea(
+        rectStartRef.current.x,
+        rectStartRef.current.y,
+        end.x,
+        end.y,
+        latestRef.current.tool === 'erase' ? 'erase' : latestRef.current.brush,
+      );
       rectStartRef.current = null;
       rectEndRef.current = null;
       paint();
@@ -279,6 +290,7 @@ export function GridCanvas({
     if (pointersRef.current.size === 0) {
       strokeRef.current = [];
       skipPaintRef.current = false;
+      paint();
     }
   };
 

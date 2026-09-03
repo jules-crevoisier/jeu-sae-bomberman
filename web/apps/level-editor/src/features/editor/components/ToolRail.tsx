@@ -1,48 +1,61 @@
 import type { ToolId } from '@bomberman/level-schema';
 import type { JSX } from 'react';
-import { EraseIcon, FillIcon, PaintIcon, PanIcon, PickerIcon, RedoIcon, UndoIcon } from './Icons.tsx';
+import type { PlacementMode } from '../editor-state.ts';
+import { EraseIcon, FillIcon, PaintIcon, PanIcon, PlaceIcon } from './Icons.tsx';
 
 interface ToolRailProps {
   tool: ToolId;
-  canUndo: boolean;
-  canRedo: boolean;
+  placementMode: PlacementMode;
   onTool: (tool: ToolId) => void;
-  onUndo: () => void;
-  onRedo: () => void;
+  onPlacementMode: (mode: PlacementMode) => void;
 }
 
 const TOOLS: Array<{ id: ToolId; label: string; icon: JSX.Element }> = [
-  { id: 'paint', label: 'Peindre', icon: <PaintIcon /> },
+  { id: 'paint', label: 'Place', icon: <PlaceIcon /> },
   { id: 'erase', label: 'Gomme', icon: <EraseIcon /> },
-  { id: 'rect', label: 'Zone', icon: <FillIcon /> },
-  { id: 'picker', label: 'Pipette', icon: <PickerIcon /> },
-  { id: 'pan', label: 'Bouger', icon: <PanIcon /> },
+  { id: 'pan', label: 'Naviguer', icon: <PanIcon /> },
 ];
 
-export function ToolRail({ tool, canUndo, canRedo, onTool, onUndo, onRedo }: ToolRailProps): JSX.Element {
+export function ToolRail({ tool, placementMode, onTool, onPlacementMode }: ToolRailProps): JSX.Element {
   return (
     <nav className="tools" aria-label="Outils">
-      <button type="button" className="tool-btn" aria-label="Undo" disabled={!canUndo} onClick={onUndo}>
-        <UndoIcon />
-        <span>Undo</span>
-      </button>
-      <button type="button" className="tool-btn" aria-label="Redo" disabled={!canRedo} onClick={onRedo}>
-        <RedoIcon />
-        <span>Redo</span>
-      </button>
-      {TOOLS.map((item) => (
-        <button
-          key={item.id}
-          type="button"
-          className="tool-btn"
-          aria-pressed={tool === item.id}
-          aria-label={item.label}
-          onClick={() => onTool(item.id)}
-        >
-          {item.icon}
-          <span>{item.label}</span>
-        </button>
-      ))}
+      <div className="tool-list">
+        {TOOLS.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            className="tool-btn"
+            aria-pressed={tool === item.id}
+            aria-label={item.label}
+            onClick={() => onTool(item.id)}
+          >
+            {item.icon}
+            <span>{item.label}</span>
+          </button>
+        ))}
+      </div>
+      {tool !== 'pan' ? (
+        <div className="tool-modes" role="group" aria-label="Mode d'application">
+          <button
+            type="button"
+            className="mode-btn"
+            aria-pressed={placementMode === 'paint'}
+            onClick={() => onPlacementMode('paint')}
+          >
+            <PaintIcon />
+            <span>Paint mode</span>
+          </button>
+          <button
+            type="button"
+            className="mode-btn"
+            aria-pressed={placementMode === 'fill'}
+            onClick={() => onPlacementMode('fill')}
+          >
+            <FillIcon />
+            <span>Fill mode</span>
+          </button>
+        </div>
+      ) : null}
     </nav>
   );
 }

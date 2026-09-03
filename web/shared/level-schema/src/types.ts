@@ -53,7 +53,7 @@ export type ObjectId = (typeof OBJECT_IDS)[number];
 export type PlaceableId = TileId | ObjectId;
 export type BrushId = PlaceableId | 'erase';
 
-export const TOOL_IDS = ['paint', 'erase', 'rect', 'picker', 'pan'] as const;
+export const TOOL_IDS = ['paint', 'erase', 'pan'] as const;
 export type ToolId = (typeof TOOL_IDS)[number];
 
 export interface GridCell {

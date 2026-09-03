@@ -11,9 +11,9 @@ import {
   Move,
   Paintbrush,
   PaintBucket,
-  Pipette,
   Redo2,
   Settings2,
+  Square,
   Trash2,
   Undo2,
 } from 'lucide-react';
@@ -25,6 +25,10 @@ const ICON = {
   'aria-hidden': true,
 } as const;
 
+export function PlaceIcon(): JSX.Element {
+  return <Square {...ICON} />;
+}
+
 export function PaintIcon(): JSX.Element {
   return <Paintbrush {...ICON} />;
 }
@@ -35,10 +39,6 @@ export function EraseIcon(): JSX.Element {
 
 export function FillIcon(): JSX.Element {
   return <PaintBucket {...ICON} />;
-}
-
-export function PickerIcon(): JSX.Element {
-  return <Pipette {...ICON} />;
 }
 
 export function PanIcon(): JSX.Element {

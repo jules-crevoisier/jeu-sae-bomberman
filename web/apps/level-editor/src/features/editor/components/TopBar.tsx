@@ -5,7 +5,6 @@ interface TopBarProps {
   name: string;
   canUndo: boolean;
   canRedo: boolean;
-  exportBlocked: boolean;
   onName: (name: string) => void;
   onUndo: () => void;
   onRedo: () => void;
@@ -18,7 +17,6 @@ export function TopBar({
   name,
   canUndo,
   canRedo,
-  exportBlocked,
   onName,
   onUndo,
   onRedo,
@@ -28,9 +26,15 @@ export function TopBar({
 }: TopBarProps): JSX.Element {
   return (
     <header className="topbar">
+      <button type="button" className="icon-btn" aria-label="Retour" disabled={!canUndo} onClick={onUndo}>
+        <UndoIcon />
+      </button>
+      <button type="button" className="icon-btn" aria-label="Retablir" disabled={!canRedo} onClick={onRedo}>
+        <RedoIcon />
+      </button>
       <div className="brand">
         <strong>BOMB LAB</strong>
-        <span>éditeur</span>
+        <span>editeur</span>
       </div>
       <label className="sr-only" htmlFor="level-name">
         Nom du niveau
@@ -42,19 +46,13 @@ export function TopBar({
         maxLength={48}
         onChange={(event) => onName(event.target.value)}
       />
-      <button type="button" className="icon-btn" aria-label="Retour" disabled={!canUndo} onClick={onUndo}>
-        <UndoIcon />
-      </button>
-      <button type="button" className="icon-btn" aria-label="Rétablir" disabled={!canRedo} onClick={onRedo}>
-        <RedoIcon />
-      </button>
       <button type="button" className="icon-btn" aria-label="Brouillons" onClick={onDrafts}>
         <FolderIcon />
       </button>
-      <button type="button" className="icon-btn" aria-label="Réglages" onClick={onSettings}>
+      <button type="button" className="icon-btn" aria-label="Reglages" onClick={onSettings}>
         <SettingsIcon />
       </button>
-      <button type="button" className="icon-btn primary" aria-label="Exporter JSON" disabled={exportBlocked} onClick={onExport}>
+      <button type="button" className="icon-btn primary" aria-label="Exporter JSON" onClick={onExport}>
         <ExportIcon />
       </button>
     </header>

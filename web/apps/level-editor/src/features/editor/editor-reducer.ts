@@ -14,13 +14,14 @@ import {
   type LevelDocument,
   type ToolId,
 } from '@bomberman/level-schema';
-import { createDefaultLayers, MAX_HISTORY, type EditorSnapshot, type SheetId } from './editor-state.ts';
+import { createDefaultLayers, MAX_HISTORY, type EditorSnapshot, type PlacementMode, type SheetId } from './editor-state.ts';
 
 export type EditorAction =
   | { type: 'stroke'; points: ReadonlyArray<{ x: number; y: number }>; brush: BrushId }
-  | { type: 'rectFill'; x1: number; y1: number; x2: number; y2: number }
+  | { type: 'fillArea'; x1: number; y1: number; x2: number; y2: number; brush: BrushId }
   | { type: 'clearLayer'; layer: EditorLayerId }
   | { type: 'setTool'; tool: ToolId }
+  | { type: 'setPlacementMode'; mode: PlacementMode }
   | { type: 'setBrush'; brush: BrushId }
   | { type: 'setLayer'; layer: EditorLayerId }
   | { type: 'toggleLayerVisible'; layer: EditorLayerId }
@@ -57,6 +58,7 @@ export function createInitialSnapshot(): EditorSnapshot {
   return {
     document: createClassicDocument(),
     tool: 'paint',
+    placementMode: 'paint',
     brush: 'crate',
     activeLayer: 'crate',
     layers: createDefaultLayers(),
@@ -78,6 +80,11 @@ export function editorReducer(state: EditorSnapshot, action: EditorAction): Edit
         tool: action.tool,
         brush: action.tool === 'erase' ? 'erase' : state.brush === 'erase' ? LAYER_DEFAULT_BRUSH[state.activeLayer] : state.brush,
       };
+    case 'setPlacementMode':
+      return {
+        ...state,
+        placementMode: action.mode,
+      };
     case 'setBrush': {
       const nextLayer = layerForBrush(action.brush, state.activeLayer) ?? state.activeLayer;
       return {
@@ -89,7 +96,6 @@ export function editorReducer(state: EditorSnapshot, action: EditorAction): Edit
       };
     }
     case 'setLayer': {
-      const keepTool = state.tool === 'erase' || state.tool === 'rect' || state.tool === 'picker' || state.tool === 'pan';
       const brush =
         state.tool === 'erase' || brushBelongsToLayer(state.brush, action.layer)
           ? state.brush
@@ -98,7 +104,7 @@ export function editorReducer(state: EditorSnapshot, action: EditorAction): Edit
         ...state,
         activeLayer: action.layer,
         brush,
-        tool: keepTool ? state.tool : 'paint',
+        tool: state.tool,
         layers: showLayer(state, action.layer),
       };
     }
@@ -181,7 +187,7 @@ export function editorReducer(state: EditorSnapshot, action: EditorAction): Edit
       return pushHistory(state, resizeDocument(state.document, action.width, action.height));
     case 'stroke': {
       if (state.layers[state.activeLayer].locked) {
-        return { ...state, toast: 'Calque verrouillé' };
+        return { ...state, toast: 'Calque verrouille' };
       }
       let cells = state.document.cells;
       let changed = false;
@@ -206,9 +212,9 @@ export function editorReducer(state: EditorSnapshot, action: EditorAction): Edit
         layers: showLayer(state, state.activeLayer),
       };
     }
-    case 'rectFill': {
+    case 'fillArea': {
       if (state.layers[state.activeLayer].locked) {
-        return { ...state, toast: 'Calque verrouillé' };
+        return { ...state, toast: 'Calque verrouille' };
       }
       const x1 = Math.min(action.x1, action.x2);
       const x2 = Math.max(action.x1, action.x2);
@@ -227,7 +233,7 @@ export function editorReducer(state: EditorSnapshot, action: EditorAction): Edit
           { ...state.document, cells },
           point.x,
           point.y,
-          state.brush,
+          action.brush,
           state.activeLayer,
         );
         if (result.changed) {
@@ -259,8 +265,8 @@ export function editorReducer(state: EditorSnapshot, action: EditorAction): Edit
             return cell;
         }
       });
-      const changed2 = next.some((c, i) => c !== state.document.cells[i]);
-      if (!changed2) {
+      const changed = next.some((cell, index) => cell !== state.document.cells[index]);
+      if (!changed) {
         return state;
       }
       return pushHistory(state, { ...state.document, cells: next });

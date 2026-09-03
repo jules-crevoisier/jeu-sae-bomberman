@@ -1,6 +1,7 @@
 import type { BrushId, EditorLayerId, LevelDocument, ToolId } from '@bomberman/level-schema';
 
-export type SheetId = 'none' | 'export' | 'settings' | 'drafts';
+export type SheetId = 'none' | 'export' | 'exportErrors' | 'settings' | 'drafts';
+export type PlacementMode = 'paint' | 'fill';
 
 export interface LayerView {
   visible: boolean;
@@ -12,6 +13,7 @@ export type LayerViews = Record<EditorLayerId, LayerView>;
 export interface EditorSnapshot {
   document: LevelDocument;
   tool: ToolId;
+  placementMode: PlacementMode;
   brush: BrushId;
   activeLayer: EditorLayerId;
   layers: LayerViews;

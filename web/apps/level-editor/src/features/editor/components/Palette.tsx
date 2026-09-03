@@ -14,7 +14,6 @@ interface PaletteProps {
   brush: BrushId;
   activeLayer: EditorLayerId;
   layers: LayerViews;
-  exportErrors: string[];
   onSelect: (brush: BrushId) => void;
   onLayer: (layer: EditorLayerId) => void;
   onToggleVisible: (layer: EditorLayerId) => void;
@@ -26,7 +25,6 @@ export function Palette({
   brush,
   activeLayer,
   layers,
-  exportErrors,
   onSelect,
   onLayer,
   onToggleVisible,
@@ -35,13 +33,6 @@ export function Palette({
 }: PaletteProps): JSX.Element {
   return (
     <section className="palette" aria-label="Palette d'objets">
-      {exportErrors.length > 0 ? (
-        <div className="export-errors" role="alert">
-          {exportErrors.map((msg) => (
-            <p key={msg} className="export-error-line">⚠ {msg}</p>
-          ))}
-        </div>
-      ) : null}
       <p className="group-label">Calques</p>
       <LayerStack
         activeLayer={activeLayer}

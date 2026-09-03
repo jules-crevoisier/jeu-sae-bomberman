@@ -69,6 +69,11 @@ namespace Bomberman
 
         #region Public Methods
 
+        public void SetDirection(ConveyorDirection direction)
+        {
+            conveyorDirection = direction;
+        }
+
         public static bool TryGetAtCell(Vector3Int cellPosition, Tilemap tilemap, out ConveyorBelt conveyorBelt)
         {
             foreach (ConveyorBelt registeredConveyorBelt in ConveyorBelts)
