@@ -152,6 +152,7 @@ export function EditorPage(): JSX.Element {
         brush={state.brush}
         activeLayer={state.activeLayer}
         layers={state.layers}
+        document={state.document}
         onSelect={(brush) => dispatch({ type: 'setBrush', brush })}
         onLayer={(layer) => dispatch({ type: 'setLayer', layer })}
         onToggleVisible={(layer) => dispatch({ type: 'toggleLayerVisible', layer })}

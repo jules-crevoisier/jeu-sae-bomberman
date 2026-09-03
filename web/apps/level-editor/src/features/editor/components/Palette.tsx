@@ -4,6 +4,7 @@ import {
   LAYER_LABELS,
   type BrushId,
   type EditorLayerId,
+  type LevelDocument,
 } from '@bomberman/level-schema';
 import { useEffect, useState, type JSX } from 'react';
 import type { LayerViews } from '../editor-state.ts';
@@ -14,6 +15,7 @@ interface PaletteProps {
   brush: BrushId;
   activeLayer: EditorLayerId;
   layers: LayerViews;
+  document: LevelDocument;
   onSelect: (brush: BrushId) => void;
   onLayer: (layer: EditorLayerId) => void;
   onToggleVisible: (layer: EditorLayerId) => void;
@@ -25,6 +27,7 @@ export function Palette({
   brush,
   activeLayer,
   layers,
+  document,
   onSelect,
   onLayer,
   onToggleVisible,
@@ -37,6 +40,7 @@ export function Palette({
   const variants = variantGroup === 'conveyor'
     ? entries.filter((entry) => entry.id.startsWith('conveyor_'))
     : entries.filter((entry) => entry.id.startsWith('teleporter_'));
+  const availablePortal = entries.find((entry) => entry.id.startsWith('teleporter_') && document.cells.filter((cell) => cell.objectId === entry.id).length < 2);
   useEffect(() => {
     if (brush.startsWith('conveyor_')) setVariantGroup('conveyor');
     else if (brush.startsWith('teleporter_')) setVariantGroup('teleporter');
@@ -69,14 +73,14 @@ export function Palette({
             </button>
           ))}
           {compactObjects ? <>
-            <button type="button" className="chip" onClick={() => setVariantGroup('conveyor')}><SpriteIcon item={entries.find((entry) => entry.id === 'conveyor_left')!} /><small>Tapis</small></button>
-            <button type="button" className="chip" onClick={() => setVariantGroup('teleporter')}><SpriteIcon item={entries.find((entry) => entry.id === 'teleporter_red')!} /><small>Portails</small></button>
+            <button type="button" className="chip" onClick={() => { setVariantGroup('conveyor'); onSelect(entries.find((entry) => entry.id === 'conveyor_left')!.id); }}><SpriteIcon item={entries.find((entry) => entry.id === 'conveyor_left')!} /><small>Tapis</small></button>
+            <button type="button" className="chip" disabled={!availablePortal} onClick={() => { if (availablePortal) { setVariantGroup('teleporter'); onSelect(availablePortal.id); } }}><SpriteIcon item={entries.find((entry) => entry.id === 'teleporter_red')!} /><small>Portails</small></button>
           </> : null}
         </div>
       </div>
       {variantGroup ? <div className="variant-picker" role="dialog" aria-label="Variantes">
         <span>{variantGroup === 'conveyor' ? 'Direction du tapis' : 'Couleur du portail'}</span>
-        {variants.map((entry) => <button key={entry.id} type="button" className="variant-btn" aria-pressed={brush === entry.id} onClick={() => onSelect(entry.id)}><SpriteIcon item={entry} size={28} /><small>{entry.shortLabel}</small></button>)}
+        {variants.map((entry) => <button key={entry.id} type="button" className="variant-btn" disabled={entry.id.startsWith('teleporter_') && document.cells.filter((cell) => cell.objectId === entry.id).length >= 2} aria-pressed={brush === entry.id} onClick={() => onSelect(entry.id)}><SpriteIcon item={entry} size={28} /><small>{entry.shortLabel}</small></button>)}
       </div> : null}
     </section>
   );

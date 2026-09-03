@@ -41,6 +41,10 @@ function isConveyor(objectId: ObjectId): boolean {
   return objectId.startsWith('conveyor_');
 }
 
+function isTeleporter(objectId: ObjectId): boolean {
+  return objectId.startsWith('teleporter_');
+}
+
 export function canPlaceObject(cell: GridCell, objectId: ObjectId): boolean {
   if (getCatalogItem(objectId).kind === 'tile') {
     return false;
@@ -129,6 +133,10 @@ function paintObject(document: LevelDocument, x: number, y: number, objectId: Ob
   }
 
   if (!canPlaceObject(current, objectId) || current.objectId === objectId) {
+    return { cells: document.cells, changed: false };
+  }
+
+  if (isTeleporter(objectId) && document.cells.filter((cell) => cell.objectId === objectId).length >= 2) {
     return { cells: document.cells, changed: false };
   }
 
