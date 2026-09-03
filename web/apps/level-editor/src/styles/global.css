@@ -216,6 +216,7 @@ img {
 .layer-select, .layer-icon, .sprite, .palette > .group-label { border-radius: 3px !important; }
 .palette, .palette * { border-radius: 0 !important; }
 .variant-btn[aria-pressed='true'] { background: var(--gold); border-color: var(--gold-2); color: #1a1208; }
+.variant-btn:disabled, .chip:disabled { opacity: .28; filter: grayscale(1); cursor: not-allowed; }
 
 .tool-list { flex-direction: column; }
 .tool-modes { flex-wrap: wrap; padding-top: 8px; border-top: 2px solid var(--line); }

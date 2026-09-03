@@ -41,6 +41,8 @@ export function GridCanvas({
   const pointersRef = useRef<Map<number, { x: number; y: number }>>(new Map());
   const pinchRef = useRef<{ distance: number } | null>(null);
   const skipPaintRef = useRef(false);
+  const placementWiggleRef = useRef<{ points: Array<{ x: number; y: number }>; brush: BrushId; startedAt: number } | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
   const fittedRef = useRef(false);
   const latestRef = useRef({
     document,
@@ -132,11 +134,33 @@ export function GridCanvas({
       const screenX = cameraRef.current.x + point.x * cellSize;
       const screenY = cameraRef.current.y + (current.document.height - 1 - point.y) * cellSize;
       if (brushId === 'erase') {
-        context.fillStyle = 'rgba(226, 59, 46, 0.38)';
-        context.fillRect(screenX, screenY, cellSize, cellSize);
+        continue;
       } else if (isTileId(brushId) || isObjectId(brushId)) {
         drawSprite(context, sheetsRef.current, getCatalogItem(brushId), screenX, screenY, cellSize);
       }
+    }
+
+    const wiggle = placementWiggleRef.current;
+    if (wiggle && performance.now() - wiggle.startedAt < 180) {
+      const progress = (performance.now() - wiggle.startedAt) / 180;
+      const scale = 1 + Math.sin(progress * Math.PI) * 0.16;
+      const brushItem = wiggle.brush === 'erase' ? null : getCatalogItem(wiggle.brush);
+      if (brushItem) {
+        for (const point of wiggle.points) {
+          const centerX = cameraRef.current.x + (point.x + 0.5) * cellSize;
+          const centerY = cameraRef.current.y + (current.document.height - point.y - 0.5) * cellSize;
+          context.save();
+          context.translate(centerX, centerY);
+          context.rotate(Math.sin(progress * Math.PI * 3) * 0.08);
+          drawSprite(context, sheetsRef.current, brushItem, -(cellSize * scale) / 2, -(cellSize * scale) / 2, cellSize * scale);
+          context.restore();
+        }
+      }
+      if (animationFrameRef.current === null) {
+        animationFrameRef.current = requestAnimationFrame(() => { animationFrameRef.current = null; paint(); });
+      }
+    } else {
+      placementWiggleRef.current = null;
     }
 
     const rStart = rectStartRef.current;
@@ -312,7 +336,9 @@ export function GridCanvas({
     }
 
     if (pointersRef.current.size === 0 && strokeRef.current.length > 0 && !skipPaintRef.current) {
-      latestRef.current.onStroke(strokeRef.current, latestRef.current.tool === 'erase' ? 'erase' : latestRef.current.brush);
+      const appliedBrush = latestRef.current.tool === 'erase' ? 'erase' : latestRef.current.brush;
+      latestRef.current.onStroke(strokeRef.current, appliedBrush);
+      placementWiggleRef.current = { points: [...strokeRef.current], brush: appliedBrush, startedAt: performance.now() };
     }
     if (pointersRef.current.size === 0) {
       strokeRef.current = [];
