@@ -322,13 +322,22 @@ export function GridCanvas({
 
     if (latestRef.current.tool !== 'pan' && latestRef.current.placementMode === 'fill' && rectStartRef.current) {
       const end = rectEndRef.current ?? rectStartRef.current;
+      const start = rectStartRef.current;
+      const appliedBrush = latestRef.current.tool === 'erase' ? 'erase' : latestRef.current.brush;
+      const points: Array<{ x: number; y: number }> = [];
+      for (let y = Math.min(start.y, end.y); y <= Math.max(start.y, end.y); y += 1) {
+        for (let x = Math.min(start.x, end.x); x <= Math.max(start.x, end.x); x += 1) {
+          points.push({ x, y });
+        }
+      }
       latestRef.current.onFillArea(
-        rectStartRef.current.x,
-        rectStartRef.current.y,
+        start.x,
+        start.y,
         end.x,
         end.y,
-        latestRef.current.tool === 'erase' ? 'erase' : latestRef.current.brush,
+        appliedBrush,
       );
+      placementWiggleRef.current = { points, brush: appliedBrush, startedAt: performance.now() };
       rectStartRef.current = null;
       rectEndRef.current = null;
       paint();

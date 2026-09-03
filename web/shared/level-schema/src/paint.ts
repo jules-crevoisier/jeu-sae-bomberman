@@ -49,8 +49,8 @@ export function canPlaceObject(cell: GridCell, objectId: ObjectId): boolean {
   if (getCatalogItem(objectId).kind === 'tile') {
     return false;
   }
-  // Conveyors sit beneath crates, but cannot exist inside a solid wall.
-  if (isConveyor(objectId)) {
+  // Conveyors and teleporters can sit beneath crates, but not inside solid walls.
+  if (isConveyor(objectId) || isTeleporter(objectId)) {
     return cell.solid === null;
   }
   return !cellBlocksMovement(cell);
@@ -117,8 +117,12 @@ export function paintTile(
     next = { ...next, solid: null };
   }
 
-  // Conveyor belts cannot be on a solid block
-  if (target === 'solid' && next.objectId !== null && isConveyor(next.objectId as ObjectId)) {
+  // Conveyors and teleporters cannot be inside a solid block.
+  if (
+    target === 'solid' &&
+    next.objectId !== null &&
+    (isConveyor(next.objectId as ObjectId) || isTeleporter(next.objectId as ObjectId))
+  ) {
     next = { ...next, objectId: null };
   }
 

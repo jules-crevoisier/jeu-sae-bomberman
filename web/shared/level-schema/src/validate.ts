@@ -36,8 +36,8 @@ export function validateLevel(document: LevelDocument): ValidationIssue[] {
         spawnCount += 1;
       }
 
-      const conveyor = cell.objectId.startsWith('conveyor_');
-      if (cell.solid !== null || (cell.crate !== null && !conveyor)) {
+      const overlayOnCrate = cell.objectId.startsWith('conveyor_') || cell.objectId.startsWith('teleporter_');
+      if (cell.solid !== null || (cell.crate !== null && !overlayOnCrate)) {
         issues.push({
           code: 'blocked_object',
           message: `${object.label} est sur une case bloquée`,

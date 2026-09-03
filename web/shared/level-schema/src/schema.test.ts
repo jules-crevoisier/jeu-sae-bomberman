@@ -101,6 +101,16 @@ describe('paint', () => {
     expect(result.cells[2 * 5 + 2]).toMatchObject({ crate: 'crate', objectId: 'conveyor_right' });
     expect(validateLevel({ ...document, cells: result.cells }).some((issue) => issue.code === 'blocked_object')).toBe(false);
   });
+
+  it('places a teleporter beneath a crate', () => {
+    let document = createEmptyDocument('test', 5, 5);
+    document = { ...document, cells: applyBrush(document, 2, 2, 'crate').cells };
+    const result = applyBrush(document, 2, 2, 'teleporter_red');
+
+    expect(result.changed).toBe(true);
+    expect(result.cells[2 * 5 + 2]).toMatchObject({ crate: 'crate', objectId: 'teleporter_red' });
+    expect(validateLevel({ ...document, cells: result.cells }).some((issue) => issue.code === 'blocked_object')).toBe(false);
+  });
 });
 
 describe('fill', () => {
