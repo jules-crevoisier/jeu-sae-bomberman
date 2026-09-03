@@ -57,9 +57,15 @@ export function drawSprite(
     const bufferContext = buffer.getContext('2d');
     if (bufferContext) {
       bufferContext.drawImage(sheet, item.sprite.x, item.sprite.y, item.sprite.size, item.sprite.size, 0, 0, item.sprite.size, item.sprite.size);
-      bufferContext.globalCompositeOperation = 'source-atop';
-      bufferContext.fillStyle = item.sprite.tint;
-      bufferContext.fillRect(0, 0, item.sprite.size, item.sprite.size);
+      const imageData = bufferContext.getImageData(0, 0, item.sprite.size, item.sprite.size);
+      const tint = item.sprite.tint.match(/\w\w/g)?.map((value) => Number.parseInt(value, 16)) ?? [255, 255, 255];
+      const [tintRed = 255, tintGreen = 255, tintBlue = 255] = tint;
+      for (let index = 0; index < imageData.data.length; index += 4) {
+        imageData.data[index] = Math.round(((imageData.data[index] ?? 0) * tintRed) / 255);
+        imageData.data[index + 1] = Math.round(((imageData.data[index + 1] ?? 0) * tintGreen) / 255);
+        imageData.data[index + 2] = Math.round(((imageData.data[index + 2] ?? 0) * tintBlue) / 255);
+      }
+      bufferContext.putImageData(imageData, 0, 0);
       context.drawImage(buffer, -size / 2, -size / 2, size, size);
     }
   } else {

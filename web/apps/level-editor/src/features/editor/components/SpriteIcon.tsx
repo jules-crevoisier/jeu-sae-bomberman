@@ -39,7 +39,7 @@ export function SpriteIcon({ item, size = 40 }: SpriteIconProps): JSX.Element {
         style={{
           width: size,
           height: size,
-          backgroundColor: item.fallbackColor,
+          backgroundColor: item.sprite.tint ? 'transparent' : item.fallbackColor,
           backgroundImage: `url(${SHEET_FILES[item.sprite.sheet]})`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: `${SHEET_WIDTH[item.sprite.sheet] * scale}px ${16 * scale}px`,
@@ -47,9 +47,9 @@ export function SpriteIcon({ item, size = 40 }: SpriteIconProps): JSX.Element {
           transform: mark ? 'none' : `rotate(${item.sprite.rotate}deg)`,
           imageRendering: 'pixelated',
           display: 'inline-block',
-          borderRadius: 6,
+          borderRadius: 3,
           boxShadow: item.kind === 'spawn' ? `inset 0 -6px 0 ${item.fallbackColor}` : undefined,
-          filter: item.sprite.tint ? `drop-shadow(0 0 0 ${item.sprite.tint}) saturate(1.6)` : undefined,
+          filter: item.sprite.tint ? `sepia(1) saturate(1.7)` : undefined,
         }}
       />
       {mark ? <span className="sprite-mark">{mark}</span> : null}
