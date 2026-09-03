@@ -125,7 +125,6 @@ export function EditorPage(): JSX.Element {
         onRedo={() => dispatch({ type: 'redo' })}
         onExport={handleExport}
         onDrafts={() => dispatch({ type: 'setSheet', sheet: 'drafts' })}
-        onReset={() => dispatch({ type: 'load', document: createInitialSnapshot().document })}
         onSettings={() => dispatch({ type: 'setSheet', sheet: 'settings' })}
       />
       <div className="workspace">

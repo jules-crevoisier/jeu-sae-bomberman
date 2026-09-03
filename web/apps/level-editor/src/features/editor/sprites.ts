@@ -50,21 +50,20 @@ export function drawSprite(
   const centerY = dy + size / 2;
   context.translate(centerX, centerY);
   context.rotate((item.sprite.rotate * Math.PI) / 180);
-  context.drawImage(
-    sheet,
-    item.sprite.x,
-    item.sprite.y,
-    item.sprite.size,
-    item.sprite.size,
-    -size / 2,
-    -size / 2,
-    size,
-    size,
-  );
-  if (item.sprite.tint) {
-    context.globalCompositeOperation = 'source-atop';
-    context.fillStyle = item.sprite.tint;
-    context.fillRect(-size / 2, -size / 2, size, size);
+  if (item.kind === 'hazard' && item.sprite.tint) {
+    const buffer = document.createElement('canvas');
+    buffer.width = item.sprite.size;
+    buffer.height = item.sprite.size;
+    const bufferContext = buffer.getContext('2d');
+    if (bufferContext) {
+      bufferContext.drawImage(sheet, item.sprite.x, item.sprite.y, item.sprite.size, item.sprite.size, 0, 0, item.sprite.size, item.sprite.size);
+      bufferContext.globalCompositeOperation = 'source-atop';
+      bufferContext.fillStyle = item.sprite.tint;
+      bufferContext.fillRect(0, 0, item.sprite.size, item.sprite.size);
+      context.drawImage(buffer, -size / 2, -size / 2, size, size);
+    }
+  } else {
+    context.drawImage(sheet, item.sprite.x, item.sprite.y, item.sprite.size, item.sprite.size, -size / 2, -size / 2, size, size);
   }
   context.restore();
 }

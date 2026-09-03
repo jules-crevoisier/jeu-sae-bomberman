@@ -212,6 +212,8 @@ img {
 .icon-btn[aria-pressed='true'], .tool-btn[aria-pressed='true'], .chip[aria-pressed='true'], .variant-btn[aria-pressed='true'] { transform: scale(1.08); }
 .topbar, .tools, .palette, .sheet, .workspace { border-radius: 3px; }
 .layer-card, .chip, .mode-btn, .variant-btn, .variant-close, .sheet-card, .sheet-close, .toast, .status { border-radius: 3px !important; }
+.palette-group, .chip-row, .layers, .layer-actions { border-radius: 3px !important; }
+.variant-btn[aria-pressed='true'] { background: var(--gold); border-color: var(--gold-2); color: #1a1208; }
 
 .tool-list { flex-direction: column; }
 .tool-modes { flex-wrap: wrap; padding-top: 8px; border-top: 2px solid var(--line); }
