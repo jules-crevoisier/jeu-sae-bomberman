@@ -32,7 +32,7 @@ export function isTerrainLayer(layer: EditorLayerId): layer is 'ground' | 'solid
 }
 
 export function defaultLayerForPlaceable(id: PlaceableId): EditorLayerId {
-  if (id === 'floor') {
+  if (id === 'floor' || id === 'ice') {
     return 'ground';
   }
   if (id === 'solid') {
@@ -72,18 +72,10 @@ export function objectBelongsToLayer(objectId: ObjectId, layer: EditorLayerId): 
   return layer === 'objects' && defaultLayerForPlaceable(objectId) === 'objects';
 }
 
-/** Each terrain layer only accepts its own tile type. */
-const LAYER_TILE: Record<string, string> = {
-  ground: 'floor',
-  solid: 'solid',
-  crate: 'crate',
-};
-
 export function catalogForLayer(layer: EditorLayerId): CatalogItem[] {
-  if (isTerrainLayer(layer)) {
-    const tileId = LAYER_TILE[layer];
-    return EDITOR_CATALOG.filter((item) => item.kind === 'tile' && item.id === tileId);
-  }
+  if (layer === 'ground') return EDITOR_CATALOG.filter((item) => item.id === 'floor' || item.id === 'ice');
+  if (layer === 'solid') return EDITOR_CATALOG.filter((item) => item.id === 'solid');
+  if (layer === 'crate') return EDITOR_CATALOG.filter((item) => item.id === 'crate');
   return EDITOR_CATALOG.filter((item) => item.kind === 'spawn' || item.kind === 'hazard');
 }
 

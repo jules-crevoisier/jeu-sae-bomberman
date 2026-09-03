@@ -5,6 +5,7 @@ const SHEET_FILES: Record<CatalogItem['sprite']['sheet'], string> = {
   blocks: '/sprites/Blocks.png',
   rat: '/sprites/BomberRat.png',
   conveyor: '/sprites/ConveyorBelt.png',
+  teleporter: '/sprites/teleporter.png',
   powerups: '/sprites/PowerUps.png',
 };
 
@@ -12,6 +13,7 @@ const SHEET_WIDTH: Record<CatalogItem['sprite']['sheet'], number> = {
   blocks: 48,
   rat: 48,
   conveyor: 80,
+  teleporter: 64,
   powerups: 80,
 };
 

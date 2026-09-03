@@ -5,7 +5,7 @@ import {
   type BrushId,
   type EditorLayerId,
 } from '@bomberman/level-schema';
-import type { JSX } from 'react';
+import { useState, type JSX } from 'react';
 import type { LayerViews } from '../editor-state.ts';
 import { LayerStack } from './LayerStack.tsx';
 import { SpriteIcon } from './SpriteIcon.tsx';
@@ -31,6 +31,12 @@ export function Palette({
   onToggleLocked,
   onClearLayer,
 }: PaletteProps): JSX.Element {
+  const [variantGroup, setVariantGroup] = useState<'conveyor' | 'teleporter' | null>(null);
+  const entries = catalogForLayer(activeLayer);
+  const compactObjects = activeLayer === 'objects';
+  const variants = variantGroup === 'conveyor'
+    ? entries.filter((entry) => entry.id.startsWith('conveyor_'))
+    : entries.filter((entry) => entry.id.startsWith('teleporter_'));
   return (
     <section className="palette" aria-label="Palette d'objets">
       <p className="group-label">Calques</p>
@@ -45,7 +51,7 @@ export function Palette({
       <p className="group-label palette-layer-name">{LAYER_LABELS[activeLayer]}</p>
       <div className="palette-group is-active">
         <div className="chip-row">
-          {catalogForLayer(activeLayer).map((entry) => (
+          {entries.filter((entry) => !compactObjects || (!entry.id.startsWith('conveyor_') && !entry.id.startsWith('teleporter_'))).map((entry) => (
             <button
               key={entry.id}
               type="button"
@@ -57,8 +63,17 @@ export function Palette({
               <small>{entry.shortLabel}</small>
             </button>
           ))}
+          {compactObjects ? <>
+            <button type="button" className="chip" onClick={() => setVariantGroup('conveyor')}><span className="variant-symbol">↔</span><small>Tapis</small></button>
+            <button type="button" className="chip" onClick={() => setVariantGroup('teleporter')}><span className="variant-symbol">◉</span><small>Portails</small></button>
+          </> : null}
         </div>
       </div>
+      {variantGroup ? <div className="variant-picker" role="dialog" aria-label="Variantes">
+        <span>{variantGroup === 'conveyor' ? 'Direction du tapis' : 'Couleur du portail'}</span>
+        {variants.map((entry) => <button key={entry.id} type="button" className="variant-btn" onClick={() => { onSelect(entry.id); setVariantGroup(null); }}><SpriteIcon item={entry} size={28} /><small>{entry.shortLabel}</small></button>)}
+        <button type="button" className="variant-close" onClick={() => setVariantGroup(null)}>Fermer</button>
+      </div> : null}
     </section>
   );
 }

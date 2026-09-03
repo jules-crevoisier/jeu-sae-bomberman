@@ -4,6 +4,7 @@ export interface SheetMap {
   blocks: HTMLImageElement;
   rat: HTMLImageElement;
   conveyor: HTMLImageElement;
+  teleporter: HTMLImageElement;
   powerups: HTMLImageElement;
 }
 
@@ -19,13 +20,14 @@ function loadImage(src: string): Promise<HTMLImageElement> {
 
 export async function loadSheets(): Promise<SheetMap | null> {
   try {
-    const [blocks, rat, conveyor, powerups] = await Promise.all([
+    const [blocks, rat, conveyor, teleporter, powerups] = await Promise.all([
       loadImage('/sprites/Blocks.png'),
       loadImage('/sprites/BomberRat.png'),
       loadImage('/sprites/ConveyorBelt.png'),
+      loadImage('/sprites/teleporter.png'),
       loadImage('/sprites/PowerUps.png'),
     ]);
-    return { blocks, rat, conveyor, powerups };
+    return { blocks, rat, conveyor, teleporter, powerups };
   } catch {
     return null;
   }

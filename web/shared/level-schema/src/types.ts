@@ -32,7 +32,7 @@ export const LEVEL_SIZES = [
 
 export type LevelSizeId = (typeof LEVEL_SIZES)[number]['id'];
 
-export const TILE_IDS = ['floor', 'solid', 'crate'] as const;
+export const TILE_IDS = ['floor', 'ice', 'solid', 'crate'] as const;
 export type TileId = (typeof TILE_IDS)[number];
 
 export const OBJECT_IDS = [
@@ -42,6 +42,12 @@ export const OBJECT_IDS = [
   'conveyor_down',
   'conveyor_left',
   'conveyor_right',
+  'teleporter_red',
+  'teleporter_purple',
+  'teleporter_blue',
+  'teleporter_cyan',
+  'teleporter_green',
+  'teleporter_orange',
   'powerup_fire',
   'powerup_bomb',
   'powerup_spike',
@@ -121,7 +127,7 @@ export interface CatalogItem {
   walkable: boolean;
   blocksMovement: boolean;
   sprite: {
-    sheet: 'blocks' | 'rat' | 'conveyor' | 'powerups';
+    sheet: 'blocks' | 'rat' | 'conveyor' | 'teleporter' | 'powerups';
     x: number;
     y: number;
     size: number;

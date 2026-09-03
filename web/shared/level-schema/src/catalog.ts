@@ -19,6 +19,10 @@ export const CATALOG: readonly CatalogItem[] = [
     fallbackColor: '#8d8d96',
   },
   {
+    id: 'ice', kind: 'tile', group: 'terrain', label: 'Glace', shortLabel: 'Glace', unityId: 'Blocks_Ice', unique: false, walkable: true, blocksMovement: false,
+    sprite: { sheet: 'blocks', x: 0, y: 16, size: TILE_SPRITE_SIZE, rotate: 0, tint: null }, fallbackColor: '#a9e5f5',
+  },
+  {
     id: 'solid',
     kind: 'tile',
     group: 'terrain',
@@ -122,6 +126,12 @@ export const CATALOG: readonly CatalogItem[] = [
     sprite: { sheet: 'conveyor', x: 0, y: 0, size: TILE_SPRITE_SIZE, rotate: 180, tint: null },
     fallbackColor: '#5c6570',
   },
+  ...([
+    ['red', '#ef3434'], ['purple', '#a54ce0'], ['blue', '#3d7ae2'], ['cyan', '#2abed0'], ['green', '#4bbd62'], ['orange', '#e28a2a'],
+  ] as const).map(([color, tint]) => ({
+    id: `teleporter_${color}` as ObjectId, kind: 'hazard' as const, group: 'hazards' as const, label: `Portail ${color}`, shortLabel: color, unityId: 'Teleporter', unique: false, walkable: true, blocksMovement: false,
+    sprite: { sheet: 'teleporter' as const, x: 0, y: 0, size: TILE_SPRITE_SIZE, rotate: 0 as const, tint }, fallbackColor: tint,
+  })),
   {
     id: 'powerup_fire',
     kind: 'powerup',
@@ -202,7 +212,7 @@ export function getCatalogItem(id: PlaceableId): CatalogItem {
 }
 
 export function isTileId(id: string): id is TileId {
-  return id === 'floor' || id === 'solid' || id === 'crate';
+  return id === 'floor' || id === 'ice' || id === 'solid' || id === 'crate';
 }
 
 export function isObjectId(id: string): id is ObjectId {
