@@ -1,0 +1,10 @@
+# Optional root entry for Dokploy: compose path = docker-compose.yml
+# Builds only web/ (Unity stays out of the image).
+services:
+  level-editor:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    expose:
+      - "80"
+    restart: unless-stopped
