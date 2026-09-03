@@ -104,3 +104,12 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Web editor (npm/Vite) — keep Unity root clean
+node_modules/
+/web/node_modules/
+/web/**/dist/
+/web/**/.vite/
+dist/
+*.local
+.DS_Store

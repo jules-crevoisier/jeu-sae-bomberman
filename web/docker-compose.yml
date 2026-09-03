@@ -1,0 +1,9 @@
+# Local smoke-test for the Dokploy image (context = this folder).
+services:
+  level-editor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    restart: unless-stopped
