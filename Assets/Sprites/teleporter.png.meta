@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c4c9927c38fab104ea852ac340af3269
+guid: 71009b8cb92c34949a8d90698cbe6388
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1515622694917723629
-    second: Blocks_0
+      213: 8409234884740282508
+    second: teleporter_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,9 +72,9 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 128
+    maxTextureSize: 64
     resizeAlgorithm: 0
-    textureFormat: 4
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Blocks_Solid
+      name: teleporter_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,14 +141,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: de557189fc2980510800000000000000
-      internalID: 1515622694917723629
+      spriteID: c8874c9d29a93b470800000000000000
+      internalID: 8409234884740282508
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Blocks_Wood
+      name: teleporter_1
       rect:
         serializedVersion: 2
         x: 16
@@ -163,14 +163,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42c1784f4f814994e92ce4f6cee3f9ea
-      internalID: 458134730
+      spriteID: 359c4ab5f7c2bd44cac77fcec57bc33a
+      internalID: -137391896
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Blocks_Stone
+      name: teleporter_2
       rect:
         serializedVersion: 2
         x: 32
@@ -185,14 +185,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6b56e693e8f72424e84377b5b0adf103
-      internalID: 68151661
+      spriteID: e6a00f747baf65142abd7bcf112e7764
+      internalID: -1098580526
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Blocks_Ice
+      name: teleporter_3
       rect:
         serializedVersion: 2
         x: 48
@@ -200,15 +200,15 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 551bae4c9825fdd498b88265b14fc69e
-      internalID: 1151479462
+      spriteID: 5574d07f3fd24b2439bbb22b1e5d1894
+      internalID: -625395084
       vertices: []
       indices: 
       edges: []
@@ -217,7 +217,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e0e6d2a0a5352e146b52d508541ac122
+    spriteID: 6800faefdf23c534db97ed1b549e5186
     internalID: 0
     vertices: []
     indices: 
@@ -229,10 +229,10 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Blocks_Ice: 1151479462
-      Blocks_Solid: 1515622694917723629
-      Blocks_Stone: 68151661
-      Blocks_Wood: 458134730
+      teleporter_0: 8409234884740282508
+      teleporter_1: -137391896
+      teleporter_2: -1098580526
+      teleporter_3: -625395084
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

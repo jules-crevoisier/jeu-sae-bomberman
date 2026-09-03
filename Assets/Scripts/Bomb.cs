@@ -63,6 +63,15 @@ namespace Bomberman
         private void Update()
         {
             UpdateBaseObjectMovement();
+            if (!IsObjectMoving)
+            {
+                Teleporter.TryTeleport(this, collisionTilemap);
+            }
+        }
+
+        protected override bool TryHandleObjectArrival(Vector3Int cell, Vector3Int direction, bool keepMoving)
+        {
+            return Teleporter.TryTeleport(this, collisionTilemap, direction, keepMoving);
         }
 
         #endregion
@@ -155,9 +164,37 @@ namespace Bomberman
                 {
                     return distance;
                 }
+
+                if (Teleporter.TryGetDestinationAtCell(cellPosition, collisionTilemap, out Vector3Int exitCell))
+                {
+                    PropagateTeleportedExplosion(exitCell, direction, explosionRange - distance, players, bombs, powerUps);
+                    return distance;
+                }
             }
 
             return explosionRange;
+        }
+
+        private void PropagateTeleportedExplosion(Vector3Int exitCell, Vector3Int direction, int remainingRange, Player[] players, Bomb[] bombs, PowerUp[] powerUps)
+        {
+            int length = 0;
+            for (int distance = 1; distance <= remainingRange; distance++)
+            {
+                Vector3Int cellPosition = exitCell + (direction * distance);
+                if (IsSolidCell(cellPosition)) break;
+                length = distance;
+                if (DestroyCrate(cellPosition) || ApplyExplosionToCell(cellPosition, players, bombs, powerUps)) break;
+
+                if (Teleporter.TryGetDestinationAtCell(cellPosition, collisionTilemap, out Vector3Int nextExitCell))
+                {
+                    PropagateTeleportedExplosion(nextExitCell, direction, remainingRange - distance, players, bombs, powerUps);
+                    break;
+                }
+            }
+
+            // The visual spans both portals, while gameplay still starts one cell after the exit.
+            Explosion continuation = Instantiate(explosionPrefab, collisionTilemap.GetCellCenterWorld(exitCell - direction), Quaternion.identity);
+            continuation.InitializeLine(direction, length + 1, collisionTilemap.cellSize);
         }
 
         private bool IsSolidCell(Vector3Int cellPosition)

@@ -84,6 +84,8 @@ namespace Bomberman
         #region Private Fields
 
         private bool isMoving;
+        private bool isSliding;
+        private bool isSlidingMove;
         private bool isBonking;
         private bool isEliminated;
         private bool isStunned;
@@ -106,6 +108,8 @@ namespace Bomberman
         private Vector3 moveStartPosition;
         private Vector3 moveTargetPosition;
         private Vector3Int lastBombPlacementCell;
+        private Vector2 slideDirection;
+        private Vector2 lastInputDirection;
 
         #endregion
 
@@ -151,12 +155,27 @@ namespace Bomberman
             }
 
             TryCollectPowerUp();
+            if (Teleporter.TryTeleport(this, collisionTilemap))
+            {
+                return;
+            }
+            if (TryStartConveyorMovement())
+            {
+                return;
+            }
+            if (isSliding && IsIceCell(GetGridCell(collisionTilemap)))
+            {
+                if (!TryStartMovement(slideDirection, false, false))
+                {
+                    isSliding = false;
+                }
+                return;
+            }
+            isSliding = false;
             if (TryStartMovement())
             {
                 return;
             }
-
-            TryStartConveyorMovement();
         }
 
         #endregion
@@ -172,11 +191,12 @@ namespace Bomberman
                 return false;
             }
 
+            lastInputDirection = inputDirection;
             TryStartMovement(inputDirection, true);
             return true;
         }
 
-        private bool TryStartMovement(Vector2 movementDirection, bool shouldBonkWhenBlocked)
+        private bool TryStartMovement(Vector2 movementDirection, bool shouldBonkWhenBlocked, bool shouldHop = true)
         {
             Vector3 targetPosition = transform.position + (Vector3)(movementDirection * tileSize);
 
@@ -194,6 +214,7 @@ namespace Bomberman
             moveTargetPosition = targetPosition;
             moveElapsedTime = 0f;
             isMoving = true;
+            isSlidingMove = !shouldHop;
 
             return true;
         }
@@ -203,9 +224,9 @@ namespace Bomberman
             moveElapsedTime += Time.deltaTime;
 
             float progress = Mathf.Clamp01(moveElapsedTime / moveDuration);
-            float easedProgress = EaseOutQuadratic(progress);
-            Vector3 movementPosition = Vector3.Lerp(moveStartPosition, moveTargetPosition, easedProgress);
-            transform.position = movementPosition + (Vector3.up * GetHopOffset(progress));
+            float movementProgress = isSlidingMove ? progress : EaseOutQuadratic(progress);
+            Vector3 movementPosition = Vector3.Lerp(moveStartPosition, moveTargetPosition, movementProgress);
+            transform.position = isSlidingMove ? movementPosition : movementPosition + (Vector3.up * GetHopOffset(progress));
 
             if (progress < 1f)
             {
@@ -214,6 +235,13 @@ namespace Bomberman
 
             transform.position = moveTargetPosition;
             isMoving = false;
+            isSlidingMove = false;
+            slideDirection = (moveTargetPosition - moveStartPosition).normalized;
+            if (slideDirection == Vector2.zero)
+            {
+                slideDirection = lastInputDirection;
+            }
+            isSliding = IsIceCell(collisionTilemap.WorldToCell(moveTargetPosition));
         }
 
         private void StartBonk(Vector2 inputDirection)
@@ -364,6 +392,28 @@ namespace Bomberman
         public override Vector3Int GetGridCell(Tilemap tilemap)
         {
             return tilemap.WorldToCell(GetGridPosition());
+        }
+
+        public void TeleportToCell(Vector3Int cellPosition, Tilemap tilemap)
+        {
+            Vector3 position = tilemap.GetCellCenterWorld(cellPosition);
+            position.z = transform.position.z;
+            transform.position = position;
+            isMoving = false;
+            isBonking = false;
+            isSliding = false;
+            isSlidingMove = false;
+        }
+
+        private bool IsIceCell(Vector3Int cellPosition)
+        {
+            TileBase tile = collisionTilemap.GetTile(cellPosition);
+            if (tile is Tile tileAsset && tileAsset.sprite != null)
+            {
+                return tileAsset.sprite.name == "Blocks_Ice";
+            }
+
+            return tile != null && tile.name == "Blocks_Ice";
         }
 
         private Vector3Int GetBombPlacementCell()

@@ -26,6 +26,7 @@ namespace Bomberman
         [SerializeField] private TileBase floorTile;
         [SerializeField] private TileBase crateTile;
         [SerializeField] private Transform conveyorContainer;
+        [SerializeField] private GameObject conveyorPrefab;
 
         #endregion
 
@@ -236,62 +237,72 @@ namespace Bomberman
 
             foreach (LevelObjectDefinition levelObject in levelDefinition.objects)
             {
-                if (!IsInsideBounds(levelObject, levelDefinition))
-                {
-                    continue;
-                }
-
                 string normalizedId = NormalizeToken(levelObject.id);
-                Vector2Int cellPosition = new Vector2Int(levelObject.x, levelObject.y);
+                int width = Mathf.Max(1, levelObject.w);
+                int height = Mathf.Max(1, levelObject.h);
 
-                if (TryGetPlayerIndex(normalizedId, out int playerIndex))
+                // The editor compresses adjacent cells into optional w/h rectangles.
+                for (int y = levelObject.y; y < levelObject.y + height; y++)
                 {
-                    buildData.playerSpawnCells[playerIndex] = cellPosition;
-                    continue;
-                }
-
-                if (IsIgnoredObject(normalizedId))
-                {
-                    continue;
-                }
-
-                if (IsConveyorId(normalizedId))
-                {
-                    LevelCellData conveyorCell = buildData.cells[cellPosition.x, cellPosition.y];
-                    conveyorCell.hasConveyor = true;
-                    conveyorCell.conveyorDirection = ParseConveyorDirection(levelObject, normalizedId);
-                    buildData.cells[cellPosition.x, cellPosition.y] = conveyorCell;
-                    continue;
-                }
-
-                if (!string.IsNullOrWhiteSpace(levelObject.layer))
-                {
-                    continue;
-                }
-
-                switch (normalizedId)
-                {
-                    case "solid":
-                        buildData.cells[cellPosition.x, cellPosition.y].isSolid = true;
-                        buildData.cells[cellPosition.x, cellPosition.y].hasCrate = false;
-                        break;
-
-                    case "crate":
-                        if (!buildData.cells[cellPosition.x, cellPosition.y].isSolid)
+                    for (int x = levelObject.x; x < levelObject.x + width; x++)
+                    {
+                        if (!IsInsideBounds(x, y, levelDefinition))
                         {
-                            buildData.cells[cellPosition.x, cellPosition.y].hasCrate = true;
+                            continue;
                         }
-                        break;
 
-                    case "floor":
-                        break;
+                        Vector2Int cellPosition = new Vector2Int(x, y);
 
-                    default:
-                        if (unknownObjectIds.Add(normalizedId))
+                        if (TryGetPlayerIndex(normalizedId, out int playerIndex))
                         {
-                            Debug.LogWarning($"Unsupported level object '{levelObject.id}' was ignored.", this);
+                            buildData.playerSpawnCells[playerIndex] = cellPosition;
+                            continue;
                         }
-                        break;
+
+                        if (IsIgnoredObject(normalizedId))
+                        {
+                            continue;
+                        }
+
+                        if (IsConveyorId(normalizedId))
+                        {
+                            LevelCellData conveyorCell = buildData.cells[cellPosition.x, cellPosition.y];
+                            conveyorCell.hasConveyor = true;
+                            conveyorCell.conveyorDirection = ParseConveyorDirection(levelObject, normalizedId);
+                            buildData.cells[cellPosition.x, cellPosition.y] = conveyorCell;
+                            continue;
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(levelObject.layer))
+                        {
+                            continue;
+                        }
+
+                        switch (normalizedId)
+                        {
+                            case "solid":
+                                buildData.cells[cellPosition.x, cellPosition.y].isSolid = true;
+                                buildData.cells[cellPosition.x, cellPosition.y].hasCrate = false;
+                                break;
+
+                            case "crate":
+                                if (!buildData.cells[cellPosition.x, cellPosition.y].isSolid)
+                                {
+                                    buildData.cells[cellPosition.x, cellPosition.y].hasCrate = true;
+                                }
+                                break;
+
+                            case "floor":
+                                break;
+
+                            default:
+                                if (unknownObjectIds.Add(normalizedId))
+                                {
+                                    Debug.LogWarning($"Unsupported level object '{levelObject.id}' was ignored.", this);
+                                }
+                                break;
+                        }
+                    }
                 }
             }
 
@@ -336,7 +347,7 @@ namespace Bomberman
                 {
                     LevelCellData cellData = buildData.cells[x, y];
 
-                    if (!cellData.hasConveyor || cellData.isSolid || cellData.hasCrate)
+                    if (!cellData.hasConveyor || cellData.isSolid)
                     {
                         continue;
                     }
@@ -370,15 +381,23 @@ namespace Bomberman
 
         private GameObject CreateConveyorTemplate()
         {
-            ConveyorBelt[] conveyors = FindObjectsByType<ConveyorBelt>(FindObjectsSortMode.None);
+            GameObject templateSource = conveyorPrefab;
 
-            if (conveyors.Length == 0 || conveyors[0] == null)
+            if (templateSource == null)
             {
-                return null;
+                ConveyorBelt[] conveyors = FindObjectsByType<ConveyorBelt>(FindObjectsSortMode.None);
+
+                if (conveyors.Length == 0 || conveyors[0] == null)
+                {
+                    Debug.LogWarning("No conveyor prefab or scene conveyor is configured; conveyor objects were skipped.", this);
+                    return null;
+                }
+
+                templateSource = conveyors[0].gameObject;
             }
 
-            GameObject conveyorTemplate = Instantiate(conveyors[0].gameObject);
-            conveyorTemplate.name = $"{conveyors[0].gameObject.name} Template";
+            GameObject conveyorTemplate = Instantiate(templateSource);
+            conveyorTemplate.name = $"{templateSource.name} Template";
             conveyorTemplate.hideFlags = HideFlags.HideAndDontSave;
             conveyorTemplate.SetActive(false);
             return conveyorTemplate;
@@ -540,12 +559,12 @@ namespace Bomberman
 
         #region Coordinates
 
-        private static bool IsInsideBounds(LevelObjectDefinition levelObject, LevelDefinition levelDefinition)
+        private static bool IsInsideBounds(int x, int y, LevelDefinition levelDefinition)
         {
-            return levelObject.x >= 0
-                && levelObject.x < levelDefinition.width
-                && levelObject.y >= 0
-                && levelObject.y < levelDefinition.height;
+            return x >= 0
+                && x < levelDefinition.width
+                && y >= 0
+                && y < levelDefinition.height;
         }
 
         private static Vector3Int GetSceneCell(int jsonX, int jsonY, LevelDefinition levelDefinition)
@@ -567,6 +586,7 @@ namespace Bomberman
                 case "p1":
                 case "player1":
                 case "spawn1":
+                case "spawnp1":
                 case "start1":
                 case "playerone":
                     playerIndex = 1;
@@ -575,6 +595,7 @@ namespace Bomberman
                 case "p2":
                 case "player2":
                 case "spawn2":
+                case "spawnp2":
                 case "start2":
                 case "playertwo":
                     playerIndex = 2;
@@ -635,12 +656,42 @@ namespace Bomberman
         {
             if (TryParseConveyorDirection(levelObject.direction, out ConveyorDirection direction)
                 || TryParseConveyorDirection(levelObject.conveyorDirection, out direction)
-                || TryParseConveyorDirection(normalizedId, out direction))
+                || TryParseConveyorIdDirection(normalizedId, out direction))
             {
                 return direction;
             }
 
             return ConveyorDirection.Left;
+        }
+
+        private static bool TryParseConveyorIdDirection(string normalizedId, out ConveyorDirection direction)
+        {
+            if (normalizedId.EndsWith("right"))
+            {
+                direction = ConveyorDirection.Right;
+                return true;
+            }
+
+            if (normalizedId.EndsWith("left"))
+            {
+                direction = ConveyorDirection.Left;
+                return true;
+            }
+
+            if (normalizedId.EndsWith("up") || normalizedId.EndsWith("top"))
+            {
+                direction = ConveyorDirection.Up;
+                return true;
+            }
+
+            if (normalizedId.EndsWith("down") || normalizedId.EndsWith("bottom"))
+            {
+                direction = ConveyorDirection.Down;
+                return true;
+            }
+
+            direction = ConveyorDirection.Left;
+            return false;
         }
 
         private static bool TryParseConveyorDirection(string value, out ConveyorDirection direction)
@@ -710,6 +761,8 @@ namespace Bomberman
             public string layer;
             public int x;
             public int y;
+            public int w;
+            public int h;
             public string direction;
             public string conveyorDirection;
         }

@@ -75,6 +75,12 @@ namespace Bomberman
             isObjectMoving = false;
         }
 
+        public void TeleportToCell(Vector3Int cellPosition, Tilemap tilemap, Vector3Int direction = default, bool keepMoving = false)
+        {
+            SnapToCell(cellPosition, tilemap);
+            if (keepMoving) TryStartObjectMovement(direction, true);
+        }
+
         #endregion
 
         #region Protected Methods
@@ -180,6 +186,11 @@ namespace Bomberman
             shouldContinueObjectMovement = false;
             SnapToCell(objectMoveTargetCell, collisionTilemap);
 
+            if (TryHandleObjectArrival(objectMoveTargetCell, objectMoveDirection, shouldKeepMoving))
+            {
+                return;
+            }
+
             if (shouldKeepMoving && ConveyorBelt.TryGetAtCell(objectMoveTargetCell, collisionTilemap, out _))
             {
                 return;
@@ -190,6 +201,8 @@ namespace Bomberman
                 TryStartObjectMovement(objectMoveDirection, true);
             }
         }
+
+        protected virtual bool TryHandleObjectArrival(Vector3Int cell, Vector3Int direction, bool keepMoving) => false;
 
         #endregion
     }

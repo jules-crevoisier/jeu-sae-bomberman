@@ -1415,6 +1415,7 @@ MonoBehaviour:
   floorTile: {fileID: 11400000, guid: 36487f3e962d77e45a29727422083e6b, type: 2}
   crateTile: {fileID: 11400000, guid: e336e66f2469b7c4b82b990846e3fa89, type: 2}
   conveyorContainer: {fileID: 610813055}
+  conveyorPrefab: {fileID: 3965279924111419752, guid: 8b1a0b6d71131784fa4b0d8fc8144f67, type: 3}
 --- !u!4 &597041828
 Transform:
   m_ObjectHideFlags: 0
@@ -5513,6 +5514,7 @@ MonoBehaviour:
   floorTile: {fileID: 0}
   crateTile: {fileID: 0}
   conveyorContainer: {fileID: 0}
+  conveyorPrefab: {fileID: 3965279924111419752, guid: 8b1a0b6d71131784fa4b0d8fc8144f67, type: 3}
 --- !u!1001 &2069777462
 PrefabInstance:
   m_ObjectHideFlags: 0
