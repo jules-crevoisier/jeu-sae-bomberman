@@ -1,9 +1,12 @@
-# Local smoke-test for the Dokploy image (context = this folder).
+# Dokploy uses this compose file. Do NOT bind a host port — Traefik/Dokploy
+# routes to container port 80 on the internal network.
+# Local smoke test: docker compose run --service-ports is not needed;
+# use: docker build -t level-editor . && docker run --rm -p 8080:80 level-editor
 services:
   level-editor:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "8080:80"
+    expose:
+      - "80"
     restart: unless-stopped

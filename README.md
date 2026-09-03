@@ -44,7 +44,10 @@ Sans ça, le build prendrait tout le repo Unity inutilement.
 
 ```powershell
 cd web
-docker compose up --build
+docker build -t bomberman-level-editor .
+docker run --rm -p 8080:80 bomberman-level-editor
 ```
 
 Ouvre `http://localhost:8080`.
+
+Sur Dokploy (compose), ne mappe **pas** de port hôte : l’app expose `80` en interne, le reverse proxy s’occupe du domaine.
