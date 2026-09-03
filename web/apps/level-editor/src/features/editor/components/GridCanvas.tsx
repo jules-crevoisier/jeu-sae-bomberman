@@ -153,7 +153,8 @@ export function GridCanvas({
     const now = performance.now();
     let hasActiveAnimation = false;
     animationsRef.current = animationsRef.current.filter((animation) => {
-      const progress = (now - animation.startedAt) / 180;
+      const duration = animation.kind === 'erase' ? 280 : 180;
+      const progress = (now - animation.startedAt) / duration;
       if (progress >= 1) {
         return false;
       }
