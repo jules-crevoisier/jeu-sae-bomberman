@@ -176,6 +176,29 @@ export function GridCanvas({
     };
   };
 
+  const appendStrokeSegment = (from: { x: number; y: number }, to: { x: number; y: number }): void => {
+    let x = from.x;
+    let y = from.y;
+    const deltaX = Math.abs(to.x - from.x);
+    const deltaY = Math.abs(to.y - from.y);
+    const stepX = from.x < to.x ? 1 : -1;
+    const stepY = from.y < to.y ? 1 : -1;
+    let error = deltaX - deltaY;
+
+    while (x !== to.x || y !== to.y) {
+      const doubledError = error * 2;
+      if (doubledError > -deltaY) {
+        error -= deltaY;
+        x += stepX;
+      }
+      if (doubledError < deltaX) {
+        error += deltaX;
+        y += stepY;
+      }
+      strokeRef.current.push({ x, y });
+    }
+  };
+
   const handlePointerDown = (event: React.PointerEvent<HTMLCanvasElement>): void => {
     event.preventDefault();
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -258,7 +281,11 @@ export function GridCanvas({
     }
     const last = strokeRef.current[strokeRef.current.length - 1];
     if (!last || last.x !== cell.x || last.y !== cell.y) {
-      strokeRef.current = [cell];
+      if (last) {
+        appendStrokeSegment(last, cell);
+      } else {
+        strokeRef.current = [cell];
+      }
       paint();
     }
   };

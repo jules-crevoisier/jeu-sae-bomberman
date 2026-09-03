@@ -1,6 +1,5 @@
 import {
   applyBrush,
-  brushBelongsToLayer,
   createClassicDocument,
   importLevelJson,
   LAYER_DEFAULT_BRUSH,
@@ -96,14 +95,11 @@ export function editorReducer(state: EditorSnapshot, action: EditorAction): Edit
       };
     }
     case 'setLayer': {
-      const brush =
-        state.tool === 'erase' || brushBelongsToLayer(state.brush, action.layer)
-          ? state.brush
-          : LAYER_DEFAULT_BRUSH[action.layer];
       return {
         ...state,
         activeLayer: action.layer,
-        brush,
+        // A brush is layer-specific: always show the new layer's default selection.
+        brush: LAYER_DEFAULT_BRUSH[action.layer],
         tool: state.tool,
         layers: showLayer(state, action.layer),
       };
