@@ -5,7 +5,6 @@ export interface SheetMap {
   rat: HTMLImageElement;
   conveyor: HTMLImageElement;
   teleporter: HTMLImageElement;
-  powerups: HTMLImageElement;
 }
 
 function loadImage(src: string): Promise<HTMLImageElement> {
@@ -20,14 +19,13 @@ function loadImage(src: string): Promise<HTMLImageElement> {
 
 export async function loadSheets(): Promise<SheetMap | null> {
   try {
-    const [blocks, rat, conveyor, teleporter, powerups] = await Promise.all([
+    const [blocks, rat, conveyor, teleporter] = await Promise.all([
       loadImage('/sprites/Blocks.png'),
       loadImage('/sprites/BomberRat.png'),
       loadImage('/sprites/ConveyorBelt.png'),
       loadImage('/sprites/teleporter.png'),
-      loadImage('/sprites/PowerUps.png'),
     ]);
-    return { blocks, rat, conveyor, teleporter, powerups };
+    return { blocks, rat, conveyor, teleporter };
   } catch { return null; }
 }
 
@@ -39,7 +37,7 @@ export function drawSprite(
   dy: number,
   size: number,
 ): void {
-  const sheet = sheets?.[item.sprite.sheet];
+  const sheet = item.sprite.sheet === 'powerups' ? null : sheets?.[item.sprite.sheet];
   if (!sheet) {
     context.fillStyle = item.fallbackColor;
     context.fillRect(dx, dy, size, size);
