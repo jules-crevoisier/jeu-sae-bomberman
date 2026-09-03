@@ -12,6 +12,7 @@ import {
   Paintbrush,
   PaintBucket,
   Redo2,
+  RotateCcw,
   Settings2,
   Square,
   Trash2,
@@ -64,6 +65,8 @@ export function SettingsIcon(): JSX.Element {
 export function FolderIcon(): JSX.Element {
   return <FolderOpen {...ICON} />;
 }
+
+export function ResetIcon(): JSX.Element { return <RotateCcw {...ICON} />; }
 
 export function EyeIcon(): JSX.Element {
   return <Eye {...ICON} />;

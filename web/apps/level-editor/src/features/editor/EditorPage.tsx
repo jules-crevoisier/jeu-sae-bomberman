@@ -1,4 +1,4 @@
-import { validateLevel, type ToolId } from '@bomberman/level-schema';
+import { type ToolId } from '@bomberman/level-schema';
 import { useEffect, useMemo, useReducer, useState, type JSX } from 'react';
 import { DraftsSheet } from './components/DraftsSheet.tsx';
 import { countIssues, downloadJson, ExportSheet, parseBrushShortcut, previewJson } from './components/ExportSheet.tsx';
@@ -6,7 +6,6 @@ import { ExportBlockedSheet } from './components/ExportBlockedSheet.tsx';
 import { GridCanvas } from './components/GridCanvas.tsx';
 import { Palette } from './components/Palette.tsx';
 import { SettingsSheet } from './components/SettingsSheet.tsx';
-import { StatusBar } from './components/StatusBar.tsx';
 import { ToolRail } from './components/ToolRail.tsx';
 import { TopBar } from './components/TopBar.tsx';
 import { createInitialSnapshot, editorReducer, tryImportLevel } from './editor-reducer.ts';
@@ -26,7 +25,6 @@ function getExportErrors(document: ReturnType<typeof createInitialSnapshot>['doc
 export function EditorPage(): JSX.Element {
   const [state, dispatch] = useReducer(editorReducer, undefined, createInitialSnapshot);
   const [drafts, setDrafts] = useState<StoredDraft[]>([]);
-  const issues = useMemo(() => validateLevel(state.document), [state.document]);
   const json = useMemo(
     () => previewJson({ document: state.document, includeFloor: state.includeFloor }),
     [state.document, state.includeFloor],
@@ -127,6 +125,7 @@ export function EditorPage(): JSX.Element {
         onRedo={() => dispatch({ type: 'redo' })}
         onExport={handleExport}
         onDrafts={() => dispatch({ type: 'setSheet', sheet: 'drafts' })}
+        onReset={() => dispatch({ type: 'load', document: createInitialSnapshot().document })}
         onSettings={() => dispatch({ type: 'setSheet', sheet: 'settings' })}
       />
       <div className="workspace">
@@ -142,14 +141,6 @@ export function EditorPage(): JSX.Element {
           onStroke={(points, brush) => dispatch({ type: 'stroke', points, brush })}
           onFillArea={(x1, y1, x2, y2, brush) => dispatch({ type: 'fillArea', x1, y1, x2, y2, brush })}
           onBlocked={() => dispatch({ type: 'toast', message: 'Calque verrouille' })}
-        />
-        <StatusBar
-          width={state.document.width}
-          height={state.document.height}
-          hover={state.hover}
-          brush={state.brush}
-          layer={state.activeLayer}
-          issues={issues}
         />
       </div>
       <ToolRail

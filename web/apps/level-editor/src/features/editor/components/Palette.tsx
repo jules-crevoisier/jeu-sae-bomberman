@@ -5,7 +5,7 @@ import {
   type BrushId,
   type EditorLayerId,
 } from '@bomberman/level-schema';
-import { useState, type JSX } from 'react';
+import { useEffect, useState, type JSX } from 'react';
 import type { LayerViews } from '../editor-state.ts';
 import { LayerStack } from './LayerStack.tsx';
 import { SpriteIcon } from './SpriteIcon.tsx';
@@ -37,6 +37,10 @@ export function Palette({
   const variants = variantGroup === 'conveyor'
     ? entries.filter((entry) => entry.id.startsWith('conveyor_'))
     : entries.filter((entry) => entry.id.startsWith('teleporter_'));
+  useEffect(() => {
+    if (brush.startsWith('conveyor_')) setVariantGroup('conveyor');
+    if (brush.startsWith('teleporter_')) setVariantGroup('teleporter');
+  }, [brush]);
   return (
     <section className="palette" aria-label="Palette d'objets">
       <p className="group-label">Calques</p>
@@ -71,8 +75,7 @@ export function Palette({
       </div>
       {variantGroup ? <div className="variant-picker" role="dialog" aria-label="Variantes">
         <span>{variantGroup === 'conveyor' ? 'Direction du tapis' : 'Couleur du portail'}</span>
-        {variants.map((entry) => <button key={entry.id} type="button" className="variant-btn" onClick={() => { onSelect(entry.id); setVariantGroup(null); }}><SpriteIcon item={entry} size={28} /><small>{entry.shortLabel}</small></button>)}
-        <button type="button" className="variant-close" onClick={() => setVariantGroup(null)}>Fermer</button>
+        {variants.map((entry) => <button key={entry.id} type="button" className="variant-btn" aria-pressed={brush === entry.id} onClick={() => onSelect(entry.id)}><SpriteIcon item={entry} size={28} /><small>{entry.shortLabel}</small></button>)}
       </div> : null}
     </section>
   );

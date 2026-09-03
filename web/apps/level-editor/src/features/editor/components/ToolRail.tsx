@@ -20,6 +20,7 @@ export function ToolRail({ tool, placementMode, onTool, onPlacementMode }: ToolR
   return (
     <nav className="tools" aria-label="Outils">
       <div className="tool-list">
+        <p className="tool-section-label">Outils</p>
         {TOOLS.map((item) => (
           <button
             key={item.id}
@@ -36,6 +37,7 @@ export function ToolRail({ tool, placementMode, onTool, onPlacementMode }: ToolR
       </div>
       {tool !== 'pan' ? (
         <div className="tool-modes" role="group" aria-label="Mode d'application">
+          <p className="tool-section-label">Application</p>
           <button
             type="button"
             className="mode-btn"
@@ -43,7 +45,6 @@ export function ToolRail({ tool, placementMode, onTool, onPlacementMode }: ToolR
             onClick={() => onPlacementMode('paint')}
           >
             <PaintIcon />
-            <span>Paint mode</span>
           </button>
           <button
             type="button"
@@ -52,7 +53,6 @@ export function ToolRail({ tool, placementMode, onTool, onPlacementMode }: ToolR
             onClick={() => onPlacementMode('fill')}
           >
             <FillIcon />
-            <span>Fill mode</span>
           </button>
         </div>
       ) : null}

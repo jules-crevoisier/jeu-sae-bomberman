@@ -218,6 +218,12 @@ img {
   overflow-x: auto;
 }
 
+.tool-list { flex-direction: column; }
+.tool-modes { flex-wrap: wrap; padding-top: 8px; border-top: 2px solid var(--line); }
+.tool-section-label { width: 100%; margin: 0; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.tool-modes .mode-btn { min-width: 48px; padding: 0; }
+.tool-modes .mode-btn span { display: none; }
+
 .tool-btn {
   flex: 1 0 auto;
   flex-direction: column;
@@ -261,10 +267,15 @@ img {
 }
 
 .tool-modes { flex-direction: column; }
-.variant-picker { position: fixed; left: 50%; bottom: 52px; transform: translateX(-50%); z-index: 20; display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #21170f; border: 1px solid #825823; border-radius: 14px; box-shadow: 0 12px 30px #0009; }
-.variant-picker > span { color: #f2c34c; font-weight: 800; font-size: .8rem; }
+.variant-picker { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 20; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 10px 14px; background: #21170f; border: 2px solid #825823; border-radius: 3px; box-shadow: 0 12px 30px #0009; }
+.variant-picker > span { width: 100%; text-align: center; color: #f2c34c; font-weight: 800; font-size: .8rem; }
 .variant-btn, .variant-close { border: 1px solid #674721; border-radius: 8px; background: #352416; color: #fff0cb; padding: 5px 8px; }
 .variant-btn { display: grid; gap: 2px; justify-items: center; }
+
+.icon-btn, .tool-btn, .chip, .mode-btn, .variant-btn { border-radius: 3px; transition: transform 120ms steps(2); }
+.icon-btn:hover, .tool-btn:hover, .chip:hover, .mode-btn:hover, .variant-btn:hover { animation: button-wiggle 240ms steps(2); }
+.icon-btn:active, .tool-btn:active, .chip:active, .mode-btn:active, .variant-btn:active { transform: scale(1.1); }
+@keyframes button-wiggle { 0%, 100% { transform: rotate(0); } 33% { transform: rotate(-2deg); } 66% { transform: rotate(2deg); } }
 
 .palette {
   border-radius: 22px;

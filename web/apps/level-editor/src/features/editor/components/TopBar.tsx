@@ -1,5 +1,5 @@
 import type { JSX } from 'react';
-import { ExportIcon, FolderIcon, RedoIcon, SettingsIcon, UndoIcon } from './Icons.tsx';
+import { ExportIcon, FolderIcon, RedoIcon, ResetIcon, SettingsIcon, UndoIcon } from './Icons.tsx';
 
 interface TopBarProps {
   name: string;
@@ -10,6 +10,7 @@ interface TopBarProps {
   onRedo: () => void;
   onExport: () => void;
   onDrafts: () => void;
+  onReset: () => void;
   onSettings: () => void;
 }
 
@@ -22,6 +23,7 @@ export function TopBar({
   onRedo,
   onExport,
   onDrafts,
+  onReset,
   onSettings,
 }: TopBarProps): JSX.Element {
   return (
@@ -49,6 +51,7 @@ export function TopBar({
       <button type="button" className="icon-btn" aria-label="Brouillons" onClick={onDrafts}>
         <FolderIcon />
       </button>
+      <button type="button" className="icon-btn" aria-label="Reinitialiser le niveau" onClick={onReset}><ResetIcon /></button>
       <button type="button" className="icon-btn" aria-label="Reglages" onClick={onSettings}>
         <SettingsIcon />
       </button>
