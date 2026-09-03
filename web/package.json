@@ -1,0 +1,15 @@
+{
+  "name": "jeu-sae-bomberman",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "apps/*",
+    "shared/*"
+  ],
+  "scripts": {
+    "dev:editor": "npm run dev -w @bomberman/level-editor",
+    "build:editor": "npm run build -w @bomberman/level-editor",
+    "test": "npm run test -w @bomberman/level-schema",
+    "typecheck": "npm run typecheck -w @bomberman/level-schema && npm run typecheck -w @bomberman/level-editor"
+  }
+}
