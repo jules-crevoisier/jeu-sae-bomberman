@@ -111,6 +111,27 @@ describe('paint', () => {
     expect(result.cells[2 * 5 + 2]).toMatchObject({ crate: 'crate', objectId: 'teleporter_red' });
     expect(validateLevel({ ...document, cells: result.cells }).some((issue) => issue.code === 'blocked_object')).toBe(false);
   });
+
+  it('keeps a conveyor or teleporter when a crate is placed over it', () => {
+    let conveyorDocument = createEmptyDocument('test', 5, 5);
+    conveyorDocument = { ...conveyorDocument, cells: applyBrush(conveyorDocument, 2, 2, 'conveyor_right').cells };
+    const conveyorResult = applyBrush(conveyorDocument, 2, 2, 'crate');
+
+    let teleporterDocument = createEmptyDocument('test', 5, 5);
+    teleporterDocument = { ...teleporterDocument, cells: applyBrush(teleporterDocument, 2, 2, 'teleporter_red').cells };
+    const teleporterResult = applyBrush(teleporterDocument, 2, 2, 'crate');
+
+    expect(conveyorResult.cells[2 * 5 + 2]).toMatchObject({ crate: 'crate', objectId: 'conveyor_right' });
+    expect(teleporterResult.cells[2 * 5 + 2]).toMatchObject({ crate: 'crate', objectId: 'teleporter_red' });
+  });
+
+  it('removes a player spawn when a crate is placed over it', () => {
+    let document = createEmptyDocument('test', 5, 5);
+    document = { ...document, cells: applyBrush(document, 2, 2, 'spawn_p1').cells };
+    const result = applyBrush(document, 2, 2, 'crate');
+
+    expect(result.cells[2 * 5 + 2]).toMatchObject({ crate: 'crate', objectId: null });
+  });
 });
 
 describe('fill', () => {

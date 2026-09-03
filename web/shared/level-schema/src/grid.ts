@@ -181,7 +181,11 @@ export function countObjects(document: LevelDocument, objectId: GridCell['object
 export function withLayerTile(cell: GridCell, layer: TerrainLayerId, tile: TileId | null): GridCell {
   const next = cloneCell(cell);
   next[layer] = tile;
-  if (cellBlocksMovement(next)) {
+  const overlayObject =
+    next.objectId?.startsWith('conveyor_') || next.objectId?.startsWith('teleporter_');
+
+  // Crates may cover conveyor belts and teleporters. Solid walls cannot cover any object.
+  if (layer === 'solid' || (cellBlocksMovement(next) && !overlayObject)) {
     next.objectId = null;
   }
   return next;

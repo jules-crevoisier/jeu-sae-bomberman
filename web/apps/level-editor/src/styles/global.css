@@ -13,7 +13,7 @@
   --grass: #3f7a32;
   --ok: #b6e33d;
   --shadow: 0 12px 32px rgba(0, 0, 0, 0.38);
-  --radius: 18px;
+  --radius: 3px;
   --font-display: 'Bungee', 'Impact', sans-serif;
   --font-ui: 'Sora', 'Trebuchet MS', sans-serif;
   --safe-top: env(safe-area-inset-top, 0px);
@@ -84,7 +84,7 @@ img {
   align-items: center;
   gap: 8px;
   padding: 8px;
-  border-radius: 22px;
+  border-radius: 3px;
 }
 
 .brand {
@@ -114,7 +114,7 @@ img {
   min-width: 0;
   height: var(--touch);
   border: 0;
-  border-radius: 14px;
+  border-radius: 3px;
   background: var(--bg);
   padding: 0 12px;
   outline: none;
@@ -126,7 +126,7 @@ img {
   min-width: var(--touch);
   height: var(--touch);
   border: 2px solid var(--line);
-  border-radius: 14px;
+  border-radius: 3px;
   background: var(--panel-2);
   color: var(--ink);
   display: inline-flex;
@@ -152,7 +152,7 @@ img {
 .workspace {
   position: relative;
   min-height: 0;
-  border-radius: 24px;
+  border-radius: 3px;
   overflow: hidden;
   border: 2px solid var(--line);
   background: #0e0c0a;
@@ -176,7 +176,7 @@ img {
   justify-content: space-between;
   gap: 8px;
   padding: 8px 10px;
-  border-radius: 14px;
+  border-radius: 3px;
   background: rgba(20, 16, 12, 0.82);
   font-size: 11px;
   font-weight: 600;
@@ -199,7 +199,7 @@ img {
   flex-direction: column;
   gap: 8px;
   padding: 8px;
-  border-radius: 20px;
+  border-radius: 3px;
 }
 
 .tool-list,
@@ -244,7 +244,7 @@ img {
   min-height: var(--touch);
   flex: 1 0 auto;
   border: 2px solid var(--line);
-  border-radius: 14px;
+  border-radius: 3px;
   background: var(--panel-2);
   color: var(--ink);
   display: inline-flex;
@@ -269,7 +269,7 @@ img {
 .tool-modes { flex-direction: column; }
 .variant-picker { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 20; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 10px 14px; background: #21170f; border: 2px solid #825823; border-radius: 3px; box-shadow: 0 12px 30px #0009; }
 .variant-picker > span { width: 100%; text-align: center; color: #f2c34c; font-weight: 800; font-size: .8rem; }
-.variant-btn, .variant-close { border: 1px solid #674721; border-radius: 8px; background: #352416; color: #fff0cb; padding: 5px 8px; }
+.variant-btn, .variant-close { border: 1px solid #674721; border-radius: 3px; background: #352416; color: #fff0cb; padding: 5px 8px; }
 .variant-btn { display: grid; gap: 2px; justify-items: center; width: 74px; min-height: 66px; }
 
 .icon-btn, .tool-btn, .chip, .mode-btn, .variant-btn { border-radius: 3px; transition: transform 120ms steps(2); }
@@ -278,7 +278,7 @@ img {
 @keyframes button-wiggle { 0%, 100% { transform: rotate(0); } 33% { transform: rotate(-2deg); } 66% { transform: rotate(2deg); } }
 
 .palette {
-  border-radius: 22px;
+  border-radius: 3px;
   padding: 8px 8px 10px;
 }
 
@@ -296,7 +296,7 @@ img {
   align-items: center;
   padding: 3px;
   border: 2px solid var(--line);
-  border-radius: 14px;
+  border-radius: 3px;
   background: var(--panel-2);
 }
 
@@ -344,7 +344,7 @@ img {
   padding: 0;
   border: 0;
   background: transparent;
-  border-radius: 10px;
+  border-radius: 3px;
   color: inherit;
 }
 
@@ -443,7 +443,7 @@ img {
   flex-direction: column;
   gap: 4px;
   padding: 14px;
-  border-radius: 16px;
+  border-radius: 3px;
   border: 2px solid var(--line);
   background: var(--panel-2);
   text-align: left;
@@ -481,7 +481,7 @@ img {
 .sheet {
   width: min(100%, 560px);
   max-height: min(86dvh, 720px);
-  border-radius: 28px 28px 0 0;
+  border-radius: 3px;
   padding: 16px 16px calc(16px + var(--safe-bottom));
   display: flex;
   flex-direction: column;
@@ -508,7 +508,7 @@ img {
   resize: none;
   background: #100d0a;
   border: 2px solid var(--line);
-  border-radius: 16px;
+  border-radius: 3px;
   padding: 12px;
   color: #f3d9a4;
   font-family: ui-monospace, 'Cascadia Code', monospace;
@@ -540,7 +540,7 @@ img {
 .field input,
 .field select {
   height: 44px;
-  border-radius: 12px;
+  border-radius: 3px;
   border: 2px solid var(--line);
   background: var(--bg);
   padding: 0 10px;
@@ -558,7 +558,7 @@ img {
   align-items: center;
   gap: 8px;
   padding: 10px;
-  border-radius: 14px;
+  border-radius: 3px;
   border: 2px solid var(--line);
   background: var(--panel-2);
   text-align: left;
@@ -569,7 +569,7 @@ img {
   flex-direction: column;
   gap: 8px;
   padding: 10px 12px;
-  border-radius: 16px;
+  border-radius: 3px;
   border: 1px solid rgba(226, 59, 46, 0.4);
   background: rgba(226, 59, 46, 0.15);
 }
@@ -600,7 +600,7 @@ img {
   color: #1a1208;
   font-weight: 700;
   padding: 10px 14px;
-  border-radius: 999px;
+  border-radius: 3px;
   z-index: 30;
 }
 
@@ -684,7 +684,7 @@ img {
   }
 
   .sheet {
-    border-radius: 28px;
+    border-radius: 3px;
     padding-bottom: 16px;
   }
 }
