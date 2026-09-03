@@ -39,7 +39,8 @@ export function Palette({
     : entries.filter((entry) => entry.id.startsWith('teleporter_'));
   useEffect(() => {
     if (brush.startsWith('conveyor_')) setVariantGroup('conveyor');
-    if (brush.startsWith('teleporter_')) setVariantGroup('teleporter');
+    else if (brush.startsWith('teleporter_')) setVariantGroup('teleporter');
+    else setVariantGroup(null);
   }, [brush]);
   return (
     <section className="palette" aria-label="Palette d'objets">

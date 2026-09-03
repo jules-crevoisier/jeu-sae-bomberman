@@ -28,9 +28,7 @@ export async function loadSheets(): Promise<SheetMap | null> {
       loadImage('/sprites/PowerUps.png'),
     ]);
     return { blocks, rat, conveyor, teleporter, powerups };
-  } catch {
-    return null;
-  }
+  } catch { return null; }
 }
 
 export function drawSprite(
@@ -65,5 +63,10 @@ export function drawSprite(
     size,
     size,
   );
+  if (item.sprite.tint) {
+    context.globalCompositeOperation = 'source-atop';
+    context.fillStyle = item.sprite.tint;
+    context.fillRect(-size / 2, -size / 2, size, size);
+  }
   context.restore();
 }
