@@ -91,6 +91,16 @@ describe('paint', () => {
     expect(erased.changed).toBe(false);
     expect(erased.cells[2 * 5 + 2]?.objectId).toBe('conveyor_right');
   });
+
+  it('places a conveyor beneath a crate', () => {
+    let document = createEmptyDocument('test', 5, 5);
+    document = { ...document, cells: applyBrush(document, 2, 2, 'crate').cells };
+    const result = applyBrush(document, 2, 2, 'conveyor_right');
+
+    expect(result.changed).toBe(true);
+    expect(result.cells[2 * 5 + 2]).toMatchObject({ crate: 'crate', objectId: 'conveyor_right' });
+    expect(validateLevel({ ...document, cells: result.cells }).some((issue) => issue.code === 'blocked_object')).toBe(false);
+  });
 });
 
 describe('fill', () => {

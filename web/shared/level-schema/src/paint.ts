@@ -45,9 +45,9 @@ export function canPlaceObject(cell: GridCell, objectId: ObjectId): boolean {
   if (getCatalogItem(objectId).kind === 'tile') {
     return false;
   }
-  // Conveyor belts cannot be placed on solid blocks
-  if (isConveyor(objectId) && cell.solid !== null) {
-    return false;
+  // Conveyors sit beneath crates, but cannot exist inside a solid wall.
+  if (isConveyor(objectId)) {
+    return cell.solid === null;
   }
   return !cellBlocksMovement(cell);
 }
