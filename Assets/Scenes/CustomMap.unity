@@ -920,7 +920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &597041827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -933,489 +933,162 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2da259c158788b749a299a7bfdd8b41b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bomberman.LevelCreator
-  levelJsonAsset: {fileID: 0}
+  levelJsonAsset: {fileID: 4900000, guid: 03f3da1834a8b6945b7fd6331decf15a, type: 3}
   levelJson: "{\r\n  \"version\": 1,\r\n  \"name\": \"Ar\xE8ne moyenne\",\r\n  \"width\":
     21,\r\n  \"height\": 13,\r\n  \"cellSize\": 1,\r\n  \"origin\": \"bottom-left\",\r\n 
     \"objects\": [\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n     
-    \"y\": 0\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n     
-    \"y\": 0,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 1,\r\n      \"y\": 0\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 1,\r\n      \"y\": 0,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 2,\r\n      \"y\": 0\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 2,\r\n      \"y\": 0,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 3,\r\n     
-    \"y\": 0\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 3,\r\n     
-    \"y\": 0,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 4,\r\n      \"y\": 0\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 4,\r\n      \"y\": 0,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 5,\r\n      \"y\": 0\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 5,\r\n      \"y\": 0,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 6,\r\n     
-    \"y\": 0\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 6,\r\n     
-    \"y\": 0,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 7,\r\n      \"y\": 0\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 7,\r\n      \"y\": 0,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 8,\r\n      \"y\": 0\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 8,\r\n      \"y\": 0,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 9,\r\n     
-    \"y\": 0\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 9,\r\n     
-    \"y\": 0,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 10,\r\n      \"y\": 0\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 10,\r\n      \"y\": 0,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 11,\r\n      \"y\": 0\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 11,\r\n      \"y\": 0,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 12,\r\n      \"y\": 0\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 12,\r\n      \"y\": 0,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 13,\r\n      \"y\": 0\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 13,\r\n      \"y\": 0,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 14,\r\n      \"y\": 0\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 14,\r\n      \"y\": 0,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 15,\r\n      \"y\": 0\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 15,\r\n      \"y\": 0,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 16,\r\n      \"y\": 0\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 16,\r\n      \"y\": 0,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 17,\r\n      \"y\": 0\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 17,\r\n      \"y\": 0,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 18,\r\n      \"y\": 0\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 18,\r\n      \"y\": 0,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 19,\r\n      \"y\": 0\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 19,\r\n      \"y\": 0,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 0\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 0,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 1\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 1,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 1,\r\n      \"y\": 1,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"floor\",\r\n      \"x\": 2,\r\n      \"y\": 1,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 3,\r\n     
-    \"y\": 1,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 4,\r\n      \"y\": 1,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 5,\r\n      \"y\": 1\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 6,\r\n      \"y\": 1,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 7,\r\n     
-    \"y\": 1\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 8,\r\n     
-    \"y\": 1,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 9,\r\n      \"y\": 1,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"floor\",\r\n      \"x\": 10,\r\n      \"y\": 1,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 11,\r\n     
-    \"y\": 1,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 12,\r\n      \"y\": 1,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 13,\r\n      \"y\": 1,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 14,\r\n      \"y\": 1,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 15,\r\n      \"y\": 1,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 16,\r\n      \"y\": 1,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 17,\r\n      \"y\": 1,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 18,\r\n      \"y\": 1,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 19,\r\n      \"y\": 1,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 1\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 1,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 2\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 2,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 1,\r\n      \"y\": 2,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 2,\r\n      \"y\": 2\r\n    },\r\n    {\r\n     
-    \"id\": \"floor\",\r\n      \"x\": 2,\r\n      \"y\": 2,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 3,\r\n     
-    \"y\": 2,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 4,\r\n      \"y\": 2\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 4,\r\n      \"y\": 2,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 5,\r\n      \"y\": 2\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 6,\r\n      \"y\": 2\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 6,\r\n      \"y\": 2\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 7,\r\n      \"y\": 2\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 8,\r\n      \"y\": 2\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 8,\r\n      \"y\": 2,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 9,\r\n     
-    \"y\": 2,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 10,\r\n      \"y\": 2\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 10,\r\n      \"y\": 2,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 11,\r\n      \"y\": 2,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 12,\r\n      \"y\": 2\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 12,\r\n      \"y\": 2,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 13,\r\n      \"y\": 2,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 14,\r\n      \"y\": 2\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 14,\r\n      \"y\": 2,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 15,\r\n      \"y\": 2,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 16,\r\n      \"y\": 2\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 16,\r\n      \"y\": 2,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 17,\r\n      \"y\": 2,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 18,\r\n      \"y\": 2\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 18,\r\n      \"y\": 2,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 19,\r\n      \"y\": 2,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 2\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 2,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 3\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 3,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 1,\r\n      \"y\": 3,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"floor\",\r\n      \"x\": 2,\r\n      \"y\": 3,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 3,\r\n     
-    \"y\": 3,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 4,\r\n      \"y\": 3\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 5,\r\n      \"y\": 3,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 6,\r\n      \"y\": 3\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 7,\r\n      \"y\": 3\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 8,\r\n      \"y\": 3\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 9,\r\n      \"y\": 3\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 10,\r\n      \"y\": 3\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 11,\r\n      \"y\": 3\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 12,\r\n      \"y\": 3\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 13,\r\n      \"y\": 3\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 14,\r\n      \"y\": 3\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 15,\r\n      \"y\": 3\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 16,\r\n      \"y\": 3\r\n    },\r\n    {\r\n     
-    \"id\": \"floor\",\r\n      \"x\": 17,\r\n      \"y\": 3,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 18,\r\n     
-    \"y\": 3,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 19,\r\n      \"y\": 3,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 20,\r\n      \"y\": 3\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 20,\r\n      \"y\": 3,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 0,\r\n      \"y\": 4\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 0,\r\n      \"y\": 4,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"floor\",\r\n      \"x\": 1,\r\n      \"y\": 4,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 2,\r\n     
-    \"y\": 4\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 2,\r\n     
-    \"y\": 4,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 3,\r\n      \"y\": 4,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 4,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 4,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 5,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 6,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 6,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 7,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 8,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 8,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 9,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 10,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 10,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 11,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 12,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 12,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 13,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 14,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 14,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 15,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 16,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 16,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 17,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 18,\r\n      \"y\": 4\r\n    },\r\n    {\r\n     
-    \"id\": \"floor\",\r\n      \"x\": 18,\r\n      \"y\": 4,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 19,\r\n     
-    \"y\": 4,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 4\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 4,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 5\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 5,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 1,\r\n      \"y\": 5,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"floor\",\r\n      \"x\": 2,\r\n      \"y\": 5,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 3,\r\n     
-    \"y\": 5,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 4,\r\n      \"y\": 5,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 5,\r\n      \"y\": 5\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 6,\r\n      \"y\": 5\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 7,\r\n      \"y\": 5,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 8,\r\n     
-    \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 9,\r\n     
-    \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 10,\r\n     
-    \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 11,\r\n     
-    \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 12,\r\n     
-    \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 13,\r\n     
-    \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 14,\r\n     
-    \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 15,\r\n     
-    \"y\": 5,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 16,\r\n      \"y\": 5,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 17,\r\n      \"y\": 5,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 18,\r\n      \"y\": 5,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 19,\r\n      \"y\": 5,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 5,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 6\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 6,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 1,\r\n      \"y\": 6,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 2,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"floor\",\r\n      \"x\": 2,\r\n      \"y\": 6,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 3,\r\n     
-    \"y\": 6,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 4,\r\n      \"y\": 6\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 4,\r\n      \"y\": 6\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 5,\r\n      \"y\": 6\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 6,\r\n      \"y\": 6\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 6,\r\n      \"y\": 6,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 7,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 8,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 8,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 9,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 10,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 10,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 11,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 12,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 12,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 13,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 14,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 14,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 15,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 16,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 16,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"crate\",\r\n      \"x\": 17,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 18,\r\n      \"y\": 6\r\n    },\r\n    {\r\n     
-    \"id\": \"floor\",\r\n      \"x\": 18,\r\n      \"y\": 6,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 19,\r\n     
-    \"y\": 6,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 6\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 6,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 7\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 7,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 1,\r\n      \"y\": 7,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"floor\",\r\n      \"x\": 2,\r\n      \"y\": 7,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 3,\r\n     
-    \"y\": 7,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 4,\r\n      \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 5,\r\n      \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 6,\r\n      \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 7,\r\n      \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 8,\r\n      \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 9,\r\n      \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 10,\r\n      \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 11,\r\n      \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 12,\r\n      \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 13,\r\n      \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 14,\r\n      \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 15,\r\n      \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
-    \"x\": 16,\r\n      \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 17,\r\n      \"y\": 7,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 18,\r\n      \"y\": 7,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 19,\r\n      \"y\": 7,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 20,\r\n      \"y\": 7\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 20,\r\n      \"y\": 7,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 0,\r\n      \"y\": 8\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 0,\r\n      \"y\": 8,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"floor\",\r\n      \"x\": 1,\r\n      \"y\": 8,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 2,\r\n     
-    \"y\": 8\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 2,\r\n     
-    \"y\": 8,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 3,\r\n      \"y\": 8,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 4,\r\n      \"y\": 8\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 4,\r\n      \"y\": 8,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 5,\r\n     
-    \"y\": 8\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 6,\r\n     
-    \"y\": 8\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 6,\r\n     
-    \"y\": 8\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 7,\r\n     
-    \"y\": 8,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 8,\r\n      \"y\": 8\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 8,\r\n      \"y\": 8,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"floor\",\r\n      \"x\": 9,\r\n      \"y\": 8,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 10,\r\n     
-    \"y\": 8\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 10,\r\n     
-    \"y\": 8,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 11,\r\n      \"y\": 8,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
+    \"y\": 0,\r\n      \"w\": 21\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
+    \"x\": 0,\r\n      \"y\": 1,\r\n      \"h\": 12\r\n    },\r\n    {\r\n      \"id\":
+    \"solid\",\r\n      \"x\": 20,\r\n      \"y\": 1,\r\n      \"h\": 12\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 2,\r\n      \"y\": 2\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 4,\r\n      \"y\": 2\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 6,\r\n      \"y\": 2\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 8,\r\n      \"y\": 2\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 10,\r\n      \"y\": 2\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 12,\r\n      \"y\": 2\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 14,\r\n      \"y\": 2\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 16,\r\n      \"y\": 2\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 18,\r\n      \"y\": 2\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 2,\r\n      \"y\": 4\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 6,\r\n      \"y\": 4\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 8,\r\n      \"y\": 4\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 10,\r\n      \"y\": 4\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 12,\r\n      \"y\": 4\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 14,\r\n      \"y\": 4\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 18,\r\n      \"y\": 4\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 2,\r\n      \"y\": 6\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 4,\r\n      \"y\": 6\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 6,\r\n      \"y\": 6\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 14,\r\n      \"y\": 6\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 16,\r\n      \"y\": 6\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 18,\r\n      \"y\": 6\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 2,\r\n      \"y\": 8\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 6,\r\n      \"y\": 8\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 8,\r\n      \"y\": 8\r\n    },\r\n   
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 10,\r\n      \"y\": 8\r\n    },\r\n   
     {\r\n      \"id\": \"solid\",\r\n      \"x\": 12,\r\n      \"y\": 8\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 12,\r\n      \"y\": 8,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 13,\r\n      \"y\": 8,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
     {\r\n      \"id\": \"solid\",\r\n      \"x\": 14,\r\n      \"y\": 8\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 14,\r\n      \"y\": 8,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 15,\r\n      \"y\": 8,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 16,\r\n      \"y\": 8\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 16,\r\n      \"y\": 8,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 17,\r\n      \"y\": 8,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
     {\r\n      \"id\": \"solid\",\r\n      \"x\": 18,\r\n      \"y\": 8\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 18,\r\n      \"y\": 8,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 19,\r\n      \"y\": 8,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 20,\r\n      \"y\": 8\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 20,\r\n      \"y\": 8,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 0,\r\n      \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 0,\r\n      \"y\": 9,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"floor\",\r\n      \"x\": 1,\r\n      \"y\": 9,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 2,\r\n     
-    \"y\": 9,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 3,\r\n      \"y\": 9,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"solid\",\r\n      \"x\": 4,\r\n      \"y\": 9,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 5,\r\n     
-    \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 6,\r\n     
-    \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 7,\r\n     
-    \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n      \"x\": 8,\r\n     
-    \"y\": 9,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 9,\r\n      \"y\": 9,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n     
-    \"id\": \"floor\",\r\n      \"x\": 10,\r\n      \"y\": 9,\r\n      \"layer\":
-    \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n      \"x\": 11,\r\n     
-    \"y\": 9,\r\n      \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 12,\r\n      \"y\": 9,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 13,\r\n      \"y\": 9,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 14,\r\n      \"y\": 9,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 15,\r\n      \"y\": 9,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 16,\r\n      \"y\": 9,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 17,\r\n      \"y\": 9,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 18,\r\n      \"y\": 9,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 19,\r\n      \"y\": 9,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 9,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 10\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 10,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 1,\r\n      \"y\": 10,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
     {\r\n      \"id\": \"solid\",\r\n      \"x\": 2,\r\n      \"y\": 10\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 2,\r\n      \"y\": 10,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 3,\r\n      \"y\": 10,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
     {\r\n      \"id\": \"solid\",\r\n      \"x\": 4,\r\n      \"y\": 10\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 4,\r\n      \"y\": 10,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 5,\r\n      \"y\": 10,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
     {\r\n      \"id\": \"solid\",\r\n      \"x\": 6,\r\n      \"y\": 10\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 6,\r\n      \"y\": 10,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 7,\r\n      \"y\": 10,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
     {\r\n      \"id\": \"solid\",\r\n      \"x\": 8,\r\n      \"y\": 10\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 8,\r\n      \"y\": 10,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 9,\r\n      \"y\": 10,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
     {\r\n      \"id\": \"solid\",\r\n      \"x\": 10,\r\n      \"y\": 10\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 10,\r\n      \"y\": 10,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 11,\r\n      \"y\": 10,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
     {\r\n      \"id\": \"solid\",\r\n      \"x\": 12,\r\n      \"y\": 10\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 12,\r\n      \"y\": 10,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 13,\r\n      \"y\": 10,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
     {\r\n      \"id\": \"solid\",\r\n      \"x\": 14,\r\n      \"y\": 10\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 14,\r\n      \"y\": 10,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 15,\r\n      \"y\": 10,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
     {\r\n      \"id\": \"solid\",\r\n      \"x\": 16,\r\n      \"y\": 10\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 16,\r\n      \"y\": 10,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 17,\r\n      \"y\": 10,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
     {\r\n      \"id\": \"solid\",\r\n      \"x\": 18,\r\n      \"y\": 10\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 18,\r\n      \"y\": 10,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 19,\r\n      \"y\": 10,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 20,\r\n      \"y\": 10\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 20,\r\n      \"y\": 10,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 0,\r\n      \"y\": 11\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 0,\r\n      \"y\": 11,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 1,\r\n      \"y\": 11,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 2,\r\n      \"y\": 11,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 3,\r\n      \"y\": 11,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 4,\r\n      \"y\": 11,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 5,\r\n      \"y\": 11,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 6,\r\n      \"y\": 11,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 7,\r\n      \"y\": 11,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 8,\r\n      \"y\": 11,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 9,\r\n      \"y\": 11,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 10,\r\n      \"y\": 11,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 11,\r\n      \"y\": 11,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 12,\r\n      \"y\": 11,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 13,\r\n      \"y\": 11,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 14,\r\n      \"y\": 11,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 15,\r\n      \"y\": 11,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 16,\r\n      \"y\": 11,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 17,\r\n      \"y\": 11,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"floor\",\r\n     
-    \"x\": 18,\r\n      \"y\": 11,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"floor\",\r\n      \"x\": 19,\r\n      \"y\": 11,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 11\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 20,\r\n      \"y\": 11,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 12\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 0,\r\n      \"y\": 12,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 1,\r\n      \"y\": 12\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 1,\r\n      \"y\": 12,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 2,\r\n      \"y\": 12\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 2,\r\n      \"y\": 12,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 3,\r\n      \"y\": 12\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 3,\r\n      \"y\": 12,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 4,\r\n      \"y\": 12\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 4,\r\n      \"y\": 12,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 5,\r\n      \"y\": 12\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 5,\r\n      \"y\": 12,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 6,\r\n      \"y\": 12\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 6,\r\n      \"y\": 12,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 7,\r\n      \"y\": 12\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 7,\r\n      \"y\": 12,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 8,\r\n      \"y\": 12\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 8,\r\n      \"y\": 12,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 9,\r\n      \"y\": 12\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 9,\r\n      \"y\": 12,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 10,\r\n      \"y\": 12\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 10,\r\n      \"y\": 12,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 11,\r\n      \"y\": 12\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 11,\r\n      \"y\": 12,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 12,\r\n      \"y\": 12\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 12,\r\n      \"y\": 12,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 13,\r\n      \"y\": 12\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 13,\r\n      \"y\": 12,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 14,\r\n      \"y\": 12\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 14,\r\n      \"y\": 12,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 15,\r\n      \"y\": 12\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 15,\r\n      \"y\": 12,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 16,\r\n      \"y\": 12\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 16,\r\n      \"y\": 12,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 17,\r\n      \"y\": 12\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 17,\r\n      \"y\": 12,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 18,\r\n      \"y\": 12\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 18,\r\n      \"y\": 12,\r\n     
-    \"layer\": \"crate\"\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 19,\r\n      \"y\": 12\r\n    },\r\n    {\r\n      \"id\": \"solid\",\r\n     
-    \"x\": 19,\r\n      \"y\": 12,\r\n      \"layer\": \"crate\"\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 20,\r\n      \"y\": 12\r\n    },\r\n   
-    {\r\n      \"id\": \"solid\",\r\n      \"x\": 20,\r\n      \"y\": 12,\r\n     
-    \"layer\": \"crate\"\r\n    }\r\n  ]\r\n}\r\n"
+    {\r\n      \"id\": \"solid\",\r\n      \"x\": 1,\r\n      \"y\": 12,\r\n     
+    \"w\": 19\r\n    },\r\n    {\r\n      \"id\": \"spawn_p1\",\r\n      \"x\": 1,\r\n     
+    \"y\": 1\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 3,\r\n     
+    \"y\": 1,\r\n      \"w\": 17\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
+    \"x\": 3,\r\n      \"y\": 2,\r\n      \"h\": 10\r\n    },\r\n    {\r\n      \"id\":
+    \"crate\",\r\n      \"x\": 5,\r\n      \"y\": 2,\r\n      \"h\": 10\r\n    },\r\n   
+    {\r\n      \"id\": \"crate\",\r\n      \"x\": 9,\r\n      \"y\": 2,\r\n     
+    \"h\": 10\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 11,\r\n     
+    \"y\": 2,\r\n      \"h\": 10\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
+    \"x\": 13,\r\n      \"y\": 2,\r\n      \"h\": 10\r\n    },\r\n    {\r\n     
+    \"id\": \"crate\",\r\n      \"x\": 15,\r\n      \"y\": 2,\r\n      \"h\": 10\r\n   
+    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 17,\r\n      \"y\": 2,\r\n     
+    \"h\": 10\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 19,\r\n     
+    \"y\": 2,\r\n      \"h\": 8\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
+    \"x\": 1,\r\n      \"y\": 3,\r\n      \"w\": 2\r\n    },\r\n    {\r\n      \"id\":
+    \"crate\",\r\n      \"x\": 4,\r\n      \"y\": 3\r\n    },\r\n    {\r\n      \"id\":
+    \"crate\",\r\n      \"x\": 6,\r\n      \"y\": 3,\r\n      \"w\": 3\r\n    },\r\n   
+    {\r\n      \"id\": \"crate\",\r\n      \"x\": 10,\r\n      \"y\": 3\r\n    },\r\n   
+    {\r\n      \"id\": \"crate\",\r\n      \"x\": 12,\r\n      \"y\": 3\r\n    },\r\n   
+    {\r\n      \"id\": \"crate\",\r\n      \"x\": 14,\r\n      \"y\": 3\r\n    },\r\n   
+    {\r\n      \"id\": \"crate\",\r\n      \"x\": 16,\r\n      \"y\": 3\r\n    },\r\n   
+    {\r\n      \"id\": \"crate\",\r\n      \"x\": 18,\r\n      \"y\": 3\r\n    },\r\n   
+    {\r\n      \"id\": \"crate\",\r\n      \"x\": 1,\r\n      \"y\": 4,\r\n     
+    \"h\": 8\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 7,\r\n     
+    \"y\": 4,\r\n      \"h\": 8\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
+    \"x\": 2,\r\n      \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
+    \"x\": 4,\r\n      \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
+    \"x\": 6,\r\n      \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n     
+    \"x\": 8,\r\n      \"y\": 5,\r\n      \"h\": 3\r\n    },\r\n    {\r\n      \"id\":
+    \"crate\",\r\n      \"x\": 10,\r\n      \"y\": 5,\r\n      \"h\": 3\r\n    },\r\n   
+    {\r\n      \"id\": \"crate\",\r\n      \"x\": 12,\r\n      \"y\": 5,\r\n     
+    \"h\": 3\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 14,\r\n     
+    \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 16,\r\n     
+    \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 18,\r\n     
+    \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 2,\r\n     
+    \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 4,\r\n     
+    \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 6,\r\n     
+    \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 14,\r\n     
+    \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 16,\r\n     
+    \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 18,\r\n     
+    \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 2,\r\n     
+    \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 4,\r\n     
+    \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 6,\r\n     
+    \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 8,\r\n     
+    \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 10,\r\n     
+    \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 12,\r\n     
+    \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 14,\r\n     
+    \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 16,\r\n     
+    \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 18,\r\n     
+    \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 2,\r\n     
+    \"y\": 11\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 4,\r\n     
+    \"y\": 11\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 6,\r\n     
+    \"y\": 11\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 8,\r\n     
+    \"y\": 11\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 10,\r\n     
+    \"y\": 11\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 12,\r\n     
+    \"y\": 11\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 14,\r\n     
+    \"y\": 11\r\n    },\r\n    {\r\n      \"id\": \"crate\",\r\n      \"x\": 16,\r\n     
+    \"y\": 11\r\n    },\r\n    {\r\n      \"id\": \"conveyor_right\",\r\n      \"x\":
+    3,\r\n      \"y\": 1,\r\n      \"w\": 3\r\n    },\r\n    {\r\n      \"id\": \"conveyor_right\",\r\n     
+    \"x\": 6,\r\n      \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"conveyor_right\",\r\n     
+    \"x\": 6,\r\n      \"y\": 7\r\n    },\r\n    {\r\n      \"id\": \"conveyor_right\",\r\n     
+    \"x\": 3,\r\n      \"y\": 11,\r\n      \"w\": 3\r\n    },\r\n    {\r\n      \"id\":
+    \"conveyor_up\",\r\n      \"x\": 7,\r\n      \"y\": 1,\r\n      \"h\": 3\r\n   
+    },\r\n    {\r\n      \"id\": \"conveyor_up\",\r\n      \"x\": 13,\r\n      \"y\":
+    1,\r\n      \"h\": 3\r\n    },\r\n    {\r\n      \"id\": \"conveyor_left\",\r\n     
+    \"x\": 15,\r\n      \"y\": 1,\r\n      \"w\": 3\r\n    },\r\n    {\r\n      \"id\":
+    \"conveyor_left\",\r\n      \"x\": 14,\r\n      \"y\": 5\r\n    },\r\n    {\r\n     
+    \"id\": \"conveyor_left\",\r\n      \"x\": 14,\r\n      \"y\": 7\r\n    },\r\n   
+    {\r\n      \"id\": \"conveyor_left\",\r\n      \"x\": 15,\r\n      \"y\": 11,\r\n     
+    \"w\": 3\r\n    },\r\n    {\r\n      \"id\": \"ice\",\r\n      \"x\": 3,\r\n     
+    \"y\": 3,\r\n      \"w\": 3\r\n    },\r\n    {\r\n      \"id\": \"ice\",\r\n     
+    \"x\": 15,\r\n      \"y\": 3,\r\n      \"w\": 3\r\n    },\r\n    {\r\n      \"id\":
+    \"ice\",\r\n      \"x\": 4,\r\n      \"y\": 4,\r\n      \"h\": 2\r\n    },\r\n   
+    {\r\n      \"id\": \"ice\",\r\n      \"x\": 16,\r\n      \"y\": 4,\r\n      \"h\":
+    2\r\n    },\r\n    {\r\n      \"id\": \"ice\",\r\n      \"x\": 3,\r\n      \"y\":
+    5\r\n    },\r\n    {\r\n      \"id\": \"ice\",\r\n      \"x\": 5,\r\n      \"y\":
+    5\r\n    },\r\n    {\r\n      \"id\": \"ice\",\r\n      \"x\": 7,\r\n      \"y\":
+    5,\r\n      \"w\": 7,\r\n      \"h\": 3\r\n    },\r\n    {\r\n      \"id\": \"ice\",\r\n     
+    \"x\": 15,\r\n      \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"ice\",\r\n     
+    \"x\": 17,\r\n      \"y\": 5\r\n    },\r\n    {\r\n      \"id\": \"ice\",\r\n     
+    \"x\": 3,\r\n      \"y\": 7,\r\n      \"w\": 3\r\n    },\r\n    {\r\n      \"id\":
+    \"ice\",\r\n      \"x\": 15,\r\n      \"y\": 7,\r\n      \"w\": 3\r\n    },\r\n   
+    {\r\n      \"id\": \"ice\",\r\n      \"x\": 4,\r\n      \"y\": 8,\r\n      \"h\":
+    2\r\n    },\r\n    {\r\n      \"id\": \"ice\",\r\n      \"x\": 16,\r\n      \"y\":
+    8,\r\n      \"h\": 2\r\n    },\r\n    {\r\n      \"id\": \"ice\",\r\n      \"x\":
+    3,\r\n      \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"ice\",\r\n      \"x\":
+    5,\r\n      \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"ice\",\r\n      \"x\":
+    15,\r\n      \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"ice\",\r\n      \"x\":
+    17,\r\n      \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"teleporter_cyan\",\r\n     
+    \"x\": 10,\r\n      \"y\": 3\r\n    },\r\n    {\r\n      \"id\": \"teleporter_cyan\",\r\n     
+    \"x\": 10,\r\n      \"y\": 9\r\n    },\r\n    {\r\n      \"id\": \"teleporter_purple\",\r\n     
+    \"x\": 4,\r\n      \"y\": 4\r\n    },\r\n    {\r\n      \"id\": \"teleporter_purple\",\r\n     
+    \"x\": 16,\r\n      \"y\": 8\r\n    },\r\n    {\r\n      \"id\": \"teleporter_red\",\r\n     
+    \"x\": 16,\r\n      \"y\": 4\r\n    },\r\n    {\r\n      \"id\": \"teleporter_red\",\r\n     
+    \"x\": 4,\r\n      \"y\": 8\r\n    },\r\n    {\r\n      \"id\": \"teleporter_green\",\r\n     
+    \"x\": 8,\r\n      \"y\": 6\r\n    },\r\n    {\r\n      \"id\": \"teleporter_green\",\r\n     
+    \"x\": 12,\r\n      \"y\": 6\r\n    },\r\n    {\r\n      \"id\": \"conveyor_down\",\r\n     
+    \"x\": 7,\r\n      \"y\": 9,\r\n      \"h\": 3\r\n    },\r\n    {\r\n      \"id\":
+    \"conveyor_down\",\r\n      \"x\": 13,\r\n      \"y\": 9,\r\n      \"h\": 3\r\n   
+    },\r\n    {\r\n      \"id\": \"spawn_p2\",\r\n      \"x\": 19,\r\n      \"y\":
+    11\r\n    }\r\n  ]\r\n}\r\n"
   generateOnAwake: 1
   worldTilemap: {fileID: 950655247}
   crateTilemap: {fileID: 648734454}
   solidTile: {fileID: 11400000, guid: 42050691daa1af44d92eea2d6e683e7a, type: 2}
   floorTile: {fileID: 11400000, guid: 36487f3e962d77e45a29727422083e6b, type: 2}
+  iceTile: {fileID: 11400000, guid: 3a35990189105364399a52a653600f71, type: 2}
   crateTile: {fileID: 11400000, guid: e336e66f2469b7c4b82b990846e3fa89, type: 2}
   conveyorContainer: {fileID: 610813055}
   conveyorPrefab: {fileID: 3965279924111419752, guid: 8b1a0b6d71131784fa4b0d8fc8144f67, type: 3}
+  teleporterPrefab: {fileID: 8789023666824874399, guid: cb2e408fbb435464882f93609e6ceeb6, type: 3}
 --- !u!4 &597041828
 Transform:
   m_ObjectHideFlags: 0
@@ -5181,7 +4854,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068637749}
   m_CullTransparentMesh: 1
---- !u!1 &1091808922
+--- !u!1 &1139025232
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5189,122 +4862,122 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1091808926}
-  - component: {fileID: 1091808925}
-  - component: {fileID: 1091808924}
-  - component: {fileID: 1091808923}
+  - component: {fileID: 1139025234}
+  - component: {fileID: 1139025233}
   m_Layer: 0
-  m_Name: teleporter (3)
+  m_Name: Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1091808923
-MonoBehaviour:
+--- !u!82 &1139025233
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091808922}
+  m_GameObject: {fileID: 1139025232}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b8d6c181845eb2458ff5f663973e41d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  teleporterColor: 0
-  teleporterRenderer: {fileID: 1091808925}
---- !u!95 &1091808924
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091808922}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6ba053e2adb5f3c41bcde31110abf067, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!212 &1091808925
-SpriteRenderer:
-  serializedVersion: 2
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091808922}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_Sprite: {fileID: 8409234884740282508, guid: 71009b8cb92c34949a8d90698cbe6388, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
---- !u!4 &1091808926
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 29e2e79fa84063d4a96766a317b25ce7, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1139025234
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091808922}
+  m_GameObject: {fileID: 1139025232}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: 2, z: 0}
+  m_LocalPosition: {x: -0.50564, y: 0.24891, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5415,135 +5088,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168759378}
   m_CullTransparentMesh: 1
---- !u!1 &1276321085
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1276321089}
-  - component: {fileID: 1276321088}
-  - component: {fileID: 1276321087}
-  - component: {fileID: 1276321086}
-  m_Layer: 0
-  m_Name: teleporter (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1276321086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276321085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b8d6c181845eb2458ff5f663973e41d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  teleporterColor: 1
-  teleporterRenderer: {fileID: 1276321088}
---- !u!95 &1276321087
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276321085}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6ba053e2adb5f3c41bcde31110abf067, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!212 &1276321088
-SpriteRenderer:
-  serializedVersion: 2
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276321085}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_Sprite: {fileID: 8409234884740282508, guid: 71009b8cb92c34949a8d90698cbe6388, type: 3}
-  m_Color: {r: 0.7, g: 0.25, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
---- !u!4 &1276321089
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276321085}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: -2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1289536189
 GameObject:
   m_ObjectHideFlags: 0
@@ -5589,135 +5133,6 @@ Transform:
   - {fileID: 950655245}
   - {fileID: 648734452}
   - {fileID: 610813055}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1324064256
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1324064260}
-  - component: {fileID: 1324064259}
-  - component: {fileID: 1324064258}
-  - component: {fileID: 1324064257}
-  m_Layer: 0
-  m_Name: teleporter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1324064257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1324064256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b8d6c181845eb2458ff5f663973e41d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  teleporterColor: 1
-  teleporterRenderer: {fileID: 1324064259}
---- !u!95 &1324064258
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1324064256}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6ba053e2adb5f3c41bcde31110abf067, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!212 &1324064259
-SpriteRenderer:
-  serializedVersion: 2
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1324064256}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_Sprite: {fileID: 8409234884740282508, guid: 71009b8cb92c34949a8d90698cbe6388, type: 3}
-  m_Color: {r: 0.7, g: 0.25, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
---- !u!4 &1324064260
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1324064256}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: -2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1350461186
@@ -6080,135 +5495,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1960004871
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1960004875}
-  - component: {fileID: 1960004874}
-  - component: {fileID: 1960004873}
-  - component: {fileID: 1960004872}
-  m_Layer: 0
-  m_Name: teleporter (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1960004872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960004871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b8d6c181845eb2458ff5f663973e41d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  teleporterColor: 0
-  teleporterRenderer: {fileID: 1960004874}
---- !u!95 &1960004873
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960004871}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6ba053e2adb5f3c41bcde31110abf067, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!212 &1960004874
-SpriteRenderer:
-  serializedVersion: 2
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960004871}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_Sprite: {fileID: 8409234884740282508, guid: 71009b8cb92c34949a8d90698cbe6388, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
---- !u!4 &1960004875
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960004871}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2012345678
 GameObject:
   m_ObjectHideFlags: 0
@@ -6288,9 +5574,11 @@ MonoBehaviour:
   crateTilemap: {fileID: 0}
   solidTile: {fileID: 0}
   floorTile: {fileID: 0}
+  iceTile: {fileID: 11400000, guid: 3a35990189105364399a52a653600f71, type: 2}
   crateTile: {fileID: 0}
   conveyorContainer: {fileID: 0}
   conveyorPrefab: {fileID: 3965279924111419752, guid: 8b1a0b6d71131784fa4b0d8fc8144f67, type: 3}
+  teleporterPrefab: {fileID: 0}
 --- !u!1001 &2069777462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6415,7 +5703,4 @@ SceneRoots:
   - {fileID: 1289536191}
   - {fileID: 2012345679}
   - {fileID: 597041828}
-  - {fileID: 1324064260}
-  - {fileID: 1276321089}
-  - {fileID: 1960004875}
-  - {fileID: 1091808926}
+  - {fileID: 1139025234}

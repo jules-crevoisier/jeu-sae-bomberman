@@ -444,6 +444,12 @@ namespace Bomberman
                 return false;
             }
 
+            // Player input takes priority over a conveyor, including when walking against it.
+            if (GetInputDirection() != Vector2.zero)
+            {
+                return false;
+            }
+
             Vector3Int playerCellPosition = GetGridCell(collisionTilemap);
 
             if (ConveyorBelt.TryGetAtCell(playerCellPosition, collisionTilemap, out ConveyorBelt conveyorBelt))

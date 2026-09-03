@@ -24,9 +24,13 @@ namespace Bomberman
         [SerializeField] private Tilemap crateTilemap;
         [SerializeField] private TileBase solidTile;
         [SerializeField] private TileBase floorTile;
+        [SerializeField] private TileBase iceTile;
         [SerializeField] private TileBase crateTile;
         [SerializeField] private Transform conveyorContainer;
         [SerializeField] private GameObject conveyorPrefab;
+        [SerializeField] private GameObject teleporterPrefab;
+
+        private GameObject teleporterTemplateCache;
 
         #endregion
 
@@ -38,6 +42,11 @@ namespace Bomberman
             {
                 GenerateLevel();
             }
+        }
+
+        private void OnDestroy()
+        {
+            DestroySceneObject(teleporterTemplateCache);
         }
 
         #endregion
@@ -80,18 +89,26 @@ namespace Bomberman
             }
 
             GameObject conveyorTemplate = CreateConveyorTemplate();
+            GameObject teleporterTemplate = CreateTeleporterTemplate();
             List<PlayerState> playerStates = CapturePlayerStates();
             LevelBuildData buildData = BuildLevelData(levelDefinition);
 
-            ClearSceneState(conveyorTemplate);
+            if (buildData.hasIce && iceTile == null)
+            {
+                Debug.LogWarning("The level contains ice, but no ice tile is assigned. Floor will be used instead.", this);
+            }
+
+            ClearSceneState(conveyorTemplate, teleporterTemplate);
             RebuildTilemaps(levelDefinition, buildData);
             SpawnConveyors(levelDefinition, buildData, conveyorTemplate);
+            SpawnTeleporters(levelDefinition, buildData, teleporterTemplate);
             RepositionPlayers(levelDefinition, buildData, playerStates);
 
             if (conveyorTemplate != null)
             {
                 DestroySceneObject(conveyorTemplate);
             }
+
         }
 
         #endregion
@@ -273,6 +290,15 @@ namespace Bomberman
                             continue;
                         }
 
+                        if (IsTeleporterId(normalizedId))
+                        {
+                            LevelCellData teleporterCell = buildData.cells[cellPosition.x, cellPosition.y];
+                            teleporterCell.hasTeleporter = true;
+                            teleporterCell.teleporterColor = ParseTeleporterColor(normalizedId);
+                            buildData.cells[cellPosition.x, cellPosition.y] = teleporterCell;
+                            continue;
+                        }
+
                         if (!string.IsNullOrWhiteSpace(levelObject.layer))
                         {
                             continue;
@@ -293,6 +319,12 @@ namespace Bomberman
                                 break;
 
                             case "floor":
+                                buildData.cells[cellPosition.x, cellPosition.y].isIce = false;
+                                break;
+
+                            case "ice":
+                                buildData.cells[cellPosition.x, cellPosition.y].isIce = true;
+                                buildData.hasIce = true;
                                 break;
 
                             default:
@@ -321,7 +353,8 @@ namespace Bomberman
                     Vector3Int sceneCell = GetSceneCell(x, y, levelDefinition);
                     LevelCellData cellData = buildData.cells[x, y];
 
-                    worldTilemap.SetTile(sceneCell, cellData.isSolid ? solidTile : floorTile);
+                    TileBase groundTile = cellData.isIce && iceTile != null ? iceTile : floorTile;
+                    worldTilemap.SetTile(sceneCell, cellData.isSolid ? solidTile : groundTile);
 
                     if (cellData.hasCrate && !cellData.isSolid)
                     {
@@ -375,6 +408,49 @@ namespace Bomberman
             }
         }
 
+        private void SpawnTeleporters(LevelDefinition levelDefinition, LevelBuildData buildData, GameObject teleporterTemplate)
+        {
+            if (teleporterTemplate == null)
+            {
+                return;
+            }
+
+            for (int y = 0; y < levelDefinition.height; y++)
+            {
+                for (int x = 0; x < levelDefinition.width; x++)
+                {
+                    LevelCellData cellData = buildData.cells[x, y];
+
+                    if (!cellData.hasTeleporter || cellData.isSolid)
+                    {
+                        continue;
+                    }
+
+                    Vector3Int sceneCell = GetSceneCell(x, y, levelDefinition);
+                    Vector3 spawnPosition = worldTilemap.GetCellCenterWorld(sceneCell);
+                    spawnPosition.z = teleporterTemplate.transform.position.z;
+
+                    GameObject teleporterObject = Instantiate(
+                        teleporterTemplate,
+                        spawnPosition,
+                        Quaternion.identity,
+                        conveyorContainer);
+
+                    teleporterObject.name = teleporterTemplate.name.Replace(" Template", string.Empty);
+                    teleporterObject.SetActive(true);
+
+                    Teleporter teleporter = teleporterObject.GetComponent<Teleporter>();
+
+                    if (teleporter != null)
+                    {
+                        teleporter.SetColor(cellData.teleporterColor);
+                    }
+                }
+            }
+
+            Teleporter.RefreshAllVisuals();
+        }
+
         #endregion
 
         #region Scene State
@@ -403,7 +479,37 @@ namespace Bomberman
             return conveyorTemplate;
         }
 
-        private void ClearSceneState(GameObject conveyorTemplate)
+        private GameObject CreateTeleporterTemplate()
+        {
+            if (teleporterTemplateCache != null)
+            {
+                return teleporterTemplateCache;
+            }
+
+            GameObject templateSource = teleporterPrefab;
+
+            if (templateSource == null)
+            {
+                Teleporter[] teleporters = Teleporter.GetAllTeleporters();
+
+                if (teleporters.Length == 0 || teleporters[0] == null)
+                {
+                    Debug.LogWarning("No teleporter prefab or scene teleporter is configured; teleporter objects were skipped.", this);
+                    return null;
+                }
+
+                templateSource = teleporters[0].gameObject;
+            }
+
+            GameObject teleporterTemplate = Instantiate(templateSource);
+            teleporterTemplate.name = $"{templateSource.name} Template";
+            teleporterTemplate.hideFlags = HideFlags.HideAndDontSave;
+            teleporterTemplate.SetActive(false);
+            teleporterTemplateCache = teleporterTemplate;
+            return teleporterTemplateCache;
+        }
+
+        private void ClearSceneState(GameObject conveyorTemplate, GameObject teleporterTemplate)
         {
             ConveyorBelt[] conveyors = FindObjectsByType<ConveyorBelt>(FindObjectsSortMode.None);
 
@@ -416,6 +522,19 @@ namespace Bomberman
 
                 conveyor.gameObject.SetActive(false);
                 DestroySceneObject(conveyor.gameObject);
+            }
+
+            Teleporter[] teleporters = Teleporter.GetAllTeleporters();
+
+            foreach (Teleporter teleporter in teleporters)
+            {
+                if (teleporter == null || teleporter.gameObject == teleporterTemplate)
+                {
+                    continue;
+                }
+
+                teleporter.gameObject.SetActive(false);
+                DestroySceneObject(teleporter.gameObject);
             }
 
             Bomb[] bombs = FindObjectsByType<Bomb>(FindObjectsSortMode.None);
@@ -645,6 +764,11 @@ namespace Bomberman
                 || normalizedId.Contains("tapis");
         }
 
+        private static bool IsTeleporterId(string normalizedId)
+        {
+            return normalizedId.StartsWith("teleporter") || normalizedId.StartsWith("portal");
+        }
+
         private static string NormalizeToken(string value)
         {
             return string.IsNullOrWhiteSpace(value)
@@ -728,6 +852,36 @@ namespace Bomberman
             }
         }
 
+        private static Teleporter.TeleporterColor ParseTeleporterColor(string normalizedId)
+        {
+            if (normalizedId.Contains("purple"))
+            {
+                return Teleporter.TeleporterColor.Purple;
+            }
+
+            if (normalizedId.Contains("blue"))
+            {
+                return Teleporter.TeleporterColor.Blue;
+            }
+
+            if (normalizedId.Contains("cyan"))
+            {
+                return Teleporter.TeleporterColor.Cyan;
+            }
+
+            if (normalizedId.Contains("green"))
+            {
+                return Teleporter.TeleporterColor.Green;
+            }
+
+            if (normalizedId.Contains("orange"))
+            {
+                return Teleporter.TeleporterColor.Orange;
+            }
+
+            return Teleporter.TeleporterColor.Red;
+        }
+
         private static Quaternion GetConveyorRotation(ConveyorDirection direction)
         {
             float zRotation = direction switch
@@ -771,15 +925,19 @@ namespace Bomberman
         private struct LevelCellData
         {
             public bool isSolid;
+            public bool isIce;
             public bool hasCrate;
             public bool hasConveyor;
             public ConveyorDirection conveyorDirection;
+            public bool hasTeleporter;
+            public Teleporter.TeleporterColor teleporterColor;
         }
 
         private sealed class LevelBuildData
         {
             public readonly LevelCellData[,] cells;
             public readonly Dictionary<int, Vector2Int> playerSpawnCells;
+            public bool hasIce;
 
             public LevelBuildData(int width, int height)
             {
