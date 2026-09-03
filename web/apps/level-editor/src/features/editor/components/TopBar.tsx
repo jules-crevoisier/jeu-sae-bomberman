@@ -5,6 +5,7 @@ interface TopBarProps {
   name: string;
   canUndo: boolean;
   canRedo: boolean;
+  exportBlocked: boolean;
   onName: (name: string) => void;
   onUndo: () => void;
   onRedo: () => void;
@@ -17,6 +18,7 @@ export function TopBar({
   name,
   canUndo,
   canRedo,
+  exportBlocked,
   onName,
   onUndo,
   onRedo,
@@ -52,7 +54,7 @@ export function TopBar({
       <button type="button" className="icon-btn" aria-label="Réglages" onClick={onSettings}>
         <SettingsIcon />
       </button>
-      <button type="button" className="icon-btn primary" aria-label="Exporter JSON" onClick={onExport}>
+      <button type="button" className="icon-btn primary" aria-label="Exporter JSON" disabled={exportBlocked} onClick={onExport}>
         <ExportIcon />
       </button>
     </header>

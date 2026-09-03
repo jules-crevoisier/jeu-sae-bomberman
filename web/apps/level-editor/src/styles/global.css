@@ -306,9 +306,33 @@ img {
   opacity: 0.34;
 }
 
-.layer-card.is-locked .layer-icon:last-child {
+.layer-card.is-locked .layer-icon.is-off:not(.layer-clear) {
   color: var(--gold);
   opacity: 1;
+}
+
+.layer-clear {
+  color: var(--fuse);
+  opacity: 0.55;
+}
+
+.layer-clear:hover {
+  opacity: 1;
+}
+
+.export-errors {
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  background: rgba(226, 59, 46, 0.15);
+  border: 1px solid rgba(226, 59, 46, 0.4);
+  border-radius: 10px;
+}
+
+.export-error-line {
+  margin: 0;
+  font-size: 11px;
+  color: #f3917a;
+  line-height: 1.6;
 }
 
 .group-label {

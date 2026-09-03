@@ -2,7 +2,6 @@ import {
   applyBrush,
   brushBelongsToLayer,
   createClassicDocument,
-  floodFill,
   importLevelJson,
   LAYER_DEFAULT_BRUSH,
   layerForBrush,
@@ -11,6 +10,7 @@ import {
   TEMPLATES,
   type BrushId,
   type EditorLayerId,
+  type GridCell,
   type LevelDocument,
   type ToolId,
 } from '@bomberman/level-schema';
@@ -18,7 +18,8 @@ import { createDefaultLayers, MAX_HISTORY, type EditorSnapshot, type SheetId } f
 
 export type EditorAction =
   | { type: 'stroke'; points: ReadonlyArray<{ x: number; y: number }>; brush: BrushId }
-  | { type: 'fill'; x: number; y: number }
+  | { type: 'rectFill'; x1: number; y1: number; x2: number; y2: number }
+  | { type: 'clearLayer'; layer: EditorLayerId }
   | { type: 'setTool'; tool: ToolId }
   | { type: 'setBrush'; brush: BrushId }
   | { type: 'setLayer'; layer: EditorLayerId }
@@ -88,7 +89,7 @@ export function editorReducer(state: EditorSnapshot, action: EditorAction): Edit
       };
     }
     case 'setLayer': {
-      const keepTool = state.tool === 'erase' || state.tool === 'fill' || state.tool === 'picker' || state.tool === 'pan';
+      const keepTool = state.tool === 'erase' || state.tool === 'rect' || state.tool === 'picker' || state.tool === 'pan';
       const brush =
         state.tool === 'erase' || brushBelongsToLayer(state.brush, action.layer)
           ? state.brush
@@ -205,18 +206,64 @@ export function editorReducer(state: EditorSnapshot, action: EditorAction): Edit
         layers: showLayer(state, state.activeLayer),
       };
     }
-    case 'fill': {
+    case 'rectFill': {
       if (state.layers[state.activeLayer].locked) {
         return { ...state, toast: 'Calque verrouillé' };
       }
-      const result = floodFill(state.document, action.x, action.y, state.brush, state.activeLayer);
-      if (!result.changed) {
+      const x1 = Math.min(action.x1, action.x2);
+      const x2 = Math.max(action.x1, action.x2);
+      const y1 = Math.min(action.y1, action.y2);
+      const y2 = Math.max(action.y1, action.y2);
+      const points: Array<{ x: number; y: number }> = [];
+      for (let ry = y1; ry <= y2; ry += 1) {
+        for (let rx = x1; rx <= x2; rx += 1) {
+          points.push({ x: rx, y: ry });
+        }
+      }
+      let cells = state.document.cells;
+      let changed = false;
+      for (const point of points) {
+        const result = applyBrush(
+          { ...state.document, cells },
+          point.x,
+          point.y,
+          state.brush,
+          state.activeLayer,
+        );
+        if (result.changed) {
+          cells = result.cells;
+          changed = true;
+        }
+      }
+      if (!changed) {
         return state;
       }
       return {
-        ...pushHistory(state, { ...state.document, cells: result.cells }),
+        ...pushHistory(state, { ...state.document, cells }),
         layers: showLayer(state, state.activeLayer),
       };
+    }
+    case 'clearLayer': {
+      const layer = action.layer;
+      const next: GridCell[] = state.document.cells.map((cell) => {
+        switch (layer) {
+          case 'ground':
+            return cell.ground === 'floor' ? cell : { ...cell, ground: 'floor' };
+          case 'solid':
+            return cell.solid === null ? cell : { ...cell, solid: null };
+          case 'crate':
+            return cell.crate === null ? cell : { ...cell, crate: null };
+          case 'objects':
+            return cell.objectId === null ? cell : { ...cell, objectId: null };
+          default:
+            return cell;
+        }
+      });
+      const changed2 = next.some((c, i) => c !== state.document.cells[i]);
+      if (!changed2) {
+        return state;
+      }
+      return pushHistory(state, { ...state.document, cells: next });
     }
     default:
       return state;

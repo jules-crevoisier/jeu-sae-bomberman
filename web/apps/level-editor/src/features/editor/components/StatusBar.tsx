@@ -1,4 +1,4 @@
-import { hasBlockingErrors, LAYER_LABELS, type BrushId, type EditorLayerId, type ValidationIssue } from '@bomberman/level-schema';
+import { LAYER_LABELS, type BrushId, type EditorLayerId, type ValidationIssue } from '@bomberman/level-schema';
 import type { JSX } from 'react';
 import { SelectedHint } from './Palette.tsx';
 
@@ -11,21 +11,23 @@ interface StatusBarProps {
   issues: ValidationIssue[];
 }
 
-export function StatusBar({ width, height, hover, brush, layer, issues }: StatusBarProps): JSX.Element {
-  const errors = hasBlockingErrors(issues);
+export function StatusBar({ width, height, hover, brush, layer }: StatusBarProps): JSX.Element {
+  let coordLabel = 'grille';
+  if (hover) {
+    const cx = hover.x - Math.floor(width / 2);
+    const cy = hover.y - Math.floor(height / 2);
+    coordLabel = `${cx}, ${cy}`;
+  }
   return (
     <div className="status">
       <span>
         <b>{width}×{height}</b>
         {' · '}
-        {hover ? `${hover.x}, ${hover.y}` : 'grille'}
+        {coordLabel}
         {' · '}
         {LAYER_LABELS[layer]}
         {' · '}
         <SelectedHint brush={brush} />
-      </span>
-      <span className={errors ? 'issue-bad' : 'issue-ok'}>
-        {errors ? issues[0]?.message : 'Prêt pour Unity'}
       </span>
     </div>
   );

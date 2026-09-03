@@ -153,11 +153,42 @@ describe('export/import', () => {
   });
 
   it('exports floor under crates when includeFloor is on', () => {
-    let document = createEmptyDocument('test', 3, 3);
+    // MIN_GRID_SIZE is 5 so we use 5×5
+    let document = createEmptyDocument('test', 5, 5);
     document = { ...document, cells: applyBrush(document, 1, 1, 'crate').cells };
     const exported = exportLevel(document, { includeFloor: true });
-    expect(exported.objects.some((item) => item.id === 'floor' && item.x === 1 && item.y === 1)).toBe(true);
+    // RLE may compress floors into blobs; round-trip checks the cell is correct
+    const reimported = importLevelJson(JSON.stringify(exported));
+    expect(reimported.cells[1 * 5 + 1]?.ground).toBe('floor');
+    expect(reimported.cells[1 * 5 + 1]?.crate).toBe('crate');
+    // The crate at (1,1) is a single cell, so it's not blobbed
     expect(exported.objects.some((item) => item.id === 'crate' && item.x === 1 && item.y === 1)).toBe(true);
+  });
+
+  it('compresses a full block of solid into a single rect blob', () => {
+    // MIN_GRID_SIZE is 5, so a 3-requested grid becomes 5×5
+    let document = createEmptyDocument('test', 5, 5);
+    for (let y = 0; y < 5; y += 1) {
+      for (let x = 0; x < 5; x += 1) {
+        document = { ...document, cells: applyBrush(document, x, y, 'solid').cells };
+      }
+    }
+    const exported = exportLevel(document);
+    const solidBlobs = exported.objects.filter((item) => item.id === 'solid');
+    // Should be a single blob covering the full 5×5
+    expect(solidBlobs).toHaveLength(1);
+    const blob = solidBlobs[0] as { id: string; x: number; y: number; w?: number; h?: number };
+    expect(blob.x).toBe(0);
+    expect(blob.y).toBe(0);
+    expect(blob.w).toBe(5);
+    expect(blob.h).toBe(5);
+    // Round-trip: importing the blob restores all 25 cells
+    const reimported = importLevelJson(JSON.stringify(exported));
+    for (let y = 0; y < 5; y += 1) {
+      for (let x = 0; x < 5; x += 1) {
+        expect(reimported.cells[y * 5 + x]?.solid).toBe('solid');
+      }
+    }
   });
 
   it('exports a swapped wood floor with an explicit layer', () => {
