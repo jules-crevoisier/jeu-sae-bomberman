@@ -14,6 +14,7 @@ import {
   Pipette,
   Redo2,
   Settings2,
+  Trash2,
   Undo2,
 } from 'lucide-react';
 import type { JSX } from 'react';
@@ -78,4 +79,8 @@ export function LockIcon(): JSX.Element {
 
 export function UnlockIcon(): JSX.Element {
   return <LockOpen {...ICON} />;
+}
+
+export function Trash2Icon(): JSX.Element {
+  return <Trash2 {...ICON} />;
 }

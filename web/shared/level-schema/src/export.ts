@@ -13,7 +13,105 @@ const DEFAULT_EXPORT_OPTIONS: ExportOptions = {
   includeFloor: false,
 };
 
-function exportedObject(id: PlaceableId, x: number, y: number, layer: EditorLayerId): LevelObject {
+/** An exported object may carry optional w/h for rectangle blobs. */
+export interface LevelObjectBlob extends LevelObject {
+  w?: number;
+  h?: number;
+}
+
+function makeKey(id: PlaceableId, layer: EditorLayerId): string {
+  return `${id}::${layer}`;
+}
+
+/**
+ * Compress a flat list of same-position objects into horizontal runs and
+ * then into 2-D rectangles where rows are identical.
+ */
+function compress(flat: Array<LevelObjectBlob>): LevelObjectBlob[] {
+  if (flat.length === 0) {
+    return flat;
+  }
+
+  // Group by key (id + layer) then compress per group
+  const groups = new Map<string, LevelObjectBlob[]>();
+  for (const obj of flat) {
+    const k = makeKey(obj.id, obj.layer as EditorLayerId ?? defaultLayerForPlaceable(obj.id) as EditorLayerId);
+    const arr = groups.get(k) ?? [];
+    arr.push(obj);
+    groups.set(k, arr);
+  }
+
+  const result: LevelObjectBlob[] = [];
+
+  for (const items of groups.values()) {
+    // Sort by y then x
+    items.sort((a, b) => a.y !== b.y ? a.y - b.y : a.x - b.x);
+
+    // Build a set of {x,y} for quick lookup
+    const present = new Set(items.map((o) => `${o.x},${o.y}`));
+
+    // Track which cells have been consumed
+    const consumed = new Set<string>();
+
+    for (const origin of items) {
+      const cellKey = `${origin.x},${origin.y}`;
+      if (consumed.has(cellKey)) {
+        continue;
+      }
+
+      // Find horizontal run width
+      let w = 1;
+      while (present.has(`${origin.x + w},${origin.y}`) && !consumed.has(`${origin.x + w},${origin.y}`)) {
+        w += 1;
+      }
+
+      // Try to extend into a rectangle (same run at each next row)
+      let h = 1;
+      outer: while (true) {
+        for (let dx = 0; dx < w; dx += 1) {
+          const k2 = `${origin.x + dx},${origin.y + h}`;
+          if (!present.has(k2) || consumed.has(k2)) {
+            break outer;
+          }
+        }
+        h += 1;
+      }
+
+      // Mark all consumed
+      for (let dy = 0; dy < h; dy += 1) {
+        for (let dx = 0; dx < w; dx += 1) {
+          consumed.add(`${origin.x + dx},${origin.y + dy}`);
+        }
+      }
+
+      const blob: LevelObjectBlob = { ...origin };
+      if (w > 1) {
+        blob.w = w;
+      }
+      if (h > 1) {
+        blob.h = h;
+      }
+      result.push(blob);
+    }
+  }
+
+  // Restore original field order: id, x, y, [w], [h], [layer]
+  return result.map(({ id, x, y, w, h, layer }) => {
+    const obj: LevelObjectBlob = { id, x, y };
+    if (w !== undefined && w > 1) {
+      obj.w = w;
+    }
+    if (h !== undefined && h > 1) {
+      obj.h = h;
+    }
+    if (layer !== undefined) {
+      obj.layer = layer;
+    }
+    return obj;
+  });
+}
+
+function exportedObject(id: PlaceableId, x: number, y: number, layer: EditorLayerId): LevelObjectBlob {
   if (defaultLayerForPlaceable(id) === layer) {
     return { id, x, y };
   }
@@ -25,7 +123,7 @@ export function exportLevel(
   options: Partial<ExportOptions> = {},
 ): ExportedLevel {
   const { includeFloor } = { ...DEFAULT_EXPORT_OPTIONS, ...options };
-  const objects: LevelObject[] = [];
+  const flat: LevelObjectBlob[] = [];
 
   for (let y = 0; y < document.height; y += 1) {
     for (let x = 0; x < document.width; x += 1) {
@@ -35,19 +133,21 @@ export function exportLevel(
       }
 
       if (cell.ground && (includeFloor || cell.ground !== 'floor')) {
-        objects.push(exportedObject(cell.ground, x, y, 'ground'));
+        flat.push(exportedObject(cell.ground, x, y, 'ground'));
       }
       if (cell.solid) {
-        objects.push(exportedObject(cell.solid, x, y, 'solid'));
+        flat.push(exportedObject(cell.solid, x, y, 'solid'));
       }
       if (cell.crate) {
-        objects.push(exportedObject(cell.crate, x, y, 'crate'));
+        flat.push(exportedObject(cell.crate, x, y, 'crate'));
       }
       if (cell.objectId) {
-        objects.push(exportedObject(cell.objectId, x, y, 'objects'));
+        flat.push(exportedObject(cell.objectId, x, y, 'objects'));
       }
     }
   }
+
+  const objects = compress(flat) as LevelObject[];
 
   return {
     version: LEVEL_FORMAT_VERSION,

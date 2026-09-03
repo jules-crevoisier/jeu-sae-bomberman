@@ -52,7 +52,14 @@ function parseObject(value: unknown, index: number): LevelObject {
   const layer =
     typeof value.layer === 'string' && isEditorLayerId(value.layer) ? value.layer : undefined;
 
-  return { id: value.id, x: value.x, y: value.y, layer };
+  const w = typeof value.w === 'number' && Number.isInteger(value.w) && value.w >= 1 ? value.w : 1;
+  const h = typeof value.h === 'number' && Number.isInteger(value.h) && value.h >= 1 ? value.h : 1;
+
+  // Expand blob into individual cells
+  if (w === 1 && h === 1) {
+    return { id: value.id, x: value.x, y: value.y, layer };
+  }
+  return { id: value.id, x: value.x, y: value.y, layer, _w: w, _h: h } as LevelObject & { _w: number; _h: number };
 }
 
 export function parseExportedLevel(raw: unknown): ExportedLevel {
@@ -89,10 +96,28 @@ export function parseExportedLevel(raw: unknown): ExportedLevel {
   };
 }
 
+type BlobObject = LevelObject & { _w?: number; _h?: number };
+
+function expandBlobs(items: LevelObject[]): LevelObject[] {
+  const expanded: LevelObject[] = [];
+  for (const item of items) {
+    const blob = item as BlobObject;
+    const w = blob._w ?? 1;
+    const h = blob._h ?? 1;
+    for (let dy = 0; dy < h; dy += 1) {
+      for (let dx = 0; dx < w; dx += 1) {
+        expanded.push({ id: item.id, x: item.x + dx, y: item.y + dy, layer: item.layer });
+      }
+    }
+  }
+  return expanded;
+}
+
 export function documentFromExport(exported: ExportedLevel): LevelDocument {
   let document = createEmptyDocument(exported.name, exported.width, exported.height);
-  const tiles = exported.objects.filter((item) => isTileId(item.id));
-  const objects = exported.objects.filter((item) => isObjectId(item.id));
+  const expanded = expandBlobs(exported.objects);
+  const tiles = expanded.filter((item) => isTileId(item.id));
+  const objects = expanded.filter((item) => isObjectId(item.id));
   const layerOrder: Record<string, number> = { ground: 0, solid: 1, crate: 2, objects: 3 };
   tiles.sort((left, right) => (layerOrder[left.layer ?? ''] ?? 0) - (layerOrder[right.layer ?? ''] ?? 0));
 

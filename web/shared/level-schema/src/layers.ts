@@ -72,9 +72,17 @@ export function objectBelongsToLayer(objectId: ObjectId, layer: EditorLayerId): 
   return layer === 'objects' && defaultLayerForPlaceable(objectId) === 'objects';
 }
 
+/** Each terrain layer only accepts its own tile type. */
+const LAYER_TILE: Record<string, string> = {
+  ground: 'floor',
+  solid: 'solid',
+  crate: 'crate',
+};
+
 export function catalogForLayer(layer: EditorLayerId): CatalogItem[] {
   if (isTerrainLayer(layer)) {
-    return EDITOR_CATALOG.filter((item) => item.kind === 'tile');
+    const tileId = LAYER_TILE[layer];
+    return EDITOR_CATALOG.filter((item) => item.kind === 'tile' && item.id === tileId);
   }
   return EDITOR_CATALOG.filter((item) => item.kind === 'spawn' || item.kind === 'hazard');
 }

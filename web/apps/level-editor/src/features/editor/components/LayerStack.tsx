@@ -3,7 +3,7 @@
 import { EDITOR_LAYER_IDS, getCatalogItem, LAYER_ICON_ID, LAYER_LABELS, type EditorLayerId } from '@bomberman/level-schema';
 import type { JSX } from 'react';
 import type { LayerViews } from '../editor-state.ts';
-import { EyeIcon, EyeOffIcon, LockIcon, UnlockIcon } from './Icons.tsx';
+import { EyeIcon, EyeOffIcon, LockIcon, Trash2Icon, UnlockIcon } from './Icons.tsx';
 import { SpriteIcon } from './SpriteIcon.tsx';
 
 interface LayerStackProps {
@@ -12,6 +12,7 @@ interface LayerStackProps {
   onSelect: (layer: EditorLayerId) => void;
   onToggleVisible: (layer: EditorLayerId) => void;
   onToggleLocked: (layer: EditorLayerId) => void;
+  onClearLayer: (layer: EditorLayerId) => void;
 }
 
 export function LayerStack({
@@ -20,6 +21,7 @@ export function LayerStack({
   onSelect,
   onToggleVisible,
   onToggleLocked,
+  onClearLayer,
 }: LayerStackProps): JSX.Element {
   return (
     <div className="layers" role="tablist" aria-label="Calques">
@@ -59,6 +61,14 @@ export function LayerStack({
               onClick={() => onToggleLocked(layer)}
             >
               {view.locked ? <LockIcon /> : <UnlockIcon />}
+            </button>
+            <button
+              type="button"
+              className="layer-icon layer-clear"
+              aria-label={`Effacer tout le calque ${LAYER_LABELS[layer]}`}
+              onClick={() => onClearLayer(layer)}
+            >
+              <Trash2Icon />
             </button>
           </div>
         );

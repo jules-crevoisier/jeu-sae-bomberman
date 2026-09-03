@@ -14,7 +14,7 @@ interface GridCanvasProps {
   hover: { x: number; y: number } | null;
   onHover: (cell: { x: number; y: number } | null) => void;
   onStroke: (points: Array<{ x: number; y: number }>, brush: BrushId) => void;
-  onFill: (x: number, y: number) => void;
+  onRectFill: (x1: number, y1: number, x2: number, y2: number) => void;
   onPick: (brush: BrushId) => void;
   onBlocked: () => void;
 }
@@ -28,7 +28,7 @@ export function GridCanvas({
   hover,
   onHover,
   onStroke,
-  onFill,
+  onRectFill,
   onPick,
   onBlocked,
 }: GridCanvasProps): JSX.Element {
@@ -36,12 +36,14 @@ export function GridCanvas({
   const cameraRef = useRef<Camera>({ x: 0, y: 0, scale: 1 });
   const sheetsRef = useRef<SheetMap | null>(null);
   const strokeRef = useRef<Array<{ x: number; y: number }>>([]);
+  const rectStartRef = useRef<{ x: number; y: number } | null>(null);
+  const rectEndRef = useRef<{ x: number; y: number } | null>(null);
   const pointersRef = useRef<Map<number, { x: number; y: number }>>(new Map());
   const pinchRef = useRef<{ distance: number } | null>(null);
   const skipPaintRef = useRef(false);
   const fittedRef = useRef(false);
-  const latestRef = useRef({ document, tool, brush, activeLayer, layers, hover, onHover, onStroke, onFill, onPick, onBlocked });
-  latestRef.current = { document, tool, brush, activeLayer, layers, hover, onHover, onStroke, onFill, onPick, onBlocked };
+  const latestRef = useRef({ document, tool, brush, activeLayer, layers, hover, onHover, onStroke, onRectFill, onPick, onBlocked });
+  latestRef.current = { document, tool, brush, activeLayer, layers, hover, onHover, onStroke, onRectFill, onPick, onBlocked };
 
   useEffect(() => {
     let disposed = false;
@@ -100,6 +102,8 @@ export function GridCanvas({
       activeLayer: current.activeLayer,
     });
     const cellSize = CELL_PX * cameraRef.current.scale;
+
+    // Draw stroke preview
     for (const point of strokeRef.current) {
       const brushId = current.tool === 'erase' ? 'erase' : current.brush;
       const screenX = cameraRef.current.x + point.x * cellSize;
@@ -112,6 +116,25 @@ export function GridCanvas({
       } else if (isObjectId(brushId)) {
         drawSprite(context, sheetsRef.current, getCatalogItem(brushId), screenX, screenY, cellSize);
       }
+    }
+
+    // Draw rectangle fill preview
+    const rStart = rectStartRef.current;
+    const rEnd = rectEndRef.current;
+    if (current.tool === 'rect' && rStart && rEnd) {
+      const x1 = Math.min(rStart.x, rEnd.x);
+      const x2 = Math.max(rStart.x, rEnd.x);
+      const y1 = Math.min(rStart.y, rEnd.y);
+      const y2 = Math.max(rStart.y, rEnd.y);
+      const screenX1 = cameraRef.current.x + x1 * cellSize;
+      const screenY1 = cameraRef.current.y + (current.document.height - 1 - y2) * cellSize;
+      const rectW = (x2 - x1 + 1) * cellSize;
+      const rectH = (y2 - y1 + 1) * cellSize;
+      context.fillStyle = 'rgba(90, 160, 255, 0.25)';
+      context.fillRect(screenX1, screenY1, rectW, rectH);
+      context.strokeStyle = 'rgba(90, 160, 255, 0.85)';
+      context.lineWidth = 2;
+      context.strokeRect(screenX1, screenY1, rectW, rectH);
     }
   };
 
@@ -141,6 +164,8 @@ export function GridCanvas({
     if (pointersRef.current.size >= 2) {
       skipPaintRef.current = true;
       strokeRef.current = [];
+      rectStartRef.current = null;
+      rectEndRef.current = null;
       const [a, b] = [...pointersRef.current.values()];
       if (a && b) {
         pinchRef.current = { distance: Math.hypot(a.x - b.x, a.y - b.y) };
@@ -155,12 +180,16 @@ export function GridCanvas({
       return;
     }
     const locked = latestRef.current.layers[latestRef.current.activeLayer].locked;
-    if (latestRef.current.tool === 'fill') {
+
+    if (latestRef.current.tool === 'rect') {
       if (locked) {
         latestRef.current.onBlocked();
         return;
       }
-      latestRef.current.onFill(cell.x, cell.y);
+      rectStartRef.current = cell;
+      rectEndRef.current = cell;
+      latestRef.current.onHover(cell);
+      paint();
       return;
     }
     if (latestRef.current.tool === 'picker') {
@@ -210,6 +239,14 @@ export function GridCanvas({
     }
     const cell = screenToCell(cameraRef.current, latestRef.current.document.width, latestRef.current.document.height, point.x, point.y);
     latestRef.current.onHover(cell);
+
+    // Update rectangle end point
+    if (latestRef.current.tool === 'rect' && rectStartRef.current && cell) {
+      rectEndRef.current = cell;
+      paint();
+      return;
+    }
+
     if (skipPaintRef.current || strokeRef.current.length === 0 || !cell) {
       return;
     }
@@ -225,6 +262,17 @@ export function GridCanvas({
     if (pointersRef.current.size < 2) {
       pinchRef.current = null;
     }
+
+    // Commit rectangle fill
+    if (latestRef.current.tool === 'rect' && rectStartRef.current) {
+      const end = rectEndRef.current ?? rectStartRef.current;
+      latestRef.current.onRectFill(rectStartRef.current.x, rectStartRef.current.y, end.x, end.y);
+      rectStartRef.current = null;
+      rectEndRef.current = null;
+      paint();
+      return;
+    }
+
     if (pointersRef.current.size === 0 && strokeRef.current.length > 0 && !skipPaintRef.current) {
       latestRef.current.onStroke(strokeRef.current, latestRef.current.tool === 'erase' ? 'erase' : latestRef.current.brush);
     }

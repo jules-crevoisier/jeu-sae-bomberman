@@ -67,7 +67,7 @@ export function EditorPage(): JSX.Element {
       if (brush) {
         dispatch({ type: 'setBrush', brush });
       }
-      const tools: Record<string, ToolId> = { KeyB: 'paint', KeyE: 'erase', KeyG: 'fill', KeyI: 'picker', KeyH: 'pan' };
+      const tools: Record<string, ToolId> = { KeyB: 'paint', KeyE: 'erase', KeyG: 'rect', KeyI: 'picker', KeyH: 'pan' };
       const tool = tools[event.code];
       if (tool) {
         dispatch({ type: 'setTool', tool });
@@ -89,6 +89,18 @@ export function EditorPage(): JSX.Element {
 
   const issueCount = countIssues(state.document);
 
+  // Export blocking conditions
+  const hasSpawnP1 = state.document.cells.some((cell) => cell.objectId === 'spawn_p1');
+  const hasFondHoles = state.document.cells.some((cell) => cell.ground === null);
+  const exportErrors: string[] = [];
+  if (!hasSpawnP1) {
+    exportErrors.push('Le joueur 1 (J1) doit être placé sur la grille.');
+  }
+  if (hasFondHoles) {
+    exportErrors.push('Le calque Fond a des trous — il doit être entièrement rempli.');
+  }
+  const exportBlocked = exportErrors.length > 0;
+
   return (
     <div className="shell">
       <TopBar
@@ -98,7 +110,8 @@ export function EditorPage(): JSX.Element {
         onName={(name) => dispatch({ type: 'setName', name })}
         onUndo={() => dispatch({ type: 'undo' })}
         onRedo={() => dispatch({ type: 'redo' })}
-        onExport={() => dispatch({ type: 'setSheet', sheet: 'export' })}
+        exportBlocked={exportBlocked}
+        onExport={() => !exportBlocked && dispatch({ type: 'setSheet', sheet: 'export' })}
         onDrafts={() => dispatch({ type: 'setSheet', sheet: 'drafts' })}
         onSettings={() => dispatch({ type: 'setSheet', sheet: 'settings' })}
       />
@@ -112,7 +125,7 @@ export function EditorPage(): JSX.Element {
           hover={state.hover}
           onHover={(hover) => dispatch({ type: 'setHover', hover })}
           onStroke={(points, brush) => dispatch({ type: 'stroke', points, brush })}
-          onFill={(x, y) => dispatch({ type: 'fill', x, y })}
+          onRectFill={(x1, y1, x2, y2) => dispatch({ type: 'rectFill', x1, y1, x2, y2 })}
           onPick={(brush: BrushId) => dispatch({ type: 'setBrush', brush })}
           onBlocked={() => dispatch({ type: 'toast', message: 'Calque verrouillé' })}
         />
@@ -128,17 +141,21 @@ export function EditorPage(): JSX.Element {
       <ToolRail
         tool={state.tool}
         canUndo={state.past.length > 0}
+        canRedo={state.future.length > 0}
         onTool={(tool) => dispatch({ type: 'setTool', tool })}
         onUndo={() => dispatch({ type: 'undo' })}
+        onRedo={() => dispatch({ type: 'redo' })}
       />
       <Palette
         brush={state.brush}
         activeLayer={state.activeLayer}
         layers={state.layers}
+        exportErrors={exportErrors}
         onSelect={(brush) => dispatch({ type: 'setBrush', brush })}
         onLayer={(layer) => dispatch({ type: 'setLayer', layer })}
         onToggleVisible={(layer) => dispatch({ type: 'toggleLayerVisible', layer })}
         onToggleLocked={(layer) => dispatch({ type: 'toggleLayerLocked', layer })}
+        onClearLayer={(layer) => dispatch({ type: 'clearLayer', layer })}
       />
       {state.sheet === 'export' ? (
         <ExportSheet

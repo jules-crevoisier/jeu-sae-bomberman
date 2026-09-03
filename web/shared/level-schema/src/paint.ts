@@ -37,8 +37,19 @@ function resolveTerrainLayer(tile: TileId, layer?: EditorLayerId): TerrainLayerI
   return 'ground';
 }
 
+function isConveyor(objectId: ObjectId): boolean {
+  return objectId.startsWith('conveyor_');
+}
+
 export function canPlaceObject(cell: GridCell, objectId: ObjectId): boolean {
-  return !cellBlocksMovement(cell) && getCatalogItem(objectId).kind !== 'tile';
+  if (getCatalogItem(objectId).kind === 'tile') {
+    return false;
+  }
+  // Conveyor belts cannot be placed on solid blocks
+  if (isConveyor(objectId) && cell.solid !== null) {
+    return false;
+  }
+  return !cellBlocksMovement(cell);
 }
 
 export function applyBrush(
@@ -93,7 +104,21 @@ export function paintTile(
     return { cells: document.cells, changed: false };
   }
 
-  const cells = replaceCell(document.cells, document.width, x, y, withLayerTile(current, target, tile));
+  let next = withLayerTile(current, target, tile);
+
+  // Mutual exclusion: solid and crate cannot coexist
+  if (target === 'solid' && next.crate !== null) {
+    next = { ...next, crate: null };
+  } else if (target === 'crate' && next.solid !== null) {
+    next = { ...next, solid: null };
+  }
+
+  // Conveyor belts cannot be on a solid block
+  if (target === 'solid' && next.objectId !== null && isConveyor(next.objectId as ObjectId)) {
+    next = { ...next, objectId: null };
+  }
+
+  const cells = replaceCell(document.cells, document.width, x, y, next);
   return { cells, changed: cells !== document.cells };
 }
 
@@ -153,10 +178,18 @@ export function eraseLayer(
 
   const next = cloneCell(current);
   if (isTerrainLayer(layer)) {
-    if (next[layer] === null) {
-      return { cells: document.cells, changed: false };
+    if (layer === 'ground') {
+      // Ground layer cannot have holes — reset to floor
+      if (next.ground === 'floor') {
+        return { cells: document.cells, changed: false };
+      }
+      next.ground = 'floor';
+    } else {
+      if (next[layer] === null) {
+        return { cells: document.cells, changed: false };
+      }
+      next[layer] = null;
     }
-    next[layer] = null;
   } else if (current.objectId) {
     next.objectId = null;
   } else {
